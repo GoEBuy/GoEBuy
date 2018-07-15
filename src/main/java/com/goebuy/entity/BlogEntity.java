@@ -3,16 +3,29 @@ package com.goebuy.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "blog", schema = "springdemo", catalog = "")
-public class BlogEntity {
-    private int id;
+public class BlogEntity  {
+	
+    /**
+	 * 
+	 */
+//	private static final long serialVersionUID = -918558215156348481L;
+	
+	
+	private int id;
+	/* varchar */
     private String title;
+    /* varchar */
     private String content;
+    
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date pubDate;
+    
     private UserEntity userByUserId;
 
     @Id

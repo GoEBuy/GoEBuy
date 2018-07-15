@@ -1,36 +1,65 @@
 package com.goebuy.controller;
 
-import com.goebuy.entity.BlogEntity;
-import com.goebuy.entity.UserEntity;
-import com.goebuy.service.BlogService;
-import com.goebuy.service.UserService;
-
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ValueConstants;
+import com.goebuy.entity.BlogEntity;
+import com.goebuy.entity.UserEntity;
+import com.goebuy.service.BlogService;
+import com.goebuy.service.UserService;
 
 @Controller
 public class BlogController {
+	
+	
+	private static final String url_add="";
+	private static final String url_update="";
+	private static final String url_get="";
+	private static final String url_getAll="";
+	private static final String url_del="";
+	private static final String url_delAll="";
+	
 
     @Autowired
-    BlogService blogRepository;
+    BlogService blogRepository;	
 
     @Autowired
     UserService userRepository;
 
     // 查看所有博文
     @RequestMapping(value = "/admin/blogs", method = RequestMethod.GET)
-    public String showBlogs(ModelMap modelMap) {
-        List<BlogEntity> blogList = blogRepository.findAll();
+    public String showBlogs(ModelMap modelMap,@RequestParam(value="pi",required=false, defaultValue=ValueConstants.DEFAULT_NONE) String pageIndex,  @RequestParam(value="ps",	required=false, defaultValue=ValueConstants.DEFAULT_NONE) String pageSize ) {
+      Pageable pageable = null;
+      List<BlogEntity> blogList = null;
+      if(pageSize!=null) {
+    	  int pd= 0;
+    	  if (pageIndex!=null) {
+    	   pd= Integer.parseInt(pageIndex.trim());
+    	  }
+    	//分页信息
+//      Sort sort = new Sort(Sort.Direction.DESC,"createTime"); //创建时间降序排序
+    	  pageable = new PageRequest( pd, Integer.parseInt(pageSize.trim()), null); 
+    	  Page<BlogEntity> blogList1 = blogRepository.findAll(pageable);
+    	  blogList = blogList1.getContent();
+      }else {
+    	//不分页
+    	 blogList = blogRepository.findAll();
+      }
         modelMap.addAttribute("blogList", blogList);
         return "admin/blogs";
     }
+    
+
 
     // 添加博文
     @RequestMapping(value = "/admin/blogs/add", method = RequestMethod.GET)
@@ -56,7 +85,7 @@ public class BlogController {
 
     // 查看博文详情，默认使用GET方法时，method可以缺省
     @RequestMapping("/admin/blogs/show/{id}")
-    public String showBlog(@PathVariable("id") int id, ModelMap modelMap) {
+    public String showBlog(@PathVariable("id") int id,  ModelMap modelMap) {
         BlogEntity blog = blogRepository.findOne(id);
         modelMap.addAttribute("blog", blog);
         return "admin/blogDetail";
@@ -65,7 +94,6 @@ public class BlogController {
     // 修改博文内容，页面
     @RequestMapping("/admin/blogs/update/{id}")
     public String updateBlog(@PathVariable("id") int id, ModelMap modelMap) {
-        // 是不是和上面那个方法很像
         BlogEntity blog = blogRepository.findOne(id);
         List<UserEntity> userList = userRepository.findAll();
         modelMap.addAttribute("blog", blog);
@@ -75,7 +103,7 @@ public class BlogController {
 
     // 修改博客内容，POST请求
     @RequestMapping(value = "/admin/blogs/updateP", method = RequestMethod.POST)
-    public String updateBlogP(@ModelAttribute("blogP") BlogEntity blogEntity) {
+    public String updateBlogP(@ModelAttribute("blog") BlogEntity blogEntity) {
         // 更新博客信息
         System.out.println(blogEntity.getTitle());
         blogRepository.updateBlog(blogEntity.getTitle(), blogEntity.getUserByUserId().getId(),

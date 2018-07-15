@@ -13,9 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-/**
- * Created by dzkan on 2016/3/8.
- */
 @Controller
 public class MainController {
 
@@ -93,7 +90,7 @@ public class MainController {
 
     // 更新用户信息 操作
     @RequestMapping(value = "/admin/users/updateP", method = RequestMethod.POST)
-    public String updateUserPost(@ModelAttribute("userP") UserEntity user) {
+    public String updateUserPost(@ModelAttribute("user") UserEntity user) {
 
         // 更新用户信息
         userRepository.updateUser(user.getNickname(), user.getFirstName(),

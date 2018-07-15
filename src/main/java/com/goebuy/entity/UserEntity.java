@@ -1,16 +1,24 @@
 package com.goebuy.entity;
 
 import javax.persistence.*;
+
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
 @Table(name = "user", schema = "springdemo", catalog = "")
-public class UserEntity {
-    private int id;
+public class UserEntity{
+	
+//	private static final long serialVersionUID = -752197205289331832L;
+	
+	private int id;
     private String nickname;
     private String password;
     private String firstName;
     private String lastName;
+    /**
+     * OneToMany
+     */
     private Collection<BlogEntity> blogsById;
 
     @Id
@@ -89,7 +97,7 @@ public class UserEntity {
         return result;
     }
 
-    @OneToMany(mappedBy = "userByUserId")
+    @OneToMany(cascade=CascadeType.ALL, mappedBy = "userByUserId")
     public Collection<BlogEntity> getBlogsById() {
         return blogsById;
     }
@@ -97,4 +105,6 @@ public class UserEntity {
     public void setBlogsById(Collection<BlogEntity> blogsById) {
         this.blogsById = blogsById;
     }
+    
+    
 }

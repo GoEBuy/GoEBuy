@@ -24,7 +24,7 @@
     <h1>SpringMVC 更新用户信息</h1>
     <hr/>
 
-    <form:form action="/admin/users/updateP" method="post" commandName="userP" role="form">
+    <form:form action="/admin/users/updateP" method="post"  role="form">
         <div class="form-group">
             <label for="firstName">Nickname:</label>
             <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Enter Nickname:"
