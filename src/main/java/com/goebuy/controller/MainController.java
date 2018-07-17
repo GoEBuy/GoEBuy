@@ -29,10 +29,10 @@ public class MainController {
     public String getUsers(ModelMap modelMap) {
         // 查询user表中所有记录
         List<UserEntity> userList = userRepository.findAll();
-
+        String count = userRepository.count()+"";
         // 将所有记录传递给要返回的jsp页面，放在userList当中
         modelMap.addAttribute("userList", userList);
-
+        modelMap.addAttribute("userCnt", count);
         // 返回pages目录下的admin/users.jsp页面
         return "admin/users";
     }
@@ -97,7 +97,6 @@ public class MainController {
 
         // 找到userId所表示的用户
         UserEntity userEntity = userRepository.findOne(userId);
-
         // 传递给请求页面
         modelMap.addAttribute("user", userEntity);
         return "admin/updateUser";
@@ -106,8 +105,6 @@ public class MainController {
     // 更新用户信息 操作
     @RequestMapping(value = "/admin/users/updateP", method = RequestMethod.POST)
     public String updateUserPost(@ModelAttribute("user") UserEntity user) {
-
-        // 更新用户信息
         userRepository.updateUser(user.getNickname(), user.getFirstName(),
                 user.getLastName(), user.getPassword(), user.getId());
         userRepository.flush(); // 刷新缓冲区

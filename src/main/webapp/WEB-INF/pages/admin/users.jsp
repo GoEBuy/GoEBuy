@@ -58,7 +58,41 @@
                 </tr>
             </c:forEach>
         </table>
+        
+        
     </c:if>
+   <%--   <span>共有<em>${userCnt}</em>条记录</span> --%>
+
+		<div class="page cf">
+			<!-- <div class="pg">
+				<a class="first" href="javascript:void(0);"><i
+					class="i_pg_f ico"></i></a><a class="prev" href="javascript:void(0);"><i
+					class="i_pg_l ico"></i></a><a href="javascript:void(0);">3</a><a
+					href="javascript:void(0);">4</a><strong class="current"
+					href="javascript:void(0);">5</strong><a href="javascript:void(0);">6</a><a
+					href="javascript:void(0);">7</a><span class="dot">...</span><a
+					href="javascript:void(0);">145</a><a class="next"
+					href="javascript:void(0);"><i class="i_pg_n ico"></i></a><a
+					class="end" href="javascript:void(0);"><i class="i_pg_e ico"></i></a>
+			</div> -->
+			<div class="show">
+				共<em id="em_count">${userCnt}</em>条记录，每页显示<span
+					class="gri_datatable_pg_rowcount">
+					<select class="gri_datatable_rownum ipt_show "><option value="5">5</option>
+						<option value="10">10</option>
+						<option value="15">15</option>
+						<option value="20">20</option>
+						<option value="30">30</option>
+						<option value="50">50</option>
+						<option value="80">80</option>
+						<option value="100">100</option>
+						<option value="200">200</option>
+						</select> 条</span>
+			</div>
+		</div>
+		<%--   time:${requestScope.time}
+    <span>${userCnt}</span> --%>
+     <%-- <span><% userCnt%>条记录</span> --%>
 </div>
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
