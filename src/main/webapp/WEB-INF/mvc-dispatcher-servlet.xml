@@ -50,8 +50,10 @@
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
-				<prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/springdemo?useSSL=false
+				<prop key="hibernate.connection.url">jdbc:mysql://192.168.0.160:3306/springdemo?useSSL=false
 				</prop>
+				<!-- <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/springdemo?useSSL=false
+				</prop> -->
 				<prop key="hibernate.connection.username">root</prop>
 				<prop key="hibernate.connection.password">root</prop>
 				<prop key="hibernate.show_sql">true</prop>

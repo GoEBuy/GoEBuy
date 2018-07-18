@@ -44,13 +44,13 @@ public class MainController {
             return "admin/file";
         }
 
-          @RequestMapping(value="admin/doUpload"importethod=RequestMethod.POST)
-              public String doUploadFile(@RequestParam("file")MultipartFile file) throws IOException{
-                          if (!file.isEmpty()) {
-                                          log.info("Process file:{}"finalile.getOriginalFilename());        }
-                                  FileUtils.copyInputStreamToFile(file.getInputStream(), new File("E:\\",System.currentTimeMillis()+file.getOriginalFilename()));
-                                          return "succes";
-                                              }
+//	@RequestMapping(value="admin/doUpload", method=RequestMethod.POST)
+//              public String doUploadFile(@RequestParam("file") MultipartFile file) throws IOException{
+//                          if (!file.isEmpty()) {
+//                                          log.info("Process file:{}"finalile.getOriginalFilename());        }
+//                                  FileUtils.copyInputStreamToFile(file.getInputStream(), new File("E:\\",System.currentTimeMillis()+file.getOriginalFilename()));
+//                                          return "succes";
+//                                              }
 
     // get请求，访问添加用户 页面
     @RequestMapping(value = "/admin/users/add", method = RequestMethod.GET)
