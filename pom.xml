@@ -52,6 +52,19 @@
 	    <artifactId>spring-aop</artifactId>
 	    <version>${spring.version}</version>
 	</dependency>
+	<dependency>
+    <groupId>org.springframework</groupId>
+    <artifactId>spring-test</artifactId>
+    <version>${spring.version}</version>
+</dependency>
+
+<!-- <dependency>
+    <groupId>org.aspectj</groupId>
+    <artifactId>aspectjweaver</artifactId>
+    <version>1.7.2</version>
+</dependency> -->
+	
+	
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
@@ -69,12 +82,24 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
+            <exclusions>
+            	<exclusion>
+            		<groupId>org.jboss.logging</groupId>
+            		<artifactId>jboss-logging</artifactId>
+            	</exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId>
             <version>${hibernate.version}</version>
+            <exclusions>
+            	<exclusion>
+            		<groupId>org.jboss.logging</groupId>
+            		<artifactId>jboss-logging</artifactId>
+            	</exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -312,7 +337,6 @@
 
     </properties>
 
-<!--  
     <repositories>
         <repository>
             <id>public</id>
@@ -324,7 +348,6 @@
         </repository>
     </repositories>
     
--->
 <pluginRepositories>
         <pluginRepository>
             <id>public</id>

@@ -7,11 +7,15 @@ pageEncoding="utf-8"%>
 <title>Insert title here</title>
 </head>
 <body>
-<h1>上传文件</h1>    <form method="post" action="/admin/doUpload"
+<h1>上传文件</h1>  
+
+  <form method="post" action="/admin/doUpload"
 enctype="multipart/form-data">
 <input type="file" name="file"/>
 <input type="submit" value="上传文件"/>
 
 </form>
+
+
 </body>
 </html>
