@@ -1,8 +1,10 @@
 package com.goebuy.controller;
 
-import com.goebuy.entity.UserEntity;
-import com.goebuy.service.UserService;
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,8 +12,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import com.goebuy.entity.UserEntity;
+import com.goebuy.service.UserService;
 
 @Controller
 public class MainController {
@@ -44,13 +49,16 @@ public class MainController {
             return "admin/file";
         }
 
-//	@RequestMapping(value="admin/doUpload", method=RequestMethod.POST)
-//              public String doUploadFile(@RequestParam("file") MultipartFile file) throws IOException{
-//                          if (!file.isEmpty()) {
-//                                          log.info("Process file:{}"finalile.getOriginalFilename());        }
-//                                  FileUtils.copyInputStreamToFile(file.getInputStream(), new File("E:\\",System.currentTimeMillis()+file.getOriginalFilename()));
-//                                          return "succes";
-//                                              }
+    	@RequestMapping(value = "admin/doUpload", method = RequestMethod.POST)
+    	public String doUploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+    		if (!file.isEmpty()) {
+    			// log.info("Process file:{}"finalile.getOriginalFilename());
+    			FileUtils.copyInputStreamToFile(file.getInputStream(),
+    					new File("upload", System.currentTimeMillis() + file.getOriginalFilename()));
+    		}
+    		return "succes";
+    	}
+
 
     // get请求，访问添加用户 页面
     @RequestMapping(value = "/admin/users/add", method = RequestMethod.GET)
@@ -121,4 +129,7 @@ public class MainController {
         userRepository.flush();
         return "redirect:/admin/users";
     }
+
+
+
 }
