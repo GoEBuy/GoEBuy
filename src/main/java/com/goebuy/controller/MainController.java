@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -19,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.goebuy.aspect.SystemLog;
+import com.goebuy.annotation.SystemLog;
 import com.goebuy.entity.UserEntity;
 import com.goebuy.service.UserService;
 
@@ -31,13 +33,13 @@ public class MainController {
 	UserService userRepository;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index() {
+	public String index(HttpServletRequest request) {
 		return "index";
 	}
 
 	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
 	@SystemLog(operationType="查询操作:", operationName="查询用户") 
-	public String getUsers(ModelMap modelMap) {
+	public String getUsers(HttpServletRequest request, ModelMap modelMap) {
 		// 查询user表中所有记录
 		System.out.println("getUsers");
 		List<UserEntity> userList = userRepository.findAll();
@@ -51,7 +53,7 @@ public class MainController {
 
 	// 文件上传、
 	@RequestMapping(value = "admin/upload")
-	public String showUploadPage() {
+	public String showUploadPage(HttpServletRequest request) {
 		//跳转至文件上传界面 admin/file.jsp
 		return "admin/file";
 	}
@@ -63,7 +65,7 @@ public class MainController {
 //	　　4、要限制上传文件的最大值。
 //	　　5、要限制上传文件的类型，在收到上传文件名时，判断后缀名是否合法。
 	@RequestMapping(value = "admin/doUpload", method = RequestMethod.POST)
-	public String doUploadFile(@RequestParam("file") MultipartFile file, ModelMap modelMap) throws IOException {
+	public String doUploadFile(HttpServletRequest request, @RequestParam("file") MultipartFile file, ModelMap modelMap) throws IOException {
 		// 消息提示
 		String message = "";
 		// 得到上传文件的保存目录，将上传的文件存放于WEB-INF目录下，不允许外界直接访问，保证上传文件的安全
@@ -103,7 +105,7 @@ public class MainController {
 	
 	
 	   @RequestMapping(value="admin/doDownload")
-	     public ResponseEntity<byte[]> download(@RequestParam("file") File file,
+	     public ResponseEntity<byte[]> download(HttpServletRequest request, @RequestParam("file") File file,
 	    		 ModelMap modelMap)throws Exception {
 	        //下载显示的文件名，解决中文名称乱码问题  
 	    	 String filename = file.getCanonicalFile().getName();
@@ -123,18 +125,24 @@ public class MainController {
 	                headers, statusCode);  
 	     }
 
-	// get请求，访问添加用户 页面
-	   
-	@RequestMapping(value = "/admin/users/add", method = RequestMethod.GET)
-	public String addUser() {
+	/**
+	 *  get请求，访问添加用户 页面
+	 */
+	@RequestMapping( value = "/admin/users/add", method = RequestMethod.GET)
+	public String addUser(HttpServletRequest request) {
 		// 返回 admin/addUser.jsp页面
 		return "admin/addUser";
 	}
 
-	// post请求，处理添加用户请求，并重定向到用户管理页面
+	/**
+	 *  post请求，处理添加用户请求，并重定向到用户管理页面
+	 * @param request
+	 * @param userEntity
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/users/addP", method = RequestMethod.POST)
 	  @SystemLog(operationType="add操作:",operationName="添加用户") 
-	public String addUserPost(@ModelAttribute("user") UserEntity userEntity) {
+	public String addUserPost(HttpServletRequest request, @ModelAttribute("user") UserEntity userEntity) {
 		// 注意此处，post请求传递过来的是一个UserEntity对象，里面包含了该用户的信息
 		// 通过@ModelAttribute()注解可以获取传递过来的'user'，并创建这个对象
 
@@ -150,15 +158,20 @@ public class MainController {
 		return "redirect:/admin/users";
 	}
 
-	// 查看用户详情
+	/**
+	 *  查看用户详情
+	 * @param userId
+	 * @param modelMap
+	 * @return
+	 */
 	// @PathVariable可以收集url中的变量，需匹配的变量用{}括起来
 	// 例如：访问 localhost:8080/admin/users/show/1 ，将匹配 id = 1
 	@RequestMapping(value = "/admin/users/show/{id}", method = RequestMethod.GET)
 	  @SystemLog(operationType="show操作:",operationName="查看用户") 
-	public String showUser(@PathVariable("id") Integer userId, ModelMap modelMap) {
+	public String showUser(HttpServletRequest request, @PathVariable("id") Integer userId, ModelMap modelMap) {
 		System.out.println("showUser");
 		// 找到userId所表示的用户
-		UserEntity userEntity = userRepository.findOne(userId);
+		UserEntity userEntity = userRepository.findById(userId).get();
 		// 传递给请求页面
 		modelMap.addAttribute("user", userEntity);
 		System.out.println("admin/userDetail");
@@ -172,7 +185,7 @@ public class MainController {
 
 		System.out.println("updateUser");
 		// 找到userId所表示的用户
-		UserEntity userEntity = userRepository.findOne(userId);
+		UserEntity userEntity = userRepository.findById(userId).get();
 		// 传递给请求页面
 		modelMap.addAttribute("user", userEntity);
 		return "admin/updateUser";
@@ -181,7 +194,7 @@ public class MainController {
 	// 更新用户信息 操作
 	  @SystemLog(operationType="update操作:",operationName="更新用户") 
 	@RequestMapping(value = "/admin/users/updateP", method = RequestMethod.POST)
-	public String updateUserPost(@ModelAttribute("user") UserEntity user) {
+	public String updateUserPost(HttpServletRequest request, @ModelAttribute("user") UserEntity user) {
 		userRepository.updateUser(user.getNickname(), user.getFirstName(), user.getLastName(), user.getPassword(),
 				user.getId());
 		userRepository.flush(); // 刷新缓冲区
@@ -194,7 +207,7 @@ public class MainController {
 	public String deleteUser(@PathVariable("id") Integer userId) {
 
 		// 删除id为userId的用户
-		userRepository.delete(userId);
+		userRepository.deleteById(userId);
 		// 立即刷新
 		userRepository.flush();
 		return "redirect:/admin/users";

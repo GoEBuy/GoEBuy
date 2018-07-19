@@ -1,21 +1,29 @@
 package com.goebuy.entity;
 
-import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 @Entity
 @Table(name = "user", schema = "springdemo", catalog = "")
-public class UserEntity{
+public class UserEntity implements Serializable{
 	
-//	private static final long serialVersionUID = -752197205289331832L;
+	private static final long serialVersionUID = -752197205289331832L;
 	
 	private int id;
     private String nickname;
     private String password;
     private String firstName;
     private String lastName;
+    
+    
     /**
      * OneToMany
      */

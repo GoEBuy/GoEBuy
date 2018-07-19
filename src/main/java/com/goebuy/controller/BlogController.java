@@ -100,7 +100,7 @@ public class BlogController {
     public String showBlog(@PathVariable("id") int id,  ModelMap modelMap) {
     	
     	logger.info("showBlog");
-        BlogEntity blog = blogRepository.findOne(id);
+        BlogEntity blog = blogRepository.findById(id).get();
         modelMap.addAttribute("blog", blog);
         return "admin/blogDetail";
     }
@@ -110,7 +110,7 @@ public class BlogController {
     public String updateBlog(@PathVariable("id") int id, ModelMap modelMap) {
     	logger.info("updateBlog");
     	
-        BlogEntity blog = blogRepository.findOne(id);
+        BlogEntity blog = blogRepository.findById(id).get();
         List<UserEntity> userList = userRepository.findAll();
         modelMap.addAttribute("blog", blog);
         modelMap.addAttribute("userList", userList);
@@ -137,7 +137,7 @@ public class BlogController {
     	
     	logger.info("deleteBlog");
     	
-        blogRepository.delete(id);
+        blogRepository.deleteById(id);
         blogRepository.flush();
         return "redirect:/admin/blogs";
     }

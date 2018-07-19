@@ -1,4 +1,4 @@
-package com.goebuy.aspect;
+package com.goebuy.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
