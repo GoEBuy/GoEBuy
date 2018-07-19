@@ -19,6 +19,7 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -35,6 +36,12 @@ import com.goebuy.entity.UserEntity;
 @Aspect
 @Component
 public class SystemLogAspect {
+	
+	/**
+	 * 从properties配置文件中获取配置信息
+	 */
+//	@Value("${socket.time.out}")
+//	private boolean saveSysLog;
 
 	private String requestPath = null; // 请求地址
 	private String loginName = ""; // 用户名
@@ -233,8 +240,10 @@ public class SystemLogAspect {
 //            log.setParams( null);  
 //            log.setCreateBy(user.getName());  
 //            log.setCreateDate(new Date());  
-//            //保存数据库  
-//            systemLogService.insert(log);  
+//			if(saveSysLog) {
+////            //保存数据库  
+////            systemLogService.insert(log);  
+//			}
 			System.out.println("=====controller-after后置通知结束=====");
 		} catch (Exception e) {
 			// 记录本地异常日志
@@ -292,8 +301,10 @@ public class SystemLogAspect {
 //            log.setCreateBy(user.getName());  
 //            log.setCreateDate(new Date());  
 //            log.setRequestIp(ip);  
-//            //保存数据库  
-//            systemLogService.insert(log);  
+//			if(saveSysLog) {
+////            //保存数据库  
+////            systemLogService.insert(log);  
+//			}
 			System.out.println("=====异常通知结束=====");
 		} catch (Exception ex) {
 			// 记录本地异常日志
