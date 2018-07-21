@@ -4,3 +4,4 @@ target
 .project
 *.log
 .settings
+upload/*

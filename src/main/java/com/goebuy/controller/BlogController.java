@@ -2,6 +2,11 @@ package com.goebuy.controller;
 
 import java.util.List;
 
+<<<<<<< HEAD
+=======
+import javax.servlet.http.HttpServletRequest;
+
+>>>>>>> 8fc07125311188871de4b3aa5d7a9be933395643
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +47,9 @@ public class BlogController {
 
     // 查看所有博文
     @RequestMapping(value = "/admin/blogs", method = RequestMethod.GET)
-    public String showBlogs(ModelMap modelMap,@RequestParam(value="pi",required=false, defaultValue=ValueConstants.DEFAULT_NONE) String pageIndex,  @RequestParam(value="ps",	required=false, defaultValue=ValueConstants.DEFAULT_NONE) String pageSize ) {
+
+    public String showBlogs(HttpServletRequest request, ModelMap modelMap,@RequestParam(value="pi",required=false, defaultValue=ValueConstants.DEFAULT_NONE) String pageIndex,  @RequestParam(value="ps",	required=false, defaultValue=ValueConstants.DEFAULT_NONE) String pageSize ) {
+
     
     	logger.info("showBlogs");
     	
@@ -70,7 +77,9 @@ public class BlogController {
 
     // 添加博文
     @RequestMapping(value = "/admin/blogs/add", method = RequestMethod.GET)
-    public String addBlog(ModelMap modelMap) {
+
+    public String addBlog(HttpServletRequest request, ModelMap modelMap) {
+
     	
     	logger.info("addBlog");
         List<UserEntity> userList = userRepository.findAll();
@@ -81,7 +90,8 @@ public class BlogController {
 
     // 添加博文，POST请求，重定向为查看博客页面
     @RequestMapping(value = "/admin/blogs/addP", method = RequestMethod.POST)
-    public String addBlogPost(@ModelAttribute("blog") BlogEntity blogEntity) {
+
+    public String addBlogPost(HttpServletRequest request, @ModelAttribute("blog") BlogEntity blogEntity) {
     	
     	logger.info("addBlogPost");
     	
@@ -97,20 +107,22 @@ public class BlogController {
 
     // 查看博文详情，默认使用GET方法时，method可以缺省
     @RequestMapping("/admin/blogs/show/{id}")
-    public String showBlog(@PathVariable("id") int id,  ModelMap modelMap) {
+
+    public String showBlog(HttpServletRequest request, @PathVariable("id") int id,  ModelMap modelMap) {
     	
     	logger.info("showBlog");
-        BlogEntity blog = blogRepository.findOne(id);
+        BlogEntity blog = blogRepository.findById(id).get();
         modelMap.addAttribute("blog", blog);
         return "admin/blogDetail";
     }
 
     // 修改博文内容，页面
     @RequestMapping("/admin/blogs/update/{id}")
-    public String updateBlog(@PathVariable("id") int id, ModelMap modelMap) {
+
+    public String updateBlog(HttpServletRequest request, @PathVariable("id") int id, ModelMap modelMap) {
     	logger.info("updateBlog");
     	
-        BlogEntity blog = blogRepository.findOne(id);
+        BlogEntity blog = blogRepository.findById(id).get();
         List<UserEntity> userList = userRepository.findAll();
         modelMap.addAttribute("blog", blog);
         modelMap.addAttribute("userList", userList);
@@ -119,13 +131,14 @@ public class BlogController {
 
     // 修改博客内容，POST请求
     @RequestMapping(value = "/admin/blogs/updateP", method = RequestMethod.POST)
-    public String updateBlogP(@ModelAttribute("blog") BlogEntity blogEntity) {
+
+    public String updateBlogP(HttpServletRequest request, @ModelAttribute("blog") BlogEntity blogEntity) {
     	
     	logger.info("updateBlogP");
     	
         // 更新博客信息
         System.out.println(blogEntity.getTitle());
-        blogRepository.updateBlog(blogEntity.getTitle(), blogEntity.getUserByUserId().getId(),
+        blogRepository.updateBlog( blogEntity.getTitle(), blogEntity.getUserByUserId().getId(),
                 blogEntity.getContent(), blogEntity.getPubDate(), blogEntity.getId());
         blogRepository.flush();
         return "redirect:/admin/blogs";
@@ -133,11 +146,13 @@ public class BlogController {
 
     // 删除博客文章
     @RequestMapping("/admin/blogs/delete/{id}")
-    public String deleteBlog(@PathVariable("id") int id) {
+Repository.delete(id);
+
+    public String deleteBlog(HttpServletRequest request, @PathVariable("id") int id) {
     	
     	logger.info("deleteBlog");
     	
-        blogRepository.delete(id);
+        blogRepository.deleteById(id);
         blogRepository.flush();
         return "redirect:/admin/blogs";
     }

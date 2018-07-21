@@ -9,12 +9,12 @@ import java.util.Date;
 
 @Entity
 @Table(name = "blog", schema = "springdemo", catalog = "")
-public class BlogEntity  {
+public class BlogEntity implements Serializable{
 	
     /**
 	 * 
 	 */
-//	private static final long serialVersionUID = -918558215156348481L;
+	private static final long serialVersionUID = -918558215156348481L;
 	
 	
 	private int id;
