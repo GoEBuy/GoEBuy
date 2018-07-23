@@ -1,0 +1,22 @@
+#TODO
+*add properties
+*database
+*syslog
+*login control
+*session control
+
+
+<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="classpath:application.properties" />
+</bean> -->
+
+<!-- production环境 -->  
+  <!--   <beans profile="production">  
+        <context:property-placeholder ignore-unresolvable="true" location="classpath*:/db.properties" />    
+    
+           local development环境  
+    <beans profile="development">  
+        <context:property-placeholder ignore-resource-not-found="true"  
+            location="classpath*:/db.properties,  
+                      classpath*:/db_dev.properties" />    
+	 -->

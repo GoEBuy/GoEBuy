@@ -15,17 +15,18 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
+<description>Spring公共配置 </description>  
+
 <!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="location" value="classpath:application.properties" />
 </bean> -->
 	
 	 <!-- 激活组件扫描功能,在包com.goebuy及其子包下面自动扫描通过注解配置的组件 -->
-	<!-- <context:component-scan base-package="com.goebuy" /> -->
 	<context:component-scan base-package="com.goebuy" /> 
 		
 	
-	<!-- 表示JPA Repository所在的包 -->
-	<jpa:repositories base-package="com.goebuy.service" />
+	<!-- 表示JPA Data Jpa配置 Repository所在的包 -->
+	<jpa:repositories base-package="com.goebuy.service" transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
 
 	<!-- 静态资源(js、image等)的访问 -->
 	<mvc:default-servlet-handler />
@@ -43,16 +44,17 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-
+<!-- JPA实体管理工厂的配置 -->  
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName"
 			value="defaultPersistenceUnit" />
-		<!-- <property name="packagesToScan" value="com.gaussic.model" /> -->
+			<!--待扫描的实体类包 -->
 		<property name="packagesToScan" value="com.goebuy.entity" />
 		<property name="jpaVendorAdapter">
-			<bean
-				class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" >
+			<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" /> 
+			</bean>
 		</property>
 		<property name="jpaProperties">
 			<props>
@@ -101,12 +103,13 @@
 		<property name="resolveLazily" value="true"/>
 	</bean>
 
-	<!-- 事务管理 -->
+	<!-- Jpa 事务管理 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory"
 			ref="entityManagerFactory" />
 	</bean>
+
 
   <!--事务通知-->
   <!--   <tx:advice id="txAdvice" transaction-manager="transactionManager">
@@ -125,7 +128,7 @@
 
 	<!-- 开启事务管理注解 -->
 	  <tx:annotation-driven
-		transaction-manager="transactionManager" /> 
+		transaction-manager="transactionManager"  /> 
 
 
 
