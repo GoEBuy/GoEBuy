@@ -1,28 +1,46 @@
 package com.goebuy.entity;
 
-import javax.persistence.*;
-
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.alibaba.fastjson.JSON;
+
 @Entity
 @Table(name = "user", schema = "springdemo", catalog = "")
-public class UserEntity{
+public class UserEntity implements Serializable{
 	
-//	private static final long serialVersionUID = -752197205289331832L;
+	private static final long serialVersionUID = -752197205289331832L;
 	
 	private int id;
     private String nickname;
     private String password;
     private String firstName;
     private String lastName;
+    
+    
     /**
      * OneToMany
      */
     private Collection<BlogEntity> blogsById;
 
+    /**
+     * 主键id自增长
+     * @return
+     */
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -97,6 +115,10 @@ public class UserEntity{
         return result;
     }
 
+    /**
+     * 一对多： 一个one对应多个many，首先在一端添加, mappedBy = "one" 表示one是一对多管理的被维护端， 既当添加many时顺带添加一个one
+     * @return  fetch=FetchType.LAZY, 
+     */
     @OneToMany(cascade=CascadeType.ALL, mappedBy = "userByUserId")
     public Collection<BlogEntity> getBlogsById() {
         return blogsById;
@@ -106,5 +128,10 @@ public class UserEntity{
         this.blogsById = blogsById;
     }
     
+    
+    @Override
+    public String toString() {
+    	return JSON.toJSONString(this);
+    }
     
 }

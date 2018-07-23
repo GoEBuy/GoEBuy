@@ -6,10 +6,11 @@ maven repository:    http://mvnrepository.com/
 
 ##技术介绍
 后端:
-hibernate
-jpa
-spring
-jetty/mysql
+*hibernate
+*jpa
+*spring
+*jetty/Tomcat/Nginx
+*mysql
 
 前端：
 js

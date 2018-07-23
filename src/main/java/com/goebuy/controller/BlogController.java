@@ -2,12 +2,15 @@ package com.goebuy.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ValueConstants;
+
 import com.goebuy.entity.BlogEntity;
 import com.goebuy.entity.UserEntity;
 import com.goebuy.service.BlogService;
@@ -40,10 +44,20 @@ public class BlogController {
     @Autowired
     UserService userRepository;
 
-    // 查看所有博文
+    /**
+     *  查看所有博文
+     * @param request
+     * @param modelMap
+     * @param pageIndex
+     * @param pageSize
+     * @return
+     */
     @RequestMapping(value = "/admin/blogs", method = RequestMethod.GET)
-    public String showBlogs(ModelMap modelMap,@RequestParam(value="pi",required=false, defaultValue=ValueConstants.DEFAULT_NONE) String pageIndex,  @RequestParam(value="ps",	required=false, defaultValue=ValueConstants.DEFAULT_NONE) String pageSize ) {
-    
+
+    public String showBlogs(HttpServletRequest request, ModelMap modelMap,@RequestParam(value="pi",required=false, defaultValue=ValueConstants.DEFAULT_NONE) String pageIndex,  @RequestParam(value="ps",	required=false, defaultValue=ValueConstants.DEFAULT_NONE) String pageSize ) {
+//    	ServletRequestAttributes attrs = (ServletRequestAttributes) RequestContextHolder
+//    			.getRequestAttributes();
+//    	HttpServletRequest  request =		 attrs.getRequest(); 
     	logger.info("showBlogs");
     	
     Pageable pageable = null;
@@ -70,7 +84,9 @@ public class BlogController {
 
     // 添加博文
     @RequestMapping(value = "/admin/blogs/add", method = RequestMethod.GET)
-    public String addBlog(ModelMap modelMap) {
+
+    public String addBlog(HttpServletRequest request, ModelMap modelMap) {
+
     	
     	logger.info("addBlog");
         List<UserEntity> userList = userRepository.findAll();
@@ -81,7 +97,8 @@ public class BlogController {
 
     // 添加博文，POST请求，重定向为查看博客页面
     @RequestMapping(value = "/admin/blogs/addP", method = RequestMethod.POST)
-    public String addBlogPost(@ModelAttribute("blog") BlogEntity blogEntity) {
+
+    public String addBlogPost(HttpServletRequest request, @ModelAttribute("blog") BlogEntity blogEntity) {
     	
     	logger.info("addBlogPost");
     	
@@ -97,7 +114,8 @@ public class BlogController {
 
     // 查看博文详情，默认使用GET方法时，method可以缺省
     @RequestMapping("/admin/blogs/show/{id}")
-    public String showBlog(@PathVariable("id") int id,  ModelMap modelMap) {
+
+    public String showBlog(HttpServletRequest request, @PathVariable("id") int id,  ModelMap modelMap) {
     	
     	logger.info("showBlog");
         BlogEntity blog = blogRepository.findOne(id);
@@ -107,7 +125,8 @@ public class BlogController {
 
     // 修改博文内容，页面
     @RequestMapping("/admin/blogs/update/{id}")
-    public String updateBlog(@PathVariable("id") int id, ModelMap modelMap) {
+
+    public String updateBlog(HttpServletRequest request, @PathVariable("id") int id, ModelMap modelMap) {
     	logger.info("updateBlog");
     	
         BlogEntity blog = blogRepository.findOne(id);
@@ -119,21 +138,26 @@ public class BlogController {
 
     // 修改博客内容，POST请求
     @RequestMapping(value = "/admin/blogs/updateP", method = RequestMethod.POST)
-    public String updateBlogP(@ModelAttribute("blog") BlogEntity blogEntity) {
+    public String updateBlogP(HttpServletRequest request, @ModelAttribute("blog") BlogEntity blogEntity) {
     	
     	logger.info("updateBlogP");
     	
         // 更新博客信息
         System.out.println(blogEntity.getTitle());
-        blogRepository.updateBlog(blogEntity.getTitle(), blogEntity.getUserByUserId().getId(),
+        blogRepository.updateBlog( blogEntity.getTitle(), blogEntity.getUserByUserId().getId(),
                 blogEntity.getContent(), blogEntity.getPubDate(), blogEntity.getId());
         blogRepository.flush();
         return "redirect:/admin/blogs";
     }
 
-    // 删除博客文章
+    /**
+     *  删除博客文章
+     * @param request
+     * @param id
+     * @return
+     */
     @RequestMapping("/admin/blogs/delete/{id}")
-    public String deleteBlog(@PathVariable("id") int id) {
+    public String deleteBlog(HttpServletRequest request, @PathVariable("id") int id) {
     	
     	logger.info("deleteBlog");
     	

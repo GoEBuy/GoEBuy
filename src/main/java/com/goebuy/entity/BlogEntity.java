@@ -2,6 +2,8 @@ package com.goebuy.entity;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.alibaba.fastjson.JSON;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -9,27 +11,32 @@ import java.util.Date;
 
 @Entity
 @Table(name = "blog", schema = "springdemo", catalog = "")
-public class BlogEntity  {
+public class BlogEntity implements Serializable{
 	
     /**
 	 * 
 	 */
-//	private static final long serialVersionUID = -918558215156348481L;
+	private static final long serialVersionUID = -918558215156348481L;
 	
 	
 	private int id;
 	/* varchar */
     private String title;
+    
     /* varchar */
     private String content;
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date pubDate;
     
+    /**
+     * many2one
+     */
     private UserEntity userByUserId;
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -92,8 +99,12 @@ public class BlogEntity  {
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    /**
+     * 1对多在多端,  在多端（从表的外键）添加外键字段指向一端（主表的主键）的主键字段	
+     * @return
+     */
+    @ManyToOne(fetch= FetchType.EAGER)
+    @JoinColumn( name = "user_id",   referencedColumnName = "id", nullable = false)
     public UserEntity getUserByUserId() {
         return userByUserId;
     }
@@ -101,4 +112,11 @@ public class BlogEntity  {
     public void setUserByUserId(UserEntity userByUserId) {
         this.userByUserId = userByUserId;
     }
+    
+    @Override
+    public String toString() {
+    	return JSON.toJSONString(this);
+    }
+    
+    
 }
