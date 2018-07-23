@@ -38,20 +38,20 @@ public class MainController {
     }
 
 
-        //文件上传、
-        @RequestMapping(value="admin/upload")
-        public String showUploadPage(){
-            return "admin/file";
-        }
-
-          @RequestMapping(value="admin/doUpload"importethod=RequestMethod.POST)
-              public String doUploadFile(@RequestParam("file")MultipartFile file) throws IOException{
-                          if (!file.isEmpty()) {
-                                          log.info("Process file:{}"finalile.getOriginalFilename());        }
-                                  FileUtils.copyInputStreamToFile(file.getInputStream(), new File("E:\\",System.currentTimeMillis()+file.getOriginalFilename()));
-                                          return "succes";
-                                              }
-
+//        //文件上传、
+//        @RequestMapping(value="admin/upload")
+//        public String showUploadPage(){
+//            return "admin/file";
+//        }
+//
+//          @RequestMapping(value="admin/doUpload"importethod=RequestMethod.POST)
+//              public String doUploadFile(@RequestParam("file")MultipartFile file) throws IOException{
+//                          if (!file.isEmpty()) {
+//                                          log.info("Process file:{}"finalile.getOriginalFilename());        }
+//                                  FileUtils.copyInputStreamToFile(file.getInputStream(), new File("E:\\",System.currentTimeMillis()+file.getOriginalFilename()));
+//                                          return "succes";
+//                                              }
+//
     // get请求，访问添加用户 页面
     @RequestMapping(value = "/admin/users/add", method = RequestMethod.GET)
     public String addUser() {
