@@ -26,7 +26,8 @@ import com.goebuy.entity.UserEntity;
 import com.goebuy.service.UserService;
 
 @Controller
-public class MainController {
+public class UserController {
+
 
 	// 自动装配数据库接口，不需要再写原始的Connection来操作数据库
 	@Autowired
@@ -167,11 +168,12 @@ public class MainController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/users/show/{id}", method = RequestMethod.GET)
-	@SystemLog(operationType = "get", operationName = "user")
+	@SystemLog(operationType = "list", operationName = "user")
 	public String showUser(HttpServletRequest request, @PathVariable("id") Integer userId, ModelMap modelMap) {
 		System.out.println("showUser");
 		// 找到userId所表示的用户
-		UserEntity userEntity = userRepository.findById(userId).get();
+		UserEntity userEntity = userRepository.findOne(userId);
+		System.out.println(userEntity);
 		// 传递给请求页面
 		modelMap.addAttribute("user", userEntity);
 		System.out.println("admin/userDetail");
@@ -185,7 +187,7 @@ public class MainController {
 
 		System.out.println("updateUser");
 		// 找到userId所表示的用户
-		UserEntity userEntity = userRepository.findById(userId).get();
+		UserEntity userEntity = userRepository.findOne(userId);
 		// 传递给请求页面
 		modelMap.addAttribute("user", userEntity);
 		return "admin/updateUser";
@@ -201,13 +203,17 @@ public class MainController {
 		return "redirect:/admin/users";
 	}
 
-	// 删除用户
+	/**
+	 *  删除用户
+	 * @param userId
+	 * @return
+	 */
 	@RequestMapping(value = "/admin/users/delete/{id}", method = RequestMethod.GET)
 	@SystemLog(operationType = "delete", operationName = "user")
 	public String deleteUser(@PathVariable("id") Integer userId) {
 
 		// 删除id为userId的用户
-		userRepository.deleteById(userId);
+		userRepository.delete(userId);		
 		// 立即刷新
 		userRepository.flush();
 		return "redirect:/admin/users";

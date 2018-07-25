@@ -7,9 +7,14 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.alibaba.fastjson.JSON;
 
 @Entity
 @Table(name = "user", schema = "springdemo", catalog = "")
@@ -29,8 +34,15 @@ public class UserEntity implements Serializable{
      */
     private Collection<BlogEntity> blogsById;
 
+    /**
+     * 主键id自增长
+     * @return
+     *  @GenericGenerator(name = "generator", strategy = "native")
+    * @GeneratedValue(generator = "generator")
+     */
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -105,7 +117,12 @@ public class UserEntity implements Serializable{
         return result;
     }
 
-    @OneToMany(cascade=CascadeType.ALL, mappedBy = "userByUserId")
+    /**
+     * 一对多： 一个one对应多个many，首先在一端添加, mappedBy = "one" 表示one是一对多管理的被维护端， 既当添加many时顺带添加一个one
+     *Hibernate Annotation的默认的FetchType在ManyToOne是EAGER的,在OneToMany上默认的是LAZY
+     * @return  fetch=FetchType.LAZY, 
+     */
+    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER, mappedBy = "userByUserId")
     public Collection<BlogEntity> getBlogsById() {
         return blogsById;
     }
@@ -114,5 +131,10 @@ public class UserEntity implements Serializable{
         this.blogsById = blogsById;
     }
     
+    
+    @Override
+    public String toString() {
+    	return JSON.toJSONString(this);
+    }
     
 }

@@ -22,10 +22,11 @@
     <![endif]-->
 </head>
 <body>
+
+
 <div class="container">
     <h1>SpringMVC 修改博客</h1>
     <hr/>
-    <%-- <form:form action="/admin/blogs/updateP" method="post" commandName="blogP" role="form"> --%>
      <form:form action="/admin/blogs/updateP" method="post" role="form">
         <div class="form-group">
             <label for="title">Title:</label>
@@ -52,7 +53,7 @@
         <div class="form-group">
             <label for="pubDate">Publish Date:</label>
             <input type="date" class="form-control" id="pubDate" name="pubDate"
-                   value="<fmt:formatDate value="${blog.pubDate }" pattern="yyyy-MM-dd"/>"/>
+                   value="<fmt:formatDate value="${blog.pubDate}" pattern="yyyy-MM-dd"/>"/>
         </div>
         <!-- 把 id 一并写入 blogP 中 -->
         <input type="hidden" id="id" name="id" value="${blog.id}"/>
@@ -60,6 +61,7 @@
             <button type="submit" class="btn btn-sm btn-success">提交</button>
         </div>
     </form:form>
+
 </div>
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->

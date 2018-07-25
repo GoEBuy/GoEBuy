@@ -25,7 +25,9 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
 import com.goebuy.annotation.SystemLog;
+import com.goebuy.entity.SystemLogEntity;
 import com.goebuy.entity.UserEntity;
+import com.goebuy.service.SysLogService;
 
 /**
  * 切面类，记录用户操作日志
@@ -36,12 +38,15 @@ import com.goebuy.entity.UserEntity;
 @Aspect
 @Component
 public class SystemLogAspect {
-	
+
 	/**
 	 * 从properties配置文件中获取配置信息
 	 */
-//	@Value("${socket.time.out}")
-//	private boolean saveSysLog;
+	@Value("${saveSysLog}")
+	private boolean saveSysLog;
+
+	@Autowired
+	SysLogService sysLogRepository;
 
 	private String requestPath = null; // 请求地址
 	private String loginName = ""; // 用户名
@@ -52,22 +57,22 @@ public class SystemLogAspect {
 	private UserEntity user = null; // 操作用户
 	private HttpServletRequest request = null;
 
+	private String startTime = null, endTime = null;
 	Object[] method_params = null;
 	String methodName = null;
-	String methodRemark = null;
+	SystemLog sysLogAnnotation = null;
 	String packages = null;
 	String operationType = "";
 	String operationName = "";
 	Class targetClass = null;
 	String targetName = null;
 	Method[] methods = null;
-	// 注入Service用于把日志保存数据库
-	@Autowired // 这里我用resource注解，一般用的是@Autowired，他们的区别如有时间我会在后面的博客中来写
-//    private SystemLogService systemLogService;  
+
+	@Autowired
+	private SysLogService systemLogService;
 
 	private static final Logger logger = LoggerFactory.getLogger(SystemLogAspect.class);
 
-	// Controller层切点
 //	第一个*表示匹配任意的方法返回值，..(两个点)表示零个或多个，上面的第一个..表示service包及其子包,第二个*表示所有类,第三个*表示所有方法，第二个..表示
 //	方法的任意参数个数
 	@Pointcut("execution(* com.goebuy.controller..*.*(..))")
@@ -93,19 +98,31 @@ public class SystemLogAspect {
 	@Around("controllerAspect()")
 	public Object around(JoinPoint joinPoint) {
 
-		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();// .getAttribute(nae);
-		for (String fString : requestAttributes.getAttributeNames(RequestAttributes.SCOPE_SESSION)) {
-			System.out.println("session: " + fString);
+		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+		try {
+			System.out.println(method_params[0].getClass().getName());
+			request = (HttpServletRequest) method_params[0];
+		} catch (Exception e) {
+			logger.error("convert to request failed " + e.getMessage());
+			System.err.println("convert to request failed " + e.getMessage());
+//			e.printStackTrace();
 		}
-
-		for (String fString : requestAttributes.getAttributeNames(RequestAttributes.SCOPE_REQUEST)) {
-			System.out.println("request: " + fString);
-		}
+//		for (String fString : requestAttributes.getAttributeNames(RequestAttributes.SCOPE_SESSION)) {
+//			System.out.println("session: " + fString);
+//		}
+//
+//		for (String fString : requestAttributes.getAttributeNames(RequestAttributes.SCOPE_REQUEST)) {
+//			System.out.println("request: " + fString);
+//		}
 
 		try {
 			method_params = joinPoint.getArgs();
 			methodName = joinPoint.getSignature().getName();
-			methodRemark = getMthodRemark(joinPoint);
+			sysLogAnnotation = getSystemLogAnnonation(joinPoint);
+			if (sysLogAnnotation != null) {
+				operationType = sysLogAnnotation.operationType();
+				operationName = sysLogAnnotation.operationName();
+			}
 			packages = joinPoint.getThis().getClass().getName();
 			if (packages.indexOf("$$EnhancerByCGLIB$$") > -1) { // 如果是CGLIB动态生成的类
 				packages = packages.substring(0, packages.indexOf("$$"));
@@ -115,97 +132,96 @@ public class SystemLogAspect {
 				System.out.println("parm:" + method_param);
 			}
 			Class targetClass = Class.forName(targetName);
-			Method[] methods = targetClass.getMethods();
 
-			for (Method method : methods) {
-				if (method.getName().equals(methodName)) {
-					Class[] clazzs = method.getParameterTypes();
-					if (clazzs!=null && clazzs.length == method_params.length) {
-						SystemLog anno = method.getAnnotation(SystemLog.class);
-						if(anno!=null) {
-							operationType = anno.operationType();
-							operationName = anno.operationName();
-						}
-						break;
-					}
-				}
-			}
 			System.out.println("请求方法:" + targetName + "." + methodName + "()" + "." + operationType);
 			System.out.println("方法描述:" + operationName);
 		} catch (Exception ex) {
 			logger.error("获取方法信息失败");
-			System.out.println("获取方法信息失败");
+			System.err.println("获取方法信息失败");
 			ex.printStackTrace();
 		}
 
 		System.out.println("==========开始执行controller-around环绕通知===============");
 
 		Object obj = null;
+		SystemLogEntity log = new SystemLogEntity();
+
+		// 记录方法开始执行的时间
+		startTimeMillis = System.currentTimeMillis();
+		// 格式化开始时间
+		startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(startTimeMillis);
+
+		log.setCreateDate(startTime);
+		log.setLoginName(loginName);
+		log.setMethod(methodName);
+		log.setParams(Arrays.toString(method_params));
+		log.setOperationName(operationName);
+		log.setOperationType(operationType);
+		System.out.println("operationName: " + operationName == null ? "null" : operationName);
+		System.out.println("operationType: " + operationType == null ? "null" : operationType);
+		System.out.println("args: " + Arrays.toString(method_params));
+
+		System.out.println("proceed " + joinPoint);
+		logger.info("proceed " + joinPoint);
+
+		if (request != null) {
+//			if (request.getSession() != null) {
+//				user = (UserEntity) request.getSession().getAttribute(SecurityConstant.CURRENT_LOGIN_USER);
+//			}
+		} else {
+			System.out.println("request is null");
+		}
+		if (user != null) {
+			loginName = user.getNickname();
+		} else {
+			loginName = "anon";
+		}
+		String ip = getIp(request);
+		log.setRequestIp(ip);
 
 		try {
-//			Request
-//			System.out.println("method 0:" + method_params[0].getClass().getName());
-//			HttpServletRequest request = (HttpServletRequest) method_params[0];
-			// 记录方法开始执行的时间
-			startTimeMillis = System.currentTimeMillis();
-//			SystemLogEntity log = new SystemLogEntity();
-
-			System.out.println("proceed " + joinPoint);
-			logger.info("proceed " + joinPoint);
-
-//			user = (UserEntity) request.getSession().getAttribute(SecurityConstant.CURRENT_LOGIN_USER);
-//			if (user != null) {
-//				loginName = user.getNickname();
-//			} else {
-//				loginName = "anon";
-//			}
-			String ip = getIp(request);
-
-			System.out.println("args: " + Arrays.toString(method_params));
-
 			// 执行方法
 			obj = ((ProceedingJoinPoint) joinPoint).proceed();
-//			if (obj != null) {
-//				log.setResultMsg(obj.toString());
-//			} else {
-//				log.setResultMsg(null);
-//			}
+			if (obj != null) {
+				log.setResultMsg(obj.toString());
+			} else {
+				log.setResultMsg(null);
+			}
+			System.out.println("==========结束执行controller-around环绕通知===============");
 			endTimeMillis = System.currentTimeMillis();
-			// 格式化开始时间
-			String startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(startTimeMillis);
 			// 格式化结束时间
-			String endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(endTimeMillis);
-
+			endTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(endTimeMillis);
 			if (logger.isInfoEnabled()) {
 				System.out
 						.println("around " + joinPoint + "\tUse time : " + (endTimeMillis - startTimeMillis) + " ms!");
 				logger.info("around " + joinPoint + "\tUse time : " + (endTimeMillis - startTimeMillis) + " ms!");
 			}
-
-//			  /**
-//			   * 用户操作
-//	         */
-//	        if("新增用户".equals(methodRemark)){
-//	            HttpServletRequest req = (HttpServletRequest) method_params[0];
-//	            log.setDescription("新增用户: 用户名为 " + req.getParameter("userName"));
-//
-//	        }else if("删除用户".equals(methodRemark)){
-//	            String loginId = (String) method_params[1];
-//	            log.setDescription("删除用户: 用户id为 " + loginId);
-//	        }else if("修改用户".equals(methodRemark)){
-//	            HttpServletRequest req = (HttpServletRequest) method_params[0];
-//	            log.setDescription("修改用户: 用户名为 " + req.getParameter("loginName"));
-//	        }
-
-			System.out.println("==========结束执行controller-around环绕通知===============");
-
 		} catch (Throwable e) {
+			System.err.println("执行方法" + methodName + " 失败");
 			endTimeMillis = System.currentTimeMillis();
 			if (logger.isInfoEnabled()) {
 				System.out.println("around " + joinPoint + "\tUse time : " + (endTimeMillis - startTimeMillis)
 						+ " ms with exception : " + e.getMessage());
 				logger.info("around " + joinPoint + "\tUse time : " + (endTimeMillis - startTimeMillis)
 						+ " ms with exception : " + e.getMessage());
+			}
+			log.setExceptioncode("1");
+			log.setExceptionDetail(e.getMessage());
+			return obj;
+		}
+
+		if (saveSysLog) {
+			try {
+				System.out.println(log);
+				// 保存数据库
+				sysLogRepository.saveAndFlush(log);
+				System.out.println("save log succ");
+
+			} catch (Exception e) {
+				System.err.println("save log error: " + e.getMessage());
+				logger.error("save log error: " + e.getMessage());
+//				e.printStackTrace();
+				return obj;
 			}
 		}
 
@@ -223,27 +239,7 @@ public class SystemLogAspect {
 		try {
 			// *========控制台输出=========*//
 			System.out.println("=====controller-after后置通知开始=====");
-//			System.out.println("请求方法:" + targetName + "." + methodName + "()" + "." + operationType);
-//			System.out.println("方法描述:" + operationName);
 
-//            System.out.println("请求人:" + user.getName());  
-//            System.out.println("请求IP:" + ip);  
-			// *========数据库日志=========*//
-//            SystemLog log = new SystemLog();  
-//            log.setId(UUID.randomUUID().toString());
-//            log.setDescription(operationName);  
-//            log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()")+"."+operationType);  
-//            log.setLogType((long)0);  
-//            log.setRequestIp(ip);  
-//            log.setExceptioncode( null);  
-//            log.setExceptionDetail( null);  
-//            log.setParams( null);  
-//            log.setCreateBy(user.getName());  
-//            log.setCreateDate(new Date());  
-//			if(saveSysLog) {
-////            //保存数据库  
-////            systemLogService.insert(log);  
-//			}
 			System.out.println("=====controller-after后置通知结束=====");
 		} catch (Exception e) {
 			// 记录本地异常日志
@@ -285,22 +281,8 @@ public class SystemLogAspect {
 			System.out.println("异常方法:"
 					+ (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()")
 					+ "." + operationType);
-			System.out.println("方法描述:" + operationName);
-//            System.out.println("请求人:" + user.getName());  
-//			System.out.println("请求IP:" + ip);
-//			System.out.println("请求参数:" + params);
+//			System.out.println("方法描述:" + operationName);
 			/* ==========数据库日志========= */
-//            SystemLog log = new SystemLog();
-//            log.setId(UUID.randomUUID().toString());
-//            log.setDescription(operationName);  
-//            log.setExceptioncode(e.getClass().getName());  
-//            log.setLogType((long)1);  
-//            log.setExceptionDetail(e.getMessage());  
-//            log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));  
-//            log.setParams(params);  
-//            log.setCreateBy(user.getName());  
-//            log.setCreateDate(new Date());  
-//            log.setRequestIp(ip);  
 //			if(saveSysLog) {
 ////            //保存数据库  
 ////            systemLogService.insert(log);  
@@ -325,7 +307,7 @@ public class SystemLogAspect {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String getMthodRemark(JoinPoint joinPoint) {
+	public static SystemLog getSystemLogAnnonation(JoinPoint joinPoint) {
 
 		String targetName = joinPoint.getTarget().getClass().getName();
 		String methodName = joinPoint.getSignature().getName();
@@ -342,17 +324,14 @@ public class SystemLogAspect {
 					Class[] tmpCs = m.getParameterTypes();
 					if (tmpCs.length == arguments.length) {
 						SystemLog methodCache = m.getAnnotation(SystemLog.class);
-						if (methodCache != null) {
-							methode = methodCache.operationName();
-						}
-						break;
+						return methodCache;
 					}
 				}
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		return methode;
+		return null;
 	}
 
 	/**
@@ -363,10 +342,10 @@ public class SystemLogAspect {
 	 */
 	public static String getIp(HttpServletRequest request) {
 		if (request == null) {
-			return "none";
+			return null;
 		}
 		String ip = request.getHeader("X-Forwarded-For");
-		if (!ip.isEmpty() && !"unKnown".equalsIgnoreCase(ip)) {
+		if (ip != null && !ip.isEmpty() && !"unKnown".equalsIgnoreCase(ip)) {
 			int index = ip.indexOf(",");
 			if (index != -1) {
 				return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip.substring(0, index);
@@ -375,7 +354,7 @@ public class SystemLogAspect {
 			}
 		}
 		ip = request.getHeader("X-Real-IP");
-		if (!ip.isEmpty() && !"unKnown".equalsIgnoreCase(ip)) {
+		if (ip != null && !ip.isEmpty() && !"unKnown".equalsIgnoreCase(ip)) {
 			return ip;
 		}
 		return request.getRemoteAddr().equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;

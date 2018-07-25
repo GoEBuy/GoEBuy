@@ -2,6 +2,8 @@ package com.goebuy.entity;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.alibaba.fastjson.JSON;
+
 import javax.persistence.*;
 
 import java.io.Serializable;
@@ -20,16 +22,21 @@ public class BlogEntity implements Serializable{
 	private int id;
 	/* varchar */
     private String title;
+    
     /* varchar */
     private String content;
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date pubDate;
     
+    /**
+     * many2one
+     */
     private UserEntity userByUserId;
 
     @Id
     @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -92,8 +99,13 @@ public class BlogEntity implements Serializable{
         return result;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+    /**
+     * 1对多在多端,  在多端（从表的外键）添加外键字段指向一端（主表的主键）的主键字段	
+     * Hibernate Annotation的默认的FetchType在ManyToOne是EAGER的,在OneToMany上默认的是LAZY.
+     * @return
+     */
+    @ManyToOne(fetch= FetchType.EAGER)
+    @JoinColumn( name = "user_id",   referencedColumnName = "id", nullable = false)
     public UserEntity getUserByUserId() {
         return userByUserId;
     }
@@ -101,4 +113,11 @@ public class BlogEntity implements Serializable{
     public void setUserByUserId(UserEntity userByUserId) {
         this.userByUserId = userByUserId;
     }
+    
+    @Override
+    public String toString() {
+    	return JSON.toJSONString(this);
+    }
+    
+    
 }

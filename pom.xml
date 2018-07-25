@@ -1,36 +1,37 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>com.goebuy</groupId>
-    <artifactId>goebuy</artifactId>
-    <packaging>war</packaging>
-    <version>1.0-SNAPSHOT</version>
-    <name>goebuy Maven Webapp</name>
-    <url>http://maven.apache.org</url>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.goebuy</groupId>
+	<artifactId>goebuy</artifactId>
+	<packaging>war</packaging>
+	<version>1.0-SNAPSHOT</version>
+	<name>goebuy Maven Webapp</name>
+	<url>http://maven.apache.org</url>
 
 	<dependencies>
 
 
-	<dependency>
-		<groupId>commons-fileupload</groupId>
-		<artifactId>commons-fileupload</artifactId>
-		<version>1.3.1</version>
-	</dependency>
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.3.1</version>
+		</dependency>
 
-	<dependency>
-		<groupId>commons-io</groupId>
-		<artifactId>commons-io</artifactId>
-		<version>2.6</version>
-	</dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>2.6</version>
+		</dependency>
 
 
-    <!-- == Begin Logging == -->
+		<!-- == Begin Logging == -->
 		<!-- SLF4J -->
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.2</version>
-		<!-- 	<scope>runtime</scope> -->
+			<!-- <scope>runtime</scope> -->
 		</dependency>
 		<dependency>
 			<groupId>dom4j</groupId>
@@ -46,103 +47,128 @@
 			<artifactId>kaptcha</artifactId>
 			<version>2.3.2</version>
 		</dependency>
-		
-	<dependency>
-	    <groupId>org.springframework</groupId>
-	    <artifactId>spring-aop</artifactId>
-	    <version>${spring.version}</version>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<!--引入test starter-->
+	<!-- 	<dependency>
+	  <groupId>org.springframework.boot</groupId>
+	  <artifactId>spring-boot-starter-test</artifactId>
+	      <version>2.0.3.RELEASE</version>
+	  <scope>test</scope>
 	</dependency>
+	
 	<dependency>
-    <groupId>org.springframework</groupId>
-    <artifactId>spring-test</artifactId>
-    <version>${spring.version}</version>
-</dependency>
-
-<dependency>
-    <groupId>org.aspectj</groupId>
-    <artifactId>aspectjweaver</artifactId>
-    <version>1.7.2</version>
-</dependency> 
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-data-jpa</artifactId>
+   <version>2.0.3.RELEASE</version>
+  <scope>test</scope>
+</dependency> -->
 	
-	
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+			  <scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-          <version>2.0.8.RELEASE</version> 
-            <!--  <version>1.11.13.RELEASE</version> -->
-            <exclusions>
-            	<exclusion>
-            		<groupId>org.aspectj</groupId>
-            		<artifactId>aspectjrt</artifactId>
-            	</exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.version}</version>
-            
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-c3p0</artifactId>
-            <version>${hibernate.version}</version>
-            <exclusions>
-            	<exclusion>
-            		<groupId>org.jboss.logging</groupId>
-            		<artifactId>jboss-logging</artifactId>
-            	</exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.5.2</version>
-        </dependency>
-
-     <!--    <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency> -->
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.connector.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.7.2</version>
+		</dependency>
 
 
-        	<dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			 <!-- <version>2.0.8.RELEASE</version> -->
+			<version>1.11.13.RELEASE</version> 
+			<exclusions>
+				<exclusion>
+					<groupId>org.aspectj</groupId>
+					<artifactId>aspectjrt</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>${hibernate.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.jboss.logging</groupId>
+					<artifactId>jboss-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.2</version>
+		</dependency>
+
+		<!-- <dependency> <groupId>javax.servlet</groupId> <artifactId>jstl</artifactId> 
+			<version>1.2</version> </dependency> -->
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.connector.version}</version>
+		</dependency>
+
+
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>4.0.1</version>
-    <scope>provided</scope>
+			<scope>provided</scope>
 		</dependency>
 
-        <!-- xss过滤组件 -->
-        <dependency>
-            <groupId>org.jsoup</groupId>
-            <artifactId>jsoup</artifactId>
-            <version>1.9.2</version>
-        </dependency>
-        
-        <dependency>
-    <groupId>joda-time</groupId>
-    <artifactId>joda-time</artifactId>
-    <version>2.9.6</version>
-</dependency>
+		<!-- xss过滤组件 -->
+		<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>1.9.2</version>
+		</dependency>
 
-<!-- Test dependencies -->
+		<dependency>
+			<groupId>joda-time</groupId>
+			<artifactId>joda-time</artifactId>
+			<version>2.9.6</version>
+		</dependency>
+<!-- 
+	<dependency>
+		<groupId>com.google.code.gson</groupId>
+		<artifactId>gson</artifactId>
+		<version>2.8.5</version>
+	</dependency> -->
+
+	<dependency>
+		<groupId>com.alibaba</groupId>
+		<artifactId>fastjson</artifactId>
+		<version>1.2.47</version>
+	</dependency>
+
+		<!-- Test dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -150,166 +176,157 @@
 			<scope>test</scope>
 		</dependency>
 
+	</dependencies>
+	
+	
+	<build>
+		<finalName>GoEBuy</finalName>
+		<plugins>
 
-    </dependencies>
-    <build>
-        <finalName>GoEBuy</finalName>
-        <plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>${java-version}</source>
+					<target>${java-version}</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
+			<!-- jetty: run -->
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>${jetty.version}</version>
+				<configuration>
+					<webApp>
+						<contextPath>/</contextPath>
+					</webApp>
+					<stopKey>CTRL+C</stopKey>
+					<!-- default port 8080 -->
+					<!-- <stopPort>9000</stopPort> -->
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<scanTargets>
+						<scanTarget>src/main/webapp/WEB-INF/web.xml</scanTarget>
+					</scanTargets>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java-version}</source>
-                    <target>${java-version}</target>
-					 <encoding>${project.build.sourceEncoding}</encoding> 
-                </configuration>
-            </plugin>
-            	<!-- jetty: run -->
-				<plugin>
-					<groupId>org.eclipse.jetty</groupId>
-					<artifactId>jetty-maven-plugin</artifactId>
-					<version>${jetty.version}</version>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<version>${org.apache.maven.plugins.version}</version>
+				<configuration>
+					<wtpversion>2.0</wtpversion>
+					<downloadSources>true</downloadSources>
+				</configuration>
+			</plugin>
+
+			<!-- <plugin> <groupId>org.apache.maven.plugins</groupId> <artifactId>maven-resources-plugin</artifactId> 
+				<version>${org.apache.maven.plugins.maven-resources-plugin.version}</version> 
+				<configuration> <encoding>${encoding}</encoding> </configuration> </plugin> -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${org.apache.maven.plugins.maven-source-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>source-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>${org.apache.maven.plugins.maven-war-plugin.version}</version>
+				<configuration>
+					<warName>${project.artifactId}</warName>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>${org.apache.maven.plugins.maven-dependency-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>package</id>
+						<phase>package</phase>
+						<goals>
+							<goal>sources</goal>
+						</goals>
+					</execution>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/lib</outputDirectory>
+							<overWriteReleases>false</overWriteReleases>
+							<overWriteSnapshots>false</overWriteSnapshots>
+							<overWriteIfNewer>true</overWriteIfNewer>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<locales>en,zh-cn</locales>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<version>1.6.5</version>
+				<configuration>
+					<!-- <configuration> 部署至远程WEB容器(热部署) <type>runtime</type> <properties> 
+						<cargo.remote.username>tomcat</cargo.remote.username> <cargo.remote.password>tomcat7</cargo.remote.password> 
+						<cargo.remote.uri>http://localhost:8080/manager/text</cargo.remote.uri> </properties> 
+						</configuration> -->
 					<configuration>
-						<webApp>
-							<contextPath>/</contextPath>
-						</webApp>
-						<stopKey>CTRL+C</stopKey>
-						<!--  default port 8080 -->
-						<!--  <stopPort>9000</stopPort>  -->
-						<scanIntervalSeconds>10</scanIntervalSeconds>
-						<scanTargets>
-							<scanTarget>src/main/webapp/WEB-INF/web.xml</scanTarget>
-						</scanTargets>
+						<type>existing</type>
+						<home>D:\software\apache-tomcat-8.5.24</home>
+						<properties>
+							<cargo.servlet.port>8081</cargo.servlet.port>
+						</properties>
 					</configuration>
-				</plugin>
+				</configuration>
+			</plugin>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-eclipse-plugin</artifactId>
-					<version>${org.apache.maven.plugins.version}</version>
-					<configuration>
-						<wtpversion>2.0</wtpversion>
-						<downloadSources>true</downloadSources>
-					</configuration>
-				</plugin>
+		</plugins>
+	</build>
 
-				<!-- <plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-resources-plugin</artifactId>
-					<version>${org.apache.maven.plugins.maven-resources-plugin.version}</version>
-					<configuration>
-						<encoding>${encoding}</encoding>
-					</configuration>
-				</plugin> -->
+	<properties>
+		<!-- <spring.version>4.2.6.RELEASE</spring.version> -->
+		<spring.version>5.0.7.RELEASE</spring.version>
 
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-source-plugin</artifactId>
-					<version>${org.apache.maven.plugins.maven-source-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>source-jar</id>
-							<phase>package</phase>
-							<goals>
-								<goal>jar</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
+		<hibernate.version>5.1.0.Final</hibernate.version>
 
-			 	<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-war-plugin</artifactId>
-					<version>${org.apache.maven.plugins.maven-war-plugin.version}</version>
-					<configuration>
-						<warName>${project.artifactId}</warName>
-					</configuration>
-				</plugin>
-
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-dependency-plugin</artifactId>
-					<version>${org.apache.maven.plugins.maven-dependency-plugin.version}</version>
-					<executions>
-						<execution>
-							<id>package</id>
-							<phase>package</phase>
-							<goals>
-								<goal>sources</goal>
-							</goals>
-						</execution>
-						 <execution>
-	                    <id>copy-dependencies</id>
-	                    <phase>prepare-package</phase>
-	                    <goals>
-	                        <goal>copy-dependencies</goal>
-	                    </goals>
-	                    <configuration>
-	                        <outputDirectory>${project.build.directory}/lib</outputDirectory>
-	                        <overWriteReleases>false</overWriteReleases>
-	                        <overWriteSnapshots>false</overWriteSnapshots>
-	                        <overWriteIfNewer>true</overWriteIfNewer>
-	                    </configuration>
-               		 </execution>
-               		 
-					</executions>
-				</plugin>
-
-            	<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-site-plugin</artifactId>
-					<configuration>
-						<locales>en,zh-cn</locales>
-					</configuration>
-				</plugin>
-
-					<plugin>
-	<groupId>org.codehaus.cargo</groupId>
-	<artifactId>cargo-maven2-plugin</artifactId>
-	<version>1.6.5</version>
-	<configuration>
-	<!-- <configuration>
-	 部署至远程WEB容器(热部署)
-		<type>runtime</type>
-		<properties>
-			<cargo.remote.username>tomcat</cargo.remote.username>
-			<cargo.remote.password>tomcat7</cargo.remote.password>
-			<cargo.remote.uri>http://localhost:8080/manager/text</cargo.remote.uri>
-		</properties>
-	</configuration> -->
-		<configuration>
-			<type>existing</type>
-			<home>D:\software\apache-tomcat-8.5.24</home>
-			<properties>
-				<cargo.servlet.port>8081</cargo.servlet.port>
-			</properties>
-		</configuration>
-	</configuration>
-</plugin>
-
-        </plugins>
-    </build>
-
-     <properties>
-       <!--  <spring.version>4.2.6.RELEASE</spring.version> -->
-        <spring.version>5.0.7.RELEASE</spring.version>
-
-        <hibernate.version>5.1.0.Final</hibernate.version>
-
-    <!-- ==database == -->
+		<!-- ==database == -->
 		<mysql.connector.version>5.1.40</mysql.connector.version>
 
-			<!-- == Google == -->
+		<!-- == Google == -->
 
 		<kaptcha.version>2.3.2</kaptcha.version>
 
 		<!-- == Logging == -->
 		<org.slf4j-version>1.7.5</org.slf4j-version>
 
-        <org.apache.maven.plugins.maven-checkstyle-plugin.version>2.9.1</org.apache.maven.plugins.maven-checkstyle-plugin.version>
+		<org.apache.maven.plugins.maven-checkstyle-plugin.version>2.9.1</org.apache.maven.plugins.maven-checkstyle-plugin.version>
 		<org.apache.maven.plugins.maven-compiler-plugin.version>2.5.1</org.apache.maven.plugins.maven-compiler-plugin.version>
-		 <org.apache.maven.plugins.maven-dependency-plugin.version>3.1.1</org.apache.maven.plugins.maven-dependency-plugin.version> 
+		<org.apache.maven.plugins.maven-dependency-plugin.version>3.1.1</org.apache.maven.plugins.maven-dependency-plugin.version>
 		<org.apache.maven.plugins.maven-javadoc-plugin.version>2.8.1</org.apache.maven.plugins.maven-javadoc-plugin.version>
 		<org.apache.maven.plugins.maven-project-info-reports-plugin.version>2.5.1</org.apache.maven.plugins.maven-project-info-reports-plugin.version>
 		<org.apache.maven.plugins.maven-resources-plugin.version>2.6</org.apache.maven.plugins.maven-resources-plugin.version>
@@ -319,13 +336,13 @@
 		<org.apache.maven.plugins.maven-war-plugin.version>2.2</org.apache.maven.plugins.maven-war-plugin.version>
 		<org.apache.maven.plugins.version>2.5</org.apache.maven.plugins.version>
 		<org.apache.maven.plugins.version>2.9</org.apache.maven.plugins.version>
-	<jetty.version>9.4.11.v20180605</jetty.version>
-	<!-- <jetty.version>9.4.7.v20170914</jetty.version> -->
-	
-	
-	
-	
-   <!-- == Other Properties== -->
+		<jetty.version>9.4.11.v20180605</jetty.version>
+		<!-- <jetty.version>9.4.7.v20170914</jetty.version> -->
+
+
+
+
+		<!-- == Other Properties== -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<archetype.test.skip>true</archetype.test.skip>
 		<encoding>UTF-8</encoding>
@@ -335,6 +352,7 @@
 
     </properties>
 
+	<!--
     <repositories>
         <repository>
             <id>public</id>
@@ -345,8 +363,8 @@
             </releases>
         </repository>
     </repositories>
-    
-<pluginRepositories>
+ -->
+    <pluginRepositories>
         <pluginRepository>
             <id>public</id>
             <name>aliyun nexus</name>
@@ -359,4 +377,20 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
+
+	<repositories>
+		<repository>
+			<id>public</id>
+			<name>aliyun nexus</name>
+			<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</repository>
+	</repositories>
+
+
+
+
+
 </project>

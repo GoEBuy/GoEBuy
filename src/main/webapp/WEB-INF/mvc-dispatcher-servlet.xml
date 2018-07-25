@@ -15,7 +15,12 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
+
 <description>Spring公共配置 </description>  
+
+
+  <!--扫描配置文件(这里指向的是之前配置的那个config.properties)-->
+     <context:property-placeholder location="classpath:/db.properties, classpath:/config.properties" /> 
 
 <!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="location" value="classpath:application.properties" />
@@ -44,7 +49,15 @@
 		<property name="suffix" value=".jsp" />
 	</bean>
 
+
 <!-- JPA实体管理工厂的配置 -->  
+
+ <!--这里是对静态资源的映射-->
+<!--     <mvc:resources mapping="/js/**" location="/resources/js/" />
+    <mvc:resources mapping="/css/**" location="/resources/css/" />
+    <mvc:resources mapping="/img/**" location="/resources/img/" /> -->
+
+
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName"
@@ -59,14 +72,16 @@
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
-				<prop key="hibernate.connection.url">jdbc:mysql://192.168.0.160:3306/springdemo?useSSL=false
-				</prop>
 				<!-- <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/springdemo?useSSL=false
 				</prop> -->
+				 <prop key="hibernate.connection.url">jdbc:mysql://192.168.0.160:3306/springdemo?useSSL=false
+				</prop>
 				<prop key="hibernate.connection.username">root</prop>
 				<prop key="hibernate.connection.password">root</prop>
 				<!-- <prop key="hibernate.show_sql">true</prop> -->
 				<prop key="hibernate.show_sql">false</prop>
+				<!--  一般情况下，会在项目启动的过程中，自动检查 注解的实体 和数据表，如果数据库不存在的表或者字段，会根据实体自动生成。--> 
+				<prop key="generateDdl" >true</prop>	
 				<prop key="hibernate.connection.useUnicode">true</prop>
 				<prop key="hibernate.connection.characterEncoding">UTF-8</prop>
 				<prop key="hibernate.format_sql">true</prop>
@@ -135,7 +150,7 @@
 	 <!-- 启动对@AspectJ注解的支持 --> 
      <aop:aspectj-autoproxy proxy-target-class="true"/>
      <!-- 切面  -->
-  <bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" />
+  	<bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" />
 
 
 </beans>

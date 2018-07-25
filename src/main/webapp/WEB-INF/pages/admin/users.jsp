@@ -93,6 +93,7 @@
 		<%--   time:${requestScope.time}
     <span>${userCnt}</span> --%>
      <%-- <span><% userCnt%>条记录</span> --%>
+
      
      
      <div>
@@ -102,7 +103,7 @@
 
 </form>
 </div>     
-     
+
 </div>
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
