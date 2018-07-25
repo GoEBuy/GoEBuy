@@ -176,28 +176,9 @@
 			<scope>test</scope>
 		</dependency>
 
-
-<<<<<<< HEAD
-    </dependencies>
-    <build>
-        <finalName>GoEBuy</finalName>
-        <plugins>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>${java-version}</source>
-                    <target>${java-version}</target>
-                </configuration>
-            </plugin>
-            	<!-- jetty: run -->
-				<plugin>
-					<groupId>org.eclipse.jetty</groupId>
-					<artifactId>jetty-maven-plugin</artifactId>
-					<version>9.4.11.v20180605</version>
-=======
 	</dependencies>
+ 
+
 	<build>
 		<finalName>GoEBuy</finalName>
 		<plugins>
@@ -314,7 +295,6 @@
 						<cargo.remote.username>tomcat</cargo.remote.username> <cargo.remote.password>tomcat7</cargo.remote.password> 
 						<cargo.remote.uri>http://localhost:8080/manager/text</cargo.remote.uri> </properties> 
 						</configuration> -->
->>>>>>> cc9c3130896abc23737ccda6baa24a9629835e74
 					<configuration>
 						<type>existing</type>
 						<home>D:\software\apache-tomcat-8.5.24</home>
@@ -369,37 +349,8 @@
 		<java-version>1.8</java-version>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
 
+		</properties>
 
-<<<<<<< HEAD
-    </properties>
-
-	<!--
-    <repositories>
-        <repository>
-            <id>public</id>
-            <name>aliyun nexus</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
- -->
-    <pluginRepositories>
-        <pluginRepository>
-            <id>public</id>
-            <name>aliyun nexus</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-=======
-	</properties>
 
 	<repositories>
 		<repository>
@@ -425,5 +376,5 @@
 			</snapshots>
 		</pluginRepository>
 	</pluginRepositories>
->>>>>>> cc9c3130896abc23737ccda6baa24a9629835e74
+
 </project>
