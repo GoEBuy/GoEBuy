@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,7 +23,7 @@ import com.alibaba.fastjson.JSON;
  *
  */
 @Entity
-@Table(name = "user_sysinfo", schema = "springdemo", catalog = "")
+@Table(name = "user_sysinfo", indexes={@Index(name="user_Index", columnList="user_id")} , schema = "springdemo", catalog = "")
 public class UserSysInfoEntity implements Serializable {
 
 	/**

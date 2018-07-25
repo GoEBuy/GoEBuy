@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -19,7 +20,7 @@ import com.alibaba.fastjson.JSON;
  *
  */
 @Entity
-@Table(name = "sys_info", schema = "springdemo", catalog = "")
+@Table(name = "sys_info", indexes={@Index(name="title_index", columnList="title")}, schema = "springdemo", catalog = "")
 public class SystemInfoEntity implements Serializable {
 
 	/**
@@ -81,7 +82,7 @@ public class SystemInfoEntity implements Serializable {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
 	public UserEntity getUserByUserId() {
 		return userByUserId;
 	}

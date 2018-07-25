@@ -8,12 +8,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 import com.alibaba.fastjson.JSON;
 	
 	@Entity
-	@Table(name = "sys_systemlog", schema = "springdemo", catalog = "")
+	@Table(name = "sys_systemlog",indexes={@Index(name="operationType_index", columnList="operationType")}, schema = "springdemo", catalog = "")
 	public class SystemLogEntity implements Serializable {
 		
 		

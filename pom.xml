@@ -177,8 +177,8 @@
 		</dependency>
 
 	</dependencies>
-	
-	
+
+
 	<build>
 		<finalName>GoEBuy</finalName>
 		<plugins>
@@ -349,21 +349,10 @@
 		<java-version>1.8</java-version>
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
 
+		</properties>
 
-    </properties>
 
-	<!--
-    <repositories>
-        <repository>
-            <id>public</id>
-            <name>aliyun nexus</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-        </repository>
-    </repositories>
- -->
+
     <pluginRepositories>
         <pluginRepository>
             <id>public</id>
@@ -388,9 +377,6 @@
 			</releases>
 		</repository>
 	</repositories>
-
-
-
 
 
 </project>

@@ -7,6 +7,11 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 import com.goebuy.controller.BlogController;
 import com.goebuy.controller.UserController;
 
+/**
+ * @deprecated
+ * @author Administrator
+ *
+ */
 public class TestService {
 
 	public static void main(String[] args) {
@@ -15,8 +20,10 @@ public class TestService {
 //		ApplicationContext applicationContext = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml");
 		System.out.println("main");
 //		UserController service = (UserController)applicationContext.getBean("UserController"); 
-		BlogController service = (BlogController)applicationContext.getBean("BlogController");
-//		UserService service = (UserService)applicationContext.getBean("UserService"); 
+		BlogService service = (BlogService)applicationContext.getBean("BlogService");
+		service.findAll();
+		System.out.println(service.count()+"");
+		//		UserService service = (UserService)applicationContext.getBean("UserService"); 
 		System.out.println("finished");
 	}
 

@@ -2,7 +2,6 @@ package com.goebuy.entity;
 
 import java.io.Serializable;
 import java.util.Collection;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,13 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
 import com.alibaba.fastjson.JSON;
 
 @Entity
-@Table(name = "user", schema = "springdemo", catalog = "")
+@Table(name = "user", schema = "springdemo", indexes={@Index(name="name_Index", columnList="nickname")}, catalog = "")
 public class UserEntity implements Serializable{
 	
 	private static final long serialVersionUID = -752197205289331832L;
