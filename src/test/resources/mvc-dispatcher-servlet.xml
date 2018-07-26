@@ -38,6 +38,28 @@
 
 	<!-- 开启注解 -->
 	<mvc:annotation-driven />
+	
+	
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+		<!-- 多个拦截器,顺序执行 -->
+		<!-- 认证拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.goebuy.interceptor.LoginInterceptor"  />
+			 <!-- <mvc:exclude-mapping path="/lib/**" />  -->
+		</mvc:interceptor>
+
+		<!-- 授权拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.goebuy.interceptor.PermissionInterceptor" />
+			  <!--不进行拦截的路径-->   
+        <!-- <mvc:exclude-mapping path="/lib/**" />  -->
+			
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 
 	<!--ViewResolver 视图解析器 -->
 	<!--用于支持Servlet、JSP视图解析 -->

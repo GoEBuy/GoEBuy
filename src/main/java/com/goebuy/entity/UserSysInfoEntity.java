@@ -24,14 +24,12 @@ import com.alibaba.fastjson.JSON;
  */
 @Entity
 @Table(name = "user_sysinfo", indexes={@Index(name="user_Index", columnList="user_id")} , schema = "springdemo", catalog = "")
-public class UserSysInfoEntity implements Serializable {
+public class UserSysInfoEntity extends BaseEntity<Integer> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4333026409014680730L;
-
-	private int id;
 
 	private UserEntity user;
 
@@ -91,11 +89,6 @@ public class UserSysInfoEntity implements Serializable {
 
 	public void setTime(String time) {
 		this.time = time;
-	}
-
-	@Override
-	public String toString() {
-		return JSON.toJSONString(this);
 	}
 
 }

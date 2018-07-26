@@ -21,14 +21,12 @@ import com.alibaba.fastjson.JSON;
  */
 @Entity
 @Table(name = "sys_info", indexes={@Index(name="title_index", columnList="title")}, schema = "springdemo", catalog = "")
-public class SystemInfoEntity implements Serializable {
+public class SystemInfoEntity extends BaseEntity<Integer> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6984553767438778711L;
-
-	private int id;
 
 	/* varchar */
 	private String title;
@@ -149,11 +147,6 @@ public class SystemInfoEntity implements Serializable {
 		result = 31 * result + (content != null ? content.hashCode() : 0);
 		result = 31 * result + (pubDate != null ? pubDate.hashCode() : 0);
 		return result;
-	}
-
-	@Override
-	public String toString() {
-		return JSON.toJSONString(this);
 	}
 
 }

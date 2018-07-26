@@ -9,6 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.goebuy.entity.UserEntity;
 
+/**
+ * 索引参数与命名参数 
+ * @author Administrator
+ *
+ */
 @Repository
 public interface UserService extends JpaRepository<UserEntity, Integer> {
 
@@ -20,6 +25,11 @@ public interface UserService extends JpaRepository<UserEntity, Integer> {
     public void updateUser(@Param("qNickname") String nickname, @Param("qFirstName") String firstName,
                            @Param("qLastName") String qLastName, @Param("qPassword") String password, @Param("qId") Integer id);
 
+    
+//    @Modifying 
+//    @Transactional  // 说明该方法是事务性操作
+//    @Query("update User u set u.firstname = ?1 where u.lastname = ?2") 
+//    int setFixedFirstnameFor(String firstname, String lastname); 
 
 //    @Modifying      // 说明该方法是修改操作
 //    @Transactional  // 说明该方法是事务性操作

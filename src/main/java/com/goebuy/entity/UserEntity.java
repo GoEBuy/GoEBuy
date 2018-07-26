@@ -17,11 +17,10 @@ import com.alibaba.fastjson.JSON;
 
 @Entity
 @Table(name = "user", schema = "springdemo", indexes={@Index(name="name_Index", columnList="nickname")}, catalog = "")
-public class UserEntity implements Serializable{
+public class UserEntity extends BaseEntity<Integer> {
 	
 	private static final long serialVersionUID = -752197205289331832L;
 	
-	private int id;
     private String nickname;
     private String password;
     private String firstName;
@@ -130,10 +129,5 @@ public class UserEntity implements Serializable{
         this.blogsById = blogsById;
     }
     
-    
-    @Override
-    public String toString() {
-    	return JSON.toJSONString(this);
-    }
     
 }

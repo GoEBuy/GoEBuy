@@ -15,19 +15,13 @@ import com.alibaba.fastjson.JSON;
 	
 	@Entity
 	@Table(name = "sys_systemlog",indexes={@Index(name="operationType_index", columnList="operationType")}, schema = "springdemo", catalog = "")
-	public class SystemLogEntity implements Serializable {
+	public class SystemLogEntity extends BaseEntity<Integer> {
 		
 		
 	    /**
 		 * 
 		 */
 		private static final long serialVersionUID = 6145492426257474772L;
-	
-		/**
-		 * 
-		 */
-	
-		private int id;
 	
 		private String loginName;
 		
@@ -214,11 +208,6 @@ import com.alibaba.fastjson.JSON;
 
 		public SystemLogEntity() {
 		}
-	    
-		@Override
-	    public String toString() {
-	    	return JSON.toJSONString(this);
-	    }
 	    
 	    
 	}

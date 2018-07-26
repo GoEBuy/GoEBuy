@@ -1,25 +1,29 @@
 package com.goebuy.entity;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.alibaba.fastjson.JSON;
-
-import javax.persistence.*;
-
-import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "blog", schema = "springdemo", catalog = "")
-public class BlogEntity implements Serializable{
+public class BlogEntity extends BaseEntity<Integer> {
 	
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = -918558215156348481L;
 	
-	
-	private int id;
 	/* varchar */
     private String title;
     
@@ -114,10 +118,10 @@ public class BlogEntity implements Serializable{
         this.userByUserId = userByUserId;
     }
     
-    @Override
-    public String toString() {
-    	return JSON.toJSONString(this);
-    }
+//    @Override
+//    public String toString() {
+//    	return JSON.toJSONString(this);
+//    }
     
     
 }
