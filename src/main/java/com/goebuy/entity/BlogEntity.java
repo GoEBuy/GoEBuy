@@ -6,9 +6,6 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -38,16 +35,6 @@ public class BlogEntity extends BaseEntity<Integer> {
      */
     private UserEntity userByUserId;
 
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "title", nullable = false, length = 100)
@@ -117,11 +104,5 @@ public class BlogEntity extends BaseEntity<Integer> {
     public void setUserByUserId(UserEntity userByUserId) {
         this.userByUserId = userByUserId;
     }
-    
-//    @Override
-//    public String toString() {
-//    	return JSON.toJSONString(this);
-//    }
-    
     
 }

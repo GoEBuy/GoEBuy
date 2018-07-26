@@ -1,17 +1,12 @@
 package com.goebuy.entity;
 
-import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import com.alibaba.fastjson.JSON;
 
 /**
  * 系统通知信息
@@ -47,17 +42,6 @@ public class SystemInfoEntity extends BaseEntity<Integer> {
 	 * 简述
 	 */
 	private String desc;
-
-	@Id
-	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	@Basic
 	@Column(name = "title", nullable = false, length = 100)

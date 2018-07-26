@@ -1,19 +1,14 @@
 package com.goebuy.entity;
 
-import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import com.alibaba.fastjson.JSON;
 
 @Entity
 @Table(name = "user", schema = "springdemo", indexes={@Index(name="name_Index", columnList="nickname")}, catalog = "")
@@ -32,22 +27,6 @@ public class UserEntity extends BaseEntity<Integer> {
      */
     private Collection<BlogEntity> blogsById;
 
-    /**
-     * 主键id自增长
-     * @return
-     *  @GenericGenerator(name = "generator", strategy = "native")
-    * @GeneratedValue(generator = "generator")
-     */
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "nickname", nullable = false, length = 45)

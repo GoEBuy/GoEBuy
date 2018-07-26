@@ -42,17 +42,6 @@ public class UserSysInfoEntity extends BaseEntity<Integer> {
 	 */
 	private String time;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public UserEntity getUser() {
 		return user;
