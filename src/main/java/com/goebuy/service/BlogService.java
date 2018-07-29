@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.goebuy.entity.BlogEntity;
 
+@Repository
 public interface BlogService extends JpaRepository<BlogEntity, Integer> {
 	
     // 修改博文操作

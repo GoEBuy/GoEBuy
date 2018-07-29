@@ -5,7 +5,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-
+/**
+ * 
+ * @author Administrator
+ *
+ */
 @Entity
 @Table(name = "auth_role", schema = "springdemo", catalog = "")
 public class Role extends BaseEntity<Integer>{
@@ -16,8 +20,11 @@ public class Role extends BaseEntity<Integer>{
 	private static final long serialVersionUID = -6432523097687057907L;
 	
 	private String role;
-	private String desc;
+	private String description;
 	
+	public Role() {
+		super();
+	}
 	
 	public Role(String role) {
 		super();
@@ -35,13 +42,13 @@ public class Role extends BaseEntity<Integer>{
 	}
 	
 	@Basic
-	@Column(name = "desc", nullable = true, length = 45)
-	public String getDesc() {
-		return desc;
+	@Column(name = "description", nullable = true, length = 45)
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDesc(String desc) {
-		this.desc = desc;
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	
 	

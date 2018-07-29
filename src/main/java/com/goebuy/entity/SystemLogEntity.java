@@ -183,7 +183,7 @@ import javax.persistence.Table;
 			this.loginName = loginName;
 			this.description = description;
 			this.method = method;
-			this.logType = logType;
+			this.logType = logType;		
 			this.resultMsg = resultMsg;
 			this.createDate = createDate;
 		}

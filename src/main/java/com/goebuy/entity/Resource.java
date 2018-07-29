@@ -18,6 +18,10 @@ public class Resource extends BaseEntity<Integer> {
     private String resource;
     
     private String desc;
+    
+    public Resource() {
+    	super();
+    }
 
 	public Resource(String resource) {
 		super();
@@ -35,7 +39,7 @@ public class Resource extends BaseEntity<Integer> {
 	}
 	
 	@Basic
-	@Column(name = "desc", nullable = true, length = 45)
+	@Column(name = "description", nullable = true, length = 45)
 	public String getDesc() {
 		return desc;
 	}

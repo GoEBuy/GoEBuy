@@ -19,8 +19,8 @@ import junit.framework.TestCase;
 @ContextConfiguration({ "classpath:mvc-dispatcher-servlet.xml" })
 public class UserTest extends TestCase {
 
-	 @Autowired
-	 ApplicationContext ctx;
+//	 @Autowired
+//	 ApplicationContext ctx;
 
 //	    protected Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -56,6 +56,48 @@ public class UserTest extends TestCase {
 		System.out.println("hello");
 		if (userService == null) {
 			System.out.println("userService is null");
+		}else {
+			UserEntity u =new UserEntity();
+			u.setNickname("addyyy2");
+			u.setPassword("yyy2");
+			userService.saveAndFlush( u);
 		}
+//		EntityManagerFactory factory=Persistence.createEntityManagerFactory("entityManagerFactory");
+//		EntityManager em=factory.createEntityManager();
+//		UserEntity u =new UserEntity();
+//		u.setNickname("addyyy1");
+//		u.setPassword("yyy1");
+//		em.getTransaction().begin();//开始事物
+//		    //Session.save()-->Persist();
+//		em.persist(u); //持久化到数据库.persist:持久化
+//		em.getTransaction().commit();
+//		em.close();
+//		factory.close();
+		
 	}
+	
+//	@Test
+//	public void testUserDelete() {
+//		if (userService == null) {
+//			System.out.println("userService is null");
+//		}else {
+//			userService.findOne(new Exam)
+//			UserEntity u =new UserEntity();
+//			u.setNickname("addyyy2");
+//			u.setPassword("yyy2");
+//			userService.saveAndFlush( u);
+//		}
+//		EntityManagerFactory factory=Persistence.createEntityManagerFactory("entityManagerFactory");
+//		EntityManager em=factory.createEntityManager();
+//		UserEntity u =new UserEntity();
+//		u.setNickname("addyyy1");
+//		u.setPassword("yyy1");
+//		em.getTransaction().begin();//开始事物
+//		    //Session.save()-->Persist();
+//		em.persist(u); //持久化到数据库.persist:持久化
+//		em.getTransaction().commit();
+//		em.close();
+//		factory.close();
+//	}
+	
 }

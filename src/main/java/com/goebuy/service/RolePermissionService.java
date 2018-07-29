@@ -1,9 +1,11 @@
 package com.goebuy.service;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import com.goebuy.entity.RolePermission;
 
+@Repository
 public interface RolePermissionService extends JpaRepository<RolePermission, Integer> {
 	
 //    // 修改博文操作

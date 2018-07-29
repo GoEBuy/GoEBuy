@@ -20,6 +20,10 @@ public class Operation extends BaseEntity<Integer> {
 	private String desc;
 
 	
+	public Operation() {
+    	super();
+    }
+
 	
 	public Operation(String operation) {
 		super();
@@ -37,7 +41,7 @@ public class Operation extends BaseEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "desc", nullable = true, length = 45)
+	@Column(name = "description", nullable = true, length = 45)
 	public String getDesc() {
 		return desc;
 	}

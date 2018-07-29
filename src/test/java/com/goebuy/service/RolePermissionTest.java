@@ -10,6 +10,8 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.goebuy.entity.Permission;
+import com.goebuy.entity.Role;
 import com.goebuy.entity.RolePermission;
 
 import junit.framework.TestCase;
@@ -19,22 +21,48 @@ import junit.framework.TestCase;
 @ContextConfiguration({ "classpath:mvc-dispatcher-servlet.xml" })
 public class RolePermissionTest extends TestCase {
 
-	 @Autowired
-	 ApplicationContext ctx;
+//	 @Autowired
+//	 ApplicationContext ctx;
 
 //	    protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
 	RolePermissionService rolePermissionService;
 	
-	
+	@Autowired
+	RoleService roleService;
 
+	@Autowired
+	PermissionService permissionService;
+	
 	@Before
 	public void init() {
 		System.out.println("init");
 		if(rolePermissionService==null) {
 			throw new RuntimeException("rolePermissionService is null");
 		}
+		
+		Role r1 = new Role("staff");
+		Role r2 = new Role("admin");
+		Role r3 = new Role("superadmin");
+		roleService.save(r1);
+		roleService.save(r2);
+		roleService.save(r3);
+		
+		roleService.flush();
+		
+		Permission p1 = new Permission("add");
+		Permission p2 = new Permission("update");
+		Permission p3 = new Permission("delete");
+		Permission p4 = new Permission("query");
+		Permission p5 = new Permission("list");
+		permissionService.save(p1);
+		permissionService.save(p2);
+		permissionService.save(p3);
+		permissionService.save(p4);
+		permissionService.save(p5);
+		permissionService.flush();
+		
 	}
 	
 	@Test
@@ -56,9 +84,13 @@ public class RolePermissionTest extends TestCase {
 
 	@Test
 	public void testAdd() {
-//		System.out.println("hello");
-//		if (userService == null) {
-//			System.out.println("userService is null");
-//		}
+		System.out.println("hello");
+		if (rolePermissionService == null) {
+			System.out.println("rolePermissionService is null");
+		}
+		Role r1 = roleService.findOne(1);
+		Permission p1 = permissionService.findOne(1);
+		rolePermissionService.save(new RolePermission(r1, p1));
+		
 	}
 }

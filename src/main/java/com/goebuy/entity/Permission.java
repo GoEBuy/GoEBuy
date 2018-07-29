@@ -16,7 +16,9 @@ public class Permission extends BaseEntity<Integer> {
 	
 	private String desc;
 
-	
+	public Permission() {
+		super();
+	}
 	public Permission(String permission) {
 		super();
 		this.permission = permission;
@@ -33,7 +35,7 @@ public class Permission extends BaseEntity<Integer> {
 	}
 	
 	@Basic
-	@Column(name = "desc", nullable = true, length = 45)
+	@Column(name = "description", nullable = true, length = 45)
 	public String getDesc() {
 		return desc;
 	}

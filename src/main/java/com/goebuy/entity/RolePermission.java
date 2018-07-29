@@ -20,6 +20,9 @@ public class RolePermission extends BaseEntity<Integer>{
 	 */
 	private static final long serialVersionUID = -6432523097687057907L;
 	
+//	private String role;
+//	private String permission;
+	
 	private Role role;
 	private Permission permission;
 	
@@ -28,6 +31,13 @@ public class RolePermission extends BaseEntity<Integer>{
 		super();
 		this.role = role;
 	}
+	
+	public RolePermission(Role role, Permission permission) {
+		super();
+		this.role = role;
+		this.permission = permission;
+	}
+
 
 	@OneToOne(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
 	public Role getRole() {
