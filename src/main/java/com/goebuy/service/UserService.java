@@ -1,5 +1,7 @@
 package com.goebuy.service;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -25,6 +27,10 @@ public interface UserService extends JpaRepository<UserEntity, Integer> {
     public void updateUser(@Param("qNickname") String nickname, @Param("qFirstName") String firstName,
                            @Param("qLastName") String qLastName, @Param("qPassword") String password, @Param("qId") Integer id);
 
+    
+    @Query(value = "select b from UserEntity b where b.nickname like %:name%")
+    List<UserEntity> findByNameMatch(@Param("name") String name);
+    
     
 //    @Modifying 
 //    @Transactional  // 说明该方法是事务性操作

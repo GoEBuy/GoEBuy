@@ -84,13 +84,13 @@ public class RolePermissionTest extends TestCase {
 
 	@Test
 	public void testAdd() {
-		System.out.println("hello");
-		if (rolePermissionService == null) {
-			System.out.println("rolePermissionService is null");
-		}
-		Role r1 = roleService.findOne(1);
-		Permission p1 = permissionService.findOne(1);
-		rolePermissionService.save(new RolePermission(r1, p1));
+//		System.out.println("hello");
+//		if (rolePermissionService == null) {
+//			System.out.println("rolePermissionService is null");
+//		}
+//		Role r1 = roleService.findOne(1);
+//		Permission p1 = permissionService.findOne(1);
+//		rolePermissionService.save(new RolePermission(r1, p1));
 		
 	}
 }

@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -75,6 +74,20 @@ public class UserTest extends TestCase {
 //		factory.close();
 		
 	}
+	
+	@Test 
+	public void testUserFind() {
+		System.out.println("testUserFind");
+	List<UserEntity> userList = 	userService.findByNameMatch("yyy");
+	if(userList !=null) {
+		for(UserEntity u : userList) {
+			System.out.println(u);
+		}
+	}else {
+		System.out.println("userlist is null");
+	}
+	}
+	
 	
 //	@Test
 //	public void testUserDelete() {
