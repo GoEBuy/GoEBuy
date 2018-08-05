@@ -1,41 +1,46 @@
 package com.goebuy.service;
 
-import javax.annotation.Resource;
-
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.goebuy.controller.MainController;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import junit.framework.TestCase;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:mvc-dispatcher-servlet.xml" })
-@Transactional
 //@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
+//@RunWith(SpringJUnit4ClassRunner.class)
+@RunWith(SpringRunner.class)
+@ContextConfiguration({"classpath:mvc-dispatcher-servlet.xml"})
 public class BaseTest1 extends TestCase {
-	@Autowired 
-	ApplicationContext ctx;
 
-    protected Logger logger = LoggerFactory.getLogger(getClass());
-
+//    @Autowired
+//    ApplicationContext ctx;
 //
-//public class BaseTest1 extends BaseTest {
-	@Resource(name = "postService")
-	private MainController postService;
+//    protected Logger logger = LoggerFactory.getLogger(getClass());
+//
+//    @Resource(name = "UserService")
+    @Autowired
+    UserService userService;
 
- @Test
-	public void testQuery2LevelPostType() {
-	 System.out.println("hello");
+    @Before
+    public void init() {
+        System.out.println("init");
+    }
+
+    @Test
+    public void testUserAdd() {
+        System.out.println("hello");
+        if(userService == null) {
+            System.out.println("userService is null" );
+        }
+//	 long count =userService.count();
+//	 System.out.println(String.valueOf(count));
+//	 userService.deleteUser(userId)
 //	 	postService.getUsers();
 //		Map<Integer,Object> map= postService.query2LevelPostType();
 //		System.out.println("data size:" + map.size());
-	}
+    }
 }
