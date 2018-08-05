@@ -30,6 +30,12 @@ public class Role extends BaseEntity<Integer>{
 		super();
 		this.role = role;
 	}
+	
+	public Role(String role, String desc) {
+		super();
+		this.role = role;
+		this.description = desc;
+	}
 
 	@Basic
 	@Column(name = "role", unique=true, nullable = false, length = 45)

@@ -27,8 +27,8 @@ public interface RolePermissionService extends JpaRepository<RolePermission, Int
 	 */
 	@Modifying
 	@Transactional
-	@Query(value = "insert into RolePermission(role_id,permission_id ) values(:qRoleId, :qPermissionId) ", nativeQuery = true)
-	void addRolePermission(@Param("qRoleId") String roleId, @Param("qPermissionId") int permissionId);
+	@Query(value = "insert into auth_rolepermission(role_id, permission_id ) values(:qRoleId, :qPermissionId)", nativeQuery = true)
+	void addRolePermission(@Param("qRoleId") int roleId, @Param("qPermissionId") int permissionId);
     
 
 }

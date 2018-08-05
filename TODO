@@ -2,8 +2,13 @@
 *add properties
 *database
 *syslog
-*login control
-*session control
+*login control, permission control
+*session control 会话跟踪
+*基于角色的权限管理系统
+*增加日志埋点
+*模板系统
+*后台管理系统
+
 
 
 <!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

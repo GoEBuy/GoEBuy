@@ -1,5 +1,6 @@
 package com.goebuy.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -86,6 +87,17 @@ public class UserTest extends TestCase {
 	}else {
 		System.out.println("userlist is null");
 	}
+	}
+	
+	
+	@Test//通过id列表来查询
+	public void testFindUserByIds(){
+		List<Integer> listIds = new ArrayList<Integer>();
+		listIds.add(2);
+		listIds.add(4);
+		listIds.add(7);
+		List<UserEntity> users  = userService.findAll(listIds);
+//		System.out.println(JSON.toJSONString(users));
 	}
 	
 	

@@ -1,16 +1,16 @@
 package com.goebuy.service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import java.util.List;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.goebuy.entity.Role;
 
 import junit.framework.TestCase;
 
@@ -48,26 +48,44 @@ public class RoleTest extends TestCase {
 	
 	@Test
 	public void testCount() {
-//		System.out.println("role count: " + roleService.count());
+		System.out.println("role count: " + roleService.count());
 	}
 	
 	@Test
 	public void testListAll() {
-//		List<Role> users =roleService.findAll();
-//		if(users!=null) {
-//			for(Role userEntity : users ) {
-//				System.out.println("Role: " + userEntity );
-//			}
-//		}else {
-//			System.out.println("Roles is null");
-//		}
+		List<Role> roleList =roleService.findAll();
+		if(roleList!=null) {
+			for(Role r : roleList ) {
+				System.out.println("Role: " + r );
+			}
+		}else {
+			System.out.println("Roles is null");
+		}
 	}
 
+	@Ignore
 	@Test
-	public void testUserAdd() {
-//		System.out.println("hello");
-//		if (roleService == null) {
-//			System.out.println("roleService is null");
-//		}
+	public void testFind() {
+		System.out.println("testFind");
+		List<Role> roleList = roleService.findByRoleNameMatch("adm");
+		if (roleList!=null) {
+			for(Role r: roleList) {
+				System.out.println(r);
+			}
+		}
+				
+	}
+	
+	@Ignore
+	@Test
+	public void testAdd() {
+		System.out.println("testAdd");
+		if (roleService == null) {
+			System.out.println("roleService is null");
+		}else {
+			if(roleService.findByRoleNameMatch("normal")==null) {
+				roleService.save(new Role("normal", "normal"));
+			}
+		}
 	}
 }
