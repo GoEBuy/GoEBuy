@@ -15,6 +15,7 @@ maven repository:    http://mvnrepository.com/
 ### 前端：
 * js
 * bootstrap
+* vue/react
 
 
 Better use the newest version of IntelliJ IDEA/eclipse, JDK 1.8_x, and Tomcat 8.x.

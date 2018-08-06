@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.goebuy.biz.RoleBiz;
 import com.goebuy.entity.Role;
 
 import junit.framework.TestCase;
@@ -25,7 +26,7 @@ public class RoleTest extends TestCase {
 //	    protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	RoleService roleService;
+	RoleBiz biz;
 	
 
 	@Before
@@ -39,21 +40,22 @@ public class RoleTest extends TestCase {
 //		em.close();
 //		factory.close();
 		System.out.println("init");
-		if(roleService==null) {
-			System.out.println("roleService is null");
+		assertNotNull(biz);
+		if(biz==null) {
+			System.out.println("biz is null");
 		}else {
-			System.out.println(roleService);
+			System.out.println(biz);
 		}
 	}
 	
 	@Test
 	public void testCount() {
-		System.out.println("role count: " + roleService.count());
+		System.out.println("role count: " + biz.count());
 	}
 	
 	@Test
 	public void testListAll() {
-		List<Role> roleList =roleService.findAll();
+		List<Role> roleList =biz.findAll();
 		if(roleList!=null) {
 			for(Role r : roleList ) {
 				System.out.println("Role: " + r );
@@ -67,7 +69,7 @@ public class RoleTest extends TestCase {
 	@Test
 	public void testFind() {
 		System.out.println("testFind");
-		List<Role> roleList = roleService.findByRoleNameMatch("adm");
+		List<Role> roleList = biz.findByNameMatch("adm");
 		if (roleList!=null) {
 			for(Role r: roleList) {
 				System.out.println(r);
@@ -80,11 +82,13 @@ public class RoleTest extends TestCase {
 	@Test
 	public void testAdd() {
 		System.out.println("testAdd");
-		if (roleService == null) {
+		if (biz == null) {
 			System.out.println("roleService is null");
 		}else {
-			if(roleService.findByRoleNameMatch("normal")==null) {
-				roleService.save(new Role("normal", "normal"));
+			if(biz.findByName("normal")==null) {
+				biz.save(new Role("normal", "normal"));
+			}else {
+				System.out.println("exist");
 			}
 		}
 	}

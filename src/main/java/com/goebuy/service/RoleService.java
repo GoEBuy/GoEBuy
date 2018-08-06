@@ -23,6 +23,10 @@ public interface RoleService extends JpaRepository<Role, Integer> {
     void updateRole(@Param("qRole") String rolename, @Param("qDesc") String desc, @Param("qId") int id);
 
     
+//    @Modifying
+//    @Query("update Role sc set sc.deleted = true where sc.id in :ids")
+//    public void deleteByIds(@Param(value = "ids") List<String> ids);
+    
     @Query(value = "select b from Role b where b.role like %:rolename%")
     List<Role> findByRoleNameMatch(@Param("rolename") String rolename);
     
