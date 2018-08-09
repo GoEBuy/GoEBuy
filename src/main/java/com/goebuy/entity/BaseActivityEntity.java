@@ -4,12 +4,8 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
-
-import org.hibernate.annotations.GenericGenerator;
 
 import com.alibaba.fastjson.JSON;
 
@@ -21,9 +17,8 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T>{
 	 */
 	private static final long serialVersionUID = 7207739713485965568L;
 
-	protected T id;
-	
-	protected UserEntity user;
+	/** 创建人 */
+	protected UserEntity creator;
 	
 	protected String create_time;
 	
@@ -63,36 +58,16 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T>{
 	/**活动二维码图片 */
 	protected String qrcode;
 	
-	
-	
 //	private int version;
 
 
-	/**
-	 * 主键id自增长
-	 * 
-	 * @return
-	 */
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Id
-	@Column(name = "id", nullable = false)
-	@GenericGenerator(name = "generator", strategy = "native")
-	@GeneratedValue(generator = "generator")
-	public T getId() {
-		return id;
-	}
-
-	public void setId(T id) {
-		this.id = id;
-	}
-
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public UserEntity getUser() {
-		return user;
+	public UserEntity getCreator() {
+		return creator;
 	}
 
-	public void setUser(UserEntity user) {
-		this.user = user;
+	public void setCreator(UserEntity user) {
+		this.creator = user;
 	}
 	
 	@Basic

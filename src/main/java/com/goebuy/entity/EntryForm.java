@@ -3,6 +3,7 @@ package com.goebuy.entity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
@@ -11,7 +12,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "entryform", schema = "springdemo",  catalog = "")
+@Table(name = "entryform",indexes={@Index(name="index_name", columnList="name")},  schema = "springdemo",  catalog = "")
 public class EntryForm extends BaseActivityEntity<Integer>{
 
 	/**
@@ -27,6 +28,7 @@ public class EntryForm extends BaseActivityEntity<Integer>{
 	
 	/**余票显示 */
 	private boolean show_leftticket;
+	
 	/**人数限制 默认不限制 -1*/
 	private int maxCnt=-1;
 	

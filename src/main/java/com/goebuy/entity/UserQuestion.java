@@ -84,8 +84,8 @@ public class UserQuestion extends BaseEntity<Integer>{
 	public void setField_set(String field_set) {
 		this.field_set = field_set;
 	}
-	@Basic
-	@Column(name = "creator", nullable = true)
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public UserEntity getCreator() {
 		return creator;
 	}

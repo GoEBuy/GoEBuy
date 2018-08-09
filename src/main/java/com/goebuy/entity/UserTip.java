@@ -42,8 +42,8 @@ public class UserTip extends BaseEntity<Integer> {
 	public UserEntity getUser() {
 		return user;
 	}
-	public void setUser(UserEntity userEntity) {
-		this.user = userEntity;
+	public void setUser(UserEntity user) {
+		this.user = user;
 	}
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

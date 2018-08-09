@@ -14,7 +14,7 @@ import javax.persistence.Table;
  * @author Administrator
  */
 @Entity
-@Table(name = "tag", indexes={@Index(name="name_Index", columnList="nickname")}, schema = "springdemo",  catalog = "")
+@Table(name = "tag", indexes={@Index(name="index_name", columnList="name")}, schema = "springdemo",  catalog = "")
 public class Tag extends BaseEntity<Integer>{
 	
 	/**标签名称 */
