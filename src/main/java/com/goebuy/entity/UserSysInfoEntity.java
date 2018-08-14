@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -22,15 +23,13 @@ import com.alibaba.fastjson.JSON;
  *
  */
 @Entity
-@Table(name = "user_sysinfo", schema = "springdemo", catalog = "")
-public class UserSysInfoEntity implements Serializable {
+@Table(name = "user_sysinfo", indexes={@Index(name="user_Index", columnList="user_id")} , schema = "springdemo", catalog = "")
+public class UserSysInfoEntity extends BaseEntity<Integer> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4333026409014680730L;
-
-	private int id;
 
 	private UserEntity user;
 
@@ -42,17 +41,6 @@ public class UserSysInfoEntity implements Serializable {
 	 * 最近一次讀取時間
 	 */
 	private String time;
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public UserEntity getUser() {
@@ -90,11 +78,6 @@ public class UserSysInfoEntity implements Serializable {
 
 	public void setTime(String time) {
 		this.time = time;
-	}
-
-	@Override
-	public String toString() {
-		return JSON.toJSONString(this);
 	}
 
 }

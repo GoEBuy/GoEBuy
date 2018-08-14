@@ -1,0 +1,13 @@
+# TODO
+* add properties done
+* database
+* syslog
+* login control, permission control
+* session control 会话跟踪
+* 基于角色的权限管理系统
+* 增加日志埋点
+* 模板系统
+* 后台管理系统
+* 发送邮件功能  done
+
+

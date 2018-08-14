@@ -1,16 +1,12 @@
 package com.goebuy.entity;
 
-import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import com.alibaba.fastjson.JSON;
 
 /**
  * 系统通知信息
@@ -19,15 +15,13 @@ import com.alibaba.fastjson.JSON;
  *
  */
 @Entity
-@Table(name = "sys_info", schema = "springdemo", catalog = "")
-public class SystemInfoEntity implements Serializable {
+@Table(name = "sys_info", indexes={@Index(name="title_index", columnList="title")}, schema = "springdemo", catalog = "")
+public class SystemInfoEntity extends BaseEntity<Integer> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 6984553767438778711L;
-
-	private int id;
 
 	/* varchar */
 	private String title;
@@ -48,17 +42,6 @@ public class SystemInfoEntity implements Serializable {
 	 * 简述
 	 */
 	private String desc;
-
-	@Id
-	@Column(name = "id", nullable = false)
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	@Basic
 	@Column(name = "title", nullable = false, length = 100)
@@ -81,7 +64,7 @@ public class SystemInfoEntity implements Serializable {
 	}
 
 	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false)
+	@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
 	public UserEntity getUserByUserId() {
 		return userByUserId;
 	}
@@ -148,11 +131,6 @@ public class SystemInfoEntity implements Serializable {
 		result = 31 * result + (content != null ? content.hashCode() : 0);
 		result = 31 * result + (pubDate != null ? pubDate.hashCode() : 0);
 		return result;
-	}
-
-	@Override
-	public String toString() {
-		return JSON.toJSONString(this);
 	}
 
 }

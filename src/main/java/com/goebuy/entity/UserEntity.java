@@ -1,27 +1,22 @@
 package com.goebuy.entity;
 
-import java.io.Serializable;
 import java.util.Collection;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.alibaba.fastjson.JSON;
-
 @Entity
 @Table(name = "user", schema = "springdemo", indexes={@Index(name="name_Index", columnList="nickname")}, catalog = "")
-public class UserEntity implements Serializable{
+public class UserEntity extends BaseEntity<Integer> {
 	
 	private static final long serialVersionUID = -752197205289331832L;
 	
-	private int id;
     private String nickname;
     private String password;
     private String firstName;
@@ -33,20 +28,6 @@ public class UserEntity implements Serializable{
      */
     private Collection<BlogEntity> blogsById;
 
-    /**
-     * 主键id自增长
-     * @return
-     */
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "nickname", nullable = false, length = 45)
@@ -116,9 +97,10 @@ public class UserEntity implements Serializable{
 
     /**
      * 一对多： 一个one对应多个many，首先在一端添加, mappedBy = "one" 表示one是一对多管理的被维护端， 既当添加many时顺带添加一个one
+     *Hibernate Annotation的默认的FetchType在ManyToOne是EAGER的,在OneToMany上默认的是LAZY
      * @return  fetch=FetchType.LAZY, 
      */
-    @OneToMany(cascade=CascadeType.ALL, mappedBy = "userByUserId")
+    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER, mappedBy = "userByUserId")
     public Collection<BlogEntity> getBlogsById() {
         return blogsById;
     }
@@ -127,10 +109,5 @@ public class UserEntity implements Serializable{
         this.blogsById = blogsById;
     }
     
-    
-    @Override
-    public String toString() {
-    	return JSON.toJSONString(this);
-    }
     
 }

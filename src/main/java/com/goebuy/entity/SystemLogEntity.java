@@ -1,32 +1,20 @@
 	package com.goebuy.entity;
 	
-	import java.io.Serializable;
-
-import javax.persistence.Basic;
+	import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.Table;
-
-import com.alibaba.fastjson.JSON;
 	
 	@Entity
-	@Table(name = "sys_systemlog", schema = "springdemo", catalog = "")
-	public class SystemLogEntity implements Serializable {
+	@Table(name = "sys_systemlog",indexes={@Index(name="operationType_index", columnList="operationType")}, schema = "springdemo", catalog = "")
+	public class SystemLogEntity extends BaseEntity<Integer> {
 		
 		
 	    /**
 		 * 
 		 */
 		private static final long serialVersionUID = 6145492426257474772L;
-	
-		/**
-		 * 
-		 */
-	
-		private int id;
 	
 		private String loginName;
 		
@@ -55,17 +43,6 @@ import com.alibaba.fastjson.JSON;
 	
 	    private String createDate;
 	    
-	    @Id
-	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-	    @Column(name = "id", nullable = false)
-	    public int getId() {
-	        return id;
-	    }
-	
-	    public void setId(int id) {
-	        this.id = id ;
-	    }
-	
 	    @Basic
 	    @Column(name = "description", nullable = true	, length = 50)
 	    public String getDescription() {
@@ -206,18 +183,14 @@ import com.alibaba.fastjson.JSON;
 			this.loginName = loginName;
 			this.description = description;
 			this.method = method;
-			this.logType = logType;
+			this.logType = logType;		
 			this.resultMsg = resultMsg;
 			this.createDate = createDate;
 		}
 
 		public SystemLogEntity() {
+			super();
 		}
-	    
-		@Override
-	    public String toString() {
-	    	return JSON.toJSONString(this);
-	    }
 	    
 	    
 	}
