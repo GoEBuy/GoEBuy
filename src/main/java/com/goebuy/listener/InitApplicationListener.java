@@ -10,7 +10,8 @@ import javax.servlet.ServletContextListener;
 
 import org.springframework.web.context.ContextLoader;
 
-//import com.huiget.mall.common.util.ApplicationContextUtil;
+import com.goebuy.utils.ApplicationContextUtil;
+
 
 public class InitApplicationListener extends ContextLoader implements ServletContextListener {
 
