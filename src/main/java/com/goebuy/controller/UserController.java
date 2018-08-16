@@ -150,8 +150,7 @@ public class UserController {
 
 		// 数据库中添加一个用户，该步暂时不会刷新缓存
 		// userRepository.save(user);
-		System.out.println(user.getFirstName());
-		System.out.println(user.getLastName());
+		System.out.println(user.getName());
 
 		// 数据库中添加一个用户，并立即刷新缓存
 		userRepository.saveAndFlush(user);
@@ -197,7 +196,7 @@ public class UserController {
 	@RequestMapping(value = "/admin/users/updateP", method = RequestMethod.POST)
 	@SystemLog(operationType = "update", operationName = "user")
 	public String updateUserPost(HttpServletRequest request, @ModelAttribute("user") User user) {
-		userRepository.updateUser(user.getNickname(), user.getFirstName(), user.getLastName(), user.getPassword(),
+		userRepository.updateUser(user.getName(), user.getName(), user.getName(), user.getName(),
 				user.getId());
 		userRepository.flush(); // 刷新缓冲区
 		return "redirect:/admin/users";

@@ -104,7 +104,7 @@ public class BlogController {
         // 打印博客标题
         System.out.println(blogEntity.getTitle());
         // 打印博客作者
-        System.out.println(blogEntity.getUserByUserId().getNickname());
+        System.out.println(blogEntity.getUserByUserId().getName());
         // 存库
         blogRepository.saveAndFlush(blogEntity);
         // 重定向地址

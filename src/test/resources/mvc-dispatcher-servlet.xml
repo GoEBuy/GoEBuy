@@ -73,7 +73,7 @@
 
 
 	<bean id="mailsender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.tju.edu.cn"></property>
+		<property name="host" value="${mail.host}"></property>
 		<property name="port" value="25"></property>
 		<property name="username"  value="${mail.username}"></property>
 		<property name="password"  value="${mail.password}" ></property>
@@ -118,9 +118,6 @@
 			<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
 			</bean>
 		</property>
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
-			<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" /> 
-			</bean>		</property>
 
 		<property name="jpaProperties">
 			<props>
@@ -195,11 +192,9 @@
         </tx:attributes>
     </tx:advice> -->
 
+
 	<!-- 开启事务管理注解 -->
-	  <tx:annotation-driven
-		transaction-manager="transactionManager"  />
-
-
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	 <!-- 启动对@AspectJ注解的支持 --> 
      <aop:aspectj-autoproxy proxy-target-class="true"/>

@@ -12,7 +12,7 @@
 	<dependencies>
 
 
-		<!--Apache：文件上传-
+		<!--Apache：文件上传-->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
 			<artifactId>commons-fileupload</artifactId>
@@ -146,11 +146,12 @@
 			<version>0.9.5.2</version>
 		</dependency>
 
-		<!--<dependency>-->
-			<!--<groupId>javax.servlet</groupId>-->
-			<!--<artifactId>jstl</artifactId>-->
-			<!--<version>1.2</version>-->
-		<!--</dependency>-->
+ 		<!--jstl -->     
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<version>1.2</version>
+		</dependency>
 
 		<!--JDBC驱动-->
 		<dependency>

@@ -4,9 +4,7 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import com.goebuy.entity.user.User;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -172,7 +170,7 @@ public class SystemLogAspect {
 			System.out.println("request is null");
 		}
 		if (user != null) {
-			loginName = user.getNickname();
+//			loginName = user.getNickname();
 		} else {
 			loginName = "anon";
 		}
