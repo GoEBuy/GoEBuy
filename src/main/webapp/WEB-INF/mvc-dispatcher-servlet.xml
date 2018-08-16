@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
+<<<<<<< HEAD
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
@@ -7,14 +8,12 @@
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-       http://www.springframework.org/schema/context htt.p://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
            http://www.springframework.org/schema/aop
      http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
-
-
 
 <description>Spring公共配置 </description>  
 
@@ -32,6 +31,19 @@
 	
 	<!-- 表示JPA Data Jpa配置 Repository所在的包 -->
 	<jpa:repositories base-package="com.goebuy.service" transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
+
+	<!--扫描配置文件(这里指向的是之前配置的那个config.properties)-->
+	<context:property-placeholder location="classpath:/db.properties, classpath:/config.properties" />
+	<!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="location" value="classpath:application.properties" />-->
+    <!--</bean>-->
+
+	<!-- 激活组件扫描功能,在包com.goebuy及其子包下面自动扫描通过注解配置的组件 -->
+	<context:component-scan base-package="com.goebuy" />
+
+	<!-- 表示JPA Repository所在的包 -->
+	<jpa:repositories base-package="com.goebuy.service" />
+
 
 	<!-- 静态资源(js、image等)的访问 -->
 	<mvc:default-servlet-handler />
@@ -79,9 +91,8 @@
 	<!--ViewResolver 视图解析器 -->
 	<!--用于支持Servlet、JSP视图解析 -->
 	<bean id="jspViewResolver"
-		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass"
-			value="org.springframework.web.servlet.view.JstlView" />
+		  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/pages/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
@@ -105,6 +116,19 @@
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" >
 			<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" /> 
 			</bean>
+
+	<!--这里是对静态资源的映射-->
+	<mvc:resources mapping="/js/**" location="classpath:/js/" />
+	<mvc:resources mapping="/css/**" location="classpath:/css/" />
+	<mvc:resources mapping="/img/**" location="classpath:/img/" />
+
+	<bean id="entityManagerFactory"
+		  class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName" value="defaultPersistenceUnit" />
+		<!-- <property name="packagesToScan" value="com.gaussic.model" /> -->
+		<property name="packagesToScan" value="com.goebuy.entity" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 		</property>
 		<property name="jpaProperties">
 			<props>
@@ -117,8 +141,8 @@
 				<prop key="hibernate.connection.password">root</prop>
 				<!-- <prop key="hibernate.show_sql">true</prop> -->
 				<prop key="hibernate.show_sql">false</prop>
-				<!--  一般情况下，会在项目启动的过程中，自动检查 注解的实体 和数据表，如果数据库不存在的表或者字段，会根据实体自动生成。--> 
-				<prop key="generateDdl" >true</prop>	
+				<!--  一般情况下，会在项目启动的过程中，自动检查 注解的实体 和数据表，如果数据库不存在的表或者字段，会根据实体自动生成。-->
+				<prop key="generateDdl" >true</prop>
 				<prop key="hibernate.connection.useUnicode">true</prop>
 				<prop key="hibernate.connection.characterEncoding">UTF-8</prop>
 				<prop key="hibernate.format_sql">true</prop>
@@ -156,6 +180,7 @@
 		<property name="resolveLazily" value="true"/>
 	</bean>
 
+
 	<!-- Jpa 事务管理 -->
 	<bean id="transactionManager"
 		class="org.springframework.orm.jpa.JpaTransactionManager">
@@ -190,5 +215,32 @@
      <!-- 切面  -->
   	<bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" />
 
+	<!-- 事务管理 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<!--事务通知-->
+	<!--   <tx:advice id="txAdvice" transaction-manager="transactionManager">
+          <tx:attributes>
+              事务传播，默认REQUIRED，这是一个具有事务的方法，没有则创建事务
+              事务隔离，默认DEFAULT，此设置是为了解决并发事务中，脏读、不可重复读外、幻读，性能会下降
+              <tx:method name="add*" isolation="SERIALIZABLE" propagation="REQUIRED"/>
+              <tx:method name="delete*"/>
+              <tx:method name="update*"/>
+              只读事务，只做查询，不修改数据的事务。JDBC驱动会进行优化
+              <tx:method name="find*" read-only="true"/>
+              <tx:method name="get*" read-only="true"/>
+              <tx:method name="*" read-only="true"/>
+          </tx:attributes>
+      </tx:advice> -->
+
+	<!-- 开启事务管理注解 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- 启动对@AspectJ注解的支持 -->
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	<!-- 切面  -->
+	<bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" />
 
 </beans>
