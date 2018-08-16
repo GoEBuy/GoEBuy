@@ -1,4 +1,7 @@
-package com.goebuy.entity;
+package com.goebuy.entity.event;
+
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.user.User;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -15,7 +18,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "message", schema = "springdemo",  catalog = "")
-public class Message extends BaseEntity<Integer>{
+public class Message extends BaseEntity<Integer> {
 	/**
 	 * 
 	 */
@@ -25,7 +28,7 @@ public class Message extends BaseEntity<Integer>{
 	/**
 	 * 创建人
 	 */
-	private UserEntity user;
+	private User user;
 	
 	/** 发送时间 */
 	private String create_time;
@@ -39,12 +42,12 @@ public class Message extends BaseEntity<Integer>{
 	private int to_count;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public UserEntity getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity userEntity) {
-		this.user = userEntity;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Basic

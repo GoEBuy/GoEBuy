@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.goebuy.entity.user.User;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -26,7 +27,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 
 import com.goebuy.annotation.SystemLog;
 import com.goebuy.entity.SystemLogEntity;
-import com.goebuy.entity.UserEntity;
 import com.goebuy.service.SysLogService;
 
 /**
@@ -54,7 +54,7 @@ public class SystemLogAspect {
 	private Map<String, Object> outputParamMap = null; // 存放输出结果
 	private long startTimeMillis = 0; // 开始时间
 	private long endTimeMillis = 0; // 结束时间
-	private UserEntity user = null; // 操作用户
+	private User user = null; // 操作用户
 	private HttpServletRequest request = null;
 
 	private String startTime = null, endTime = null;
@@ -166,7 +166,7 @@ public class SystemLogAspect {
 
 		if (request != null) {
 //			if (request.getSession() != null) {
-//				user = (UserEntity) request.getSession().getAttribute(SecurityConstant.CURRENT_LOGIN_USER);
+//				user = (User) request.getSession().getAttribute(SecurityConstant.CURRENT_LOGIN_USER);
 //			}
 		} else {
 			System.out.println("request is null");

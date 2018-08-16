@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.goebuy.entity.BlogEntity;
+import com.goebuy.entity.event.BlogEntity;
 
 @Repository
 public interface BlogService extends JpaRepository<BlogEntity, Integer> {

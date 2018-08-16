@@ -15,20 +15,21 @@
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
 
-<description>Spring公共配置 </description>  
+<description>Spring公共配置 </description>
+
 
 
   <!--扫描配置文件(这里指向的是之前配置的那个config.properties)-->
-     <context:property-placeholder location="classpath:/db.properties, classpath:/config.properties" /> 
+     <context:property-placeholder location="classpath:/db.properties, classpath:/config.properties" />
 
 <!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
     <property name="location" value="classpath:application.properties" />
 </bean> -->
-	
+
 	 <!-- 激活组件扫描功能,在包com.goebuy及其子包下面自动扫描通过注解配置的组件 -->
-	<context:component-scan base-package="com.goebuy" /> 
-		
-	
+	<context:component-scan base-package="com.goebuy" />
+
+
 	<!-- 表示JPA Data Jpa配置 Repository所在的包 -->
 	<jpa:repositories base-package="com.goebuy.service" transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
 	<!--扫描配置文件(这里指向的是之前配置的那个config.properties)-->
@@ -48,8 +49,8 @@
 
 	<!-- 开启注解 -->
 	<mvc:annotation-driven />
-	
-	
+
+
 	<!-- 拦截器 -->
 	<mvc:interceptors>
 		<!-- 多个拦截器,顺序执行 -->
@@ -64,12 +65,12 @@
 		<mvc:interceptor>
 			<mvc:mapping path="/**" />
 			<bean class="com.goebuy.interceptor.PermissionInterceptor" />
-			  <!--不进行拦截的路径-->   
+			  <!--不进行拦截的路径-->
         <!-- <mvc:exclude-mapping path="/lib/**" />  -->
-			
+
 		</mvc:interceptor>
 	</mvc:interceptors>
-	
+
 
 	<bean id="mailsender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.tju.edu.cn"></property>
@@ -95,7 +96,7 @@
 	</bean>
 
 
-<!-- JPA实体管理工厂的配置 -->  
+<!-- JPA实体管理工厂的配置 -->
 
  <!--这里是对静态资源的映射-->
 <!--     <mvc:resources mapping="/js/**" location="/resources/js/" />
@@ -112,9 +113,15 @@
 		<!-- <property name="packagesToScan" value="com.gaussic.model" /> -->
 		<property name="packagesToScan" value="com.goebuy.entity" />
 		<property name="jpaVendorAdapter">
+
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" >
+			<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+			</bean>
+		</property>
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
 			<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" /> 
 			</bean>		</property>
+
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
@@ -133,7 +140,7 @@
 				<prop key="hibernate.format_sql">false</prop>
 				<!-- <prop key="hibernate.format_sql">true</prop> -->
 				<prop key="hibernate.use_sql_comments">true</prop>
-			    <prop key="hibernate.hbm2ddl.auto">update</prop> 
+			    <prop key="hibernate.hbm2ddl.auto">update</prop>
 				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
 				<prop key="hibernate.connection.autoReconnect">true</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
@@ -190,7 +197,7 @@
 
 	<!-- 开启事务管理注解 -->
 	  <tx:annotation-driven
-		transaction-manager="transactionManager"  /> 
+		transaction-manager="transactionManager"  />
 
 
 

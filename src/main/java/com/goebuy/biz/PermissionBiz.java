@@ -8,7 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import com.goebuy.entity.Permission;
+import com.goebuy.entity.auth.Permission;
 import com.goebuy.service.PermissionService;
 
 @Service

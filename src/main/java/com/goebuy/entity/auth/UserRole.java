@@ -1,4 +1,7 @@
-package com.goebuy.entity;
+package com.goebuy.entity.auth;
+
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.user.User;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -22,17 +25,17 @@ public class UserRole extends BaseEntity<Integer> {
 	 */
 	private static final long serialVersionUID = 4333026409014680730L;
 
-	private UserEntity user;
+	private User user;
 
 	private Role role;
 
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public UserEntity getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

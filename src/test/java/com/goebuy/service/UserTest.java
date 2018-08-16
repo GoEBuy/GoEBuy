@@ -3,14 +3,13 @@ package com.goebuy.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.goebuy.entity.user.User;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import com.goebuy.entity.UserEntity;
 
 import junit.framework.TestCase;
 
@@ -41,10 +40,10 @@ public class UserTest extends TestCase {
 	
 	@Test
 	public void testListAll() {
-		List<UserEntity> users =userService.findAll();
+		List<User> users =userService.findAll();
 		if(users!=null) {
-			for(UserEntity userEntity : users ) {
-				System.out.println("user: " + userEntity );
+			for(User user : users ) {
+				System.out.println("user: " + user);
 			}
 		}else {
 			System.out.println("users is null");
@@ -57,14 +56,14 @@ public class UserTest extends TestCase {
 		if (userService == null) {
 			System.out.println("userService is null");
 		}else {
-			UserEntity u =new UserEntity();
+			User u =new User();
 			u.setNickname("addyyy2");
 			u.setPassword("yyy2");
 			userService.saveAndFlush( u);
 		}
 //		EntityManagerFactory factory=Persistence.createEntityManagerFactory("entityManagerFactory");
 //		EntityManager em=factory.createEntityManager();
-//		UserEntity u =new UserEntity();
+//		User u =new User();
 //		u.setNickname("addyyy1");
 //		u.setPassword("yyy1");
 //		em.getTransaction().begin();//开始事物
@@ -79,9 +78,9 @@ public class UserTest extends TestCase {
 	@Test 
 	public void testUserFind() {
 		System.out.println("testUserFind");
-	List<UserEntity> userList = 	userService.findByNameMatch("yyy");
+	List<User> userList = 	userService.findByNameMatch("yyy");
 	if(userList !=null) {
-		for(UserEntity u : userList) {
+		for(User u : userList) {
 			System.out.println(u);
 		}
 	}else {
@@ -96,7 +95,7 @@ public class UserTest extends TestCase {
 		listIds.add(2);
 		listIds.add(4);
 		listIds.add(7);
-		List<UserEntity> users  = userService.findAll(listIds);
+		List<User> users  = userService.findAll(listIds);
 //		System.out.println(JSON.toJSONString(users));
 	}
 	
@@ -107,14 +106,14 @@ public class UserTest extends TestCase {
 //			System.out.println("userService is null");
 //		}else {
 //			userService.findOne(new Exam)
-//			UserEntity u =new UserEntity();
+//			User u =new User();
 //			u.setNickname("addyyy2");
 //			u.setPassword("yyy2");
 //			userService.saveAndFlush( u);
 //		}
 //		EntityManagerFactory factory=Persistence.createEntityManagerFactory("entityManagerFactory");
 //		EntityManager em=factory.createEntityManager();
-//		UserEntity u =new UserEntity();
+//		User u =new User();
 //		u.setNickname("addyyy1");
 //		u.setPassword("yyy1");
 //		em.getTransaction().begin();//开始事物

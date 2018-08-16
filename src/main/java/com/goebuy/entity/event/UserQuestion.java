@@ -1,4 +1,7 @@
-package com.goebuy.entity;
+package com.goebuy.entity.event;
+
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.user.User;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -14,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user_question", schema = "springdemo",  catalog = "")
-public class UserQuestion extends BaseEntity<Integer>{
+public class UserQuestion extends BaseEntity<Integer> {
 
 	/**
 	 * 
@@ -22,30 +25,31 @@ public class UserQuestion extends BaseEntity<Integer>{
 	private static final long serialVersionUID = -4867590336448602514L;
 
 	/** 问卷填写人 */
-	private UserEntity user;
+	private User user;
 	
 	private Question question;
 	
 	/** 姓名*/
 	private String username;
+
 	/** 手机号 */
 	private String phone;
 	
 	private String field_set;
 	
 	/** 创建人 */
-	private UserEntity creator;
+	private User creator;
 	
 	private String create_time;
 
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public UserEntity getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity userEntity) {
-		this.user = userEntity;
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -86,11 +90,11 @@ public class UserQuestion extends BaseEntity<Integer>{
 	}
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public UserEntity getCreator() {
+	public User getCreator() {
 		return creator;
 	}
 
-	public void setCreator(UserEntity creator) {
+	public void setCreator(User creator) {
 		this.creator = creator;
 	}
 	@Basic
@@ -102,12 +106,5 @@ public class UserQuestion extends BaseEntity<Integer>{
 	public void setCreate_time(String create_time) {
 		this.create_time = create_time;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

@@ -1,20 +1,15 @@
 package com.goebuy.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Index;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.alibaba.fastjson.JSON;
+import com.goebuy.entity.user.User;
 
 /**
  * 用戶系統通知信息
@@ -31,7 +26,7 @@ public class UserSysInfoEntity extends BaseEntity<Integer> {
 	 */
 	private static final long serialVersionUID = 4333026409014680730L;
 
-	private UserEntity user;
+	private User user;
 
 	private SystemInfoEntity sysInfo;
 
@@ -43,11 +38,11 @@ public class UserSysInfoEntity extends BaseEntity<Integer> {
 	private String time;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public UserEntity getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 

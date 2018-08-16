@@ -11,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.goebuy.biz.RoleBiz;
-import com.goebuy.entity.Role;
+import com.goebuy.entity.auth.Role;
 
 import junit.framework.TestCase;
 
@@ -35,7 +35,7 @@ public class RoleTest extends TestCase {
 //		EntityManager em=factory.createEntityManager();
 //		em.getTransaction().begin();//开始事物
 //		    //Session.save()-->Persist();
-//		em.persist(new Person("创梦网络")); //持久化到数据库.persist:持久化
+//		em.persist(new PersonCertification("创梦网络")); //持久化到数据库.persist:持久化
 //		em.getTransaction().commit();
 //		em.close();
 //		factory.close();

@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.goebuy.entity.Permission;
-import com.goebuy.entity.Role;
-import com.goebuy.entity.RolePermission;
+import com.goebuy.entity.auth.Permission;
+import com.goebuy.entity.auth.Role;
+import com.goebuy.entity.auth.RolePermission;
 import com.goebuy.service.RolePermissionService;
 
 

@@ -1,4 +1,7 @@
-package com.goebuy.entity;
+package com.goebuy.entity.event;
+
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.user.User;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -14,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "user_entryform", schema = "springdemo",  catalog = "")
-public class UserEntryForm extends BaseEntity<Integer>{
+public class UserEntryForm extends BaseEntity<Integer> {
 
 	/**
 	 * 
@@ -22,9 +25,9 @@ public class UserEntryForm extends BaseEntity<Integer>{
 	private static final long serialVersionUID = -1144737462440938677L;
 
 	
-	private UserEntity user;
+	private User user;
 	
-	private EntryForm  entryForm;
+	private EntryForm entryForm;
 	
 	/** 审核状态 */
 	private String state_verify;
@@ -48,12 +51,12 @@ public class UserEntryForm extends BaseEntity<Integer>{
 
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public UserEntity getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity userEntity) {
-		this.user = userEntity;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

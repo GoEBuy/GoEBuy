@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ValueConstants;
 
 import com.goebuy.annotation.SystemLog;
-import com.goebuy.entity.Role;
+import com.goebuy.entity.auth.Role;
 import com.goebuy.service.RoleService;
 
 //@RequestMapping

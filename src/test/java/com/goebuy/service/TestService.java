@@ -19,11 +19,11 @@
 ////		 用文件系统的路径,默认指项目的根路径
 ////		ApplicationContext applicationContext = new FileSystemXmlApplicationContext("src/main/webapp/WEB-INF/mvc-dispatcher-servlet.xml");
 //		System.out.println("main");
-////		UserController service = (UserController)applicationContext.getBean("UserController"); 
+////		UserController service = (UserController)applicationContext.getBean("UserController");
 //		BlogService service = (BlogService)applicationContext.getBean("BlogService");
 //		service.findAll();
 //		System.out.println(service.count()+"");
-//		//		UserService service = (UserService)applicationContext.getBean("UserService"); 
+//		//		UserService service = (UserService)applicationContext.getBean("UserService");
 //		System.out.println("finished");
 //	}
 //

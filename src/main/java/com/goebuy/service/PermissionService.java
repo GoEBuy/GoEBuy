@@ -6,8 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import com.goebuy.entity.Permission;
-import com.goebuy.entity.Role;
+import com.goebuy.entity.auth.Permission;
 
 @Repository
 public interface PermissionService extends JpaRepository<Permission, Integer> {

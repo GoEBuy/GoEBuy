@@ -1,4 +1,7 @@
-package com.goebuy.entity;
+package com.goebuy.entity.event;
+
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.user.User;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -22,7 +25,7 @@ public class UserTip extends BaseEntity<Integer> {
 	 */
 	private static final long serialVersionUID = 8685619633799829922L;
 
-	private UserEntity user;
+	private User user;
 	
 	private Tip tip;
 	
@@ -39,10 +42,10 @@ public class UserTip extends BaseEntity<Integer> {
 	private String remark;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public UserEntity getUser() {
+	public User getUser() {
 		return user;
 	}
-	public void setUser(UserEntity user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 	
@@ -89,16 +92,5 @@ public class UserTip extends BaseEntity<Integer> {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

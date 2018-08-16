@@ -1,4 +1,4 @@
-package com.goebuy.entity;
+package com.goebuy.entity.event;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -12,7 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "activity", schema = "springdemo",  catalog = "")
-public class Activity extends BaseActivityEntity<Integer>{
+public class Activity extends BaseActivityEntity<Integer> {
 	
 	/**
 	 * 
@@ -37,6 +37,7 @@ public class Activity extends BaseActivityEntity<Integer>{
 	
 	/**是否展示报名用户 */
 	private boolean isShow;
+
 	/**报名后跳转页面 */
 	private String gotopage;
 	

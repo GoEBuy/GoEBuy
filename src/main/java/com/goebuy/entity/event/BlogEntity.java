@@ -1,4 +1,4 @@
-package com.goebuy.entity;
+package com.goebuy.entity.event;
 
 import java.util.Date;
 
@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -33,7 +35,7 @@ public class BlogEntity extends BaseEntity<Integer> {
     /**
      * many2one
      */
-    private UserEntity userByUserId;
+    private User userByUserId;
 
 
     @Basic
@@ -97,11 +99,11 @@ public class BlogEntity extends BaseEntity<Integer> {
      */
     @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn( name = "user_id",   referencedColumnName = "id", nullable = false)
-    public UserEntity getUserByUserId() {
+    public User getUserByUserId() {
         return userByUserId;
     }
 
-    public void setUserByUserId(UserEntity userByUserId) {
+    public void setUserByUserId(User userByUserId) {
         this.userByUserId = userByUserId;
     }
     

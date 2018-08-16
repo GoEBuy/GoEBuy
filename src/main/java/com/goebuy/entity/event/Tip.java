@@ -1,4 +1,4 @@
-package com.goebuy.entity;
+package com.goebuy.entity.event;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -13,7 +13,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tip", indexes={@Index(name="index_name", columnList="name")},  schema = "springdemo",  catalog = "")
-public class Tip extends BaseActivityEntity<Integer>{
+public class Tip extends BaseActivityEntity<Integer> {
 
 	/**
 	 * 

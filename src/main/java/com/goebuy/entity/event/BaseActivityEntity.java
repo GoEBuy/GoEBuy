@@ -1,4 +1,4 @@
-package com.goebuy.entity;
+package com.goebuy.entity.event;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -8,9 +8,11 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 
 import com.alibaba.fastjson.JSON;
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.user.User;
 
 @MappedSuperclass
-public abstract class BaseActivityEntity<T> extends BaseEntity<T>{
+public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 
 	/**
 	 * 
@@ -18,7 +20,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T>{
 	private static final long serialVersionUID = 7207739713485965568L;
 
 	/** 创建人 */
-	protected UserEntity creator;
+	protected User creator;
 	
 	protected String create_time;
 	
@@ -62,11 +64,11 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T>{
 
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public UserEntity getCreator() {
+	public User getCreator() {
 		return creator;
 	}
 
-	public void setCreator(UserEntity user) {
+	public void setCreator(User user) {
 		this.creator = user;
 	}
 	

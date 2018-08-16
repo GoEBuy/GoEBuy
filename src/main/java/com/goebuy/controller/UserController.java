@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.goebuy.entity.user.User;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.goebuy.annotation.SystemLog;
-import com.goebuy.entity.UserEntity;
 import com.goebuy.service.UserService;
 
 @Controller
@@ -43,7 +43,7 @@ public class UserController {
 	public String getUsers(HttpServletRequest request, ModelMap modelMap) {
 		// 查询user表中所有记录
 		System.out.println("getUsers");
-		List<UserEntity> userList = userRepository.findAll();
+		List<User> userList = userRepository.findAll();
 		String count = userRepository.count() + "";
 		// 将所有记录传递给要返回的jsp页面，放在userList当中
 		modelMap.addAttribute("userList", userList);
@@ -139,22 +139,22 @@ public class UserController {
 	 * post请求，处理添加用户请求，并重定向到用户管理页面
 	 * 
 	 * @param request
-	 * @param userEntity
+	 * @param user
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/users/addP", method = RequestMethod.POST)
 	@SystemLog(operationType = "add", operationName = "user")
-	public String addUserPost(HttpServletRequest request, @ModelAttribute("user") UserEntity userEntity) {
+	public String addUserPost(HttpServletRequest request, @ModelAttribute("user") User user) {
 		// 注意此处，post请求传递过来的是一个UserEntity对象，里面包含了该用户的信息
 		// 通过@ModelAttribute()注解可以获取传递过来的'user'，并创建这个对象
 
 		// 数据库中添加一个用户，该步暂时不会刷新缓存
-		// userRepository.save(userEntity);
-		System.out.println(userEntity.getFirstName());
-		System.out.println(userEntity.getLastName());
+		// userRepository.save(user);
+		System.out.println(user.getFirstName());
+		System.out.println(user.getLastName());
 
 		// 数据库中添加一个用户，并立即刷新缓存
-		userRepository.saveAndFlush(userEntity);
+		userRepository.saveAndFlush(user);
 
 		// 重定向到用户管理页面，方法为 redirect:url
 		return "redirect:/admin/users";
@@ -172,10 +172,10 @@ public class UserController {
 	public String showUser(HttpServletRequest request, @PathVariable("id") Integer userId, ModelMap modelMap) {
 		System.out.println("showUser");
 		// 找到userId所表示的用户
-		UserEntity userEntity = userRepository.findOne(userId);
-		System.out.println(userEntity);
+		User user = userRepository.findOne(userId);
+		System.out.println(user);
 		// 传递给请求页面
-		modelMap.addAttribute("user", userEntity);
+		modelMap.addAttribute("user", user);
 		System.out.println("admin/userDetail");
 		return "admin/userDetail";
 	}
@@ -187,16 +187,16 @@ public class UserController {
 
 		System.out.println("updateUser");
 		// 找到userId所表示的用户
-		UserEntity userEntity = userRepository.findOne(userId);
+		User user = userRepository.findOne(userId);
 		// 传递给请求页面
-		modelMap.addAttribute("user", userEntity);
+		modelMap.addAttribute("user", user);
 		return "admin/updateUser";
 	}
 
 	// 更新用户信息 操作
 	@RequestMapping(value = "/admin/users/updateP", method = RequestMethod.POST)
 	@SystemLog(operationType = "update", operationName = "user")
-	public String updateUserPost(HttpServletRequest request, @ModelAttribute("user") UserEntity user) {
+	public String updateUserPost(HttpServletRequest request, @ModelAttribute("user") User user) {
 		userRepository.updateUser(user.getNickname(), user.getFirstName(), user.getLastName(), user.getPassword(),
 				user.getId());
 		userRepository.flush(); // 刷新缓冲区

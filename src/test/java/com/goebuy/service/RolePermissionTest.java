@@ -10,9 +10,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.goebuy.biz.RolePermissionBiz;
-import com.goebuy.entity.Permission;
-import com.goebuy.entity.Role;
-import com.goebuy.entity.RolePermission;
+import com.goebuy.entity.auth.Permission;
+import com.goebuy.entity.auth.Role;
+import com.goebuy.entity.auth.RolePermission;
 
 import junit.framework.TestCase;
 

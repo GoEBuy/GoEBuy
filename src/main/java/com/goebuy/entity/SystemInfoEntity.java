@@ -1,5 +1,7 @@
 package com.goebuy.entity;
 
+import com.goebuy.entity.user.User;
+
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,7 +34,7 @@ public class SystemInfoEntity extends BaseEntity<Integer> {
 	/**
 	 * many2one
 	 */
-	private UserEntity userByUserId;
+	private User userByUserId;
 
 	private String pubDate;
 
@@ -65,11 +67,11 @@ public class SystemInfoEntity extends BaseEntity<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
-	public UserEntity getUserByUserId() {
+	public User getUserByUserId() {
 		return userByUserId;
 	}
 
-	public void setUserByUserId(UserEntity userByUserId) {
+	public void setUserByUserId(User userByUserId) {
 		this.userByUserId = userByUserId;
 	}
 

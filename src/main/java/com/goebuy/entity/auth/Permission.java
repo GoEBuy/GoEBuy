@@ -1,4 +1,6 @@
-package com.goebuy.entity;
+package com.goebuy.entity.auth;
+
+import com.goebuy.entity.BaseEntity;
 
 import javax.persistence.Basic;
 import javax.persistence.Column;
