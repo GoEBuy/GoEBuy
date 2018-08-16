@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	   xmlns:context="http://www.springframework.org/schema/context"
-	   xmlns:mvc="http://www.springframework.org/schema/mvc"
-	   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
-	   xmlns:tx="http://www.springframework.org/schema/tx"
-	   xmlns:aop="http://www.springframework.org/schema/aop"
-	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
            http://www.springframework.org/schema/aop
@@ -14,17 +14,24 @@
        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-	<!--扫描配置文件(这里指向的是之前配置的那个config.properties)-->
-	<context:property-placeholder location="classpath:/db.properties, classpath:/config.properties" />
-	<!--<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-	<!--<property name="location" value="classpath:application.properties" />-->
-	<!--</bean>-->
 
-	<!-- 激活组件扫描功能,在包com.goebuy及其子包下面自动扫描通过注解配置的组件 -->
+
+<description>Spring公共配置 </description>
+
+
+  <!--扫描配置文件(这里指向的是之前配置的那个config.properties)-->
+     <context:property-placeholder location="classpath:/db.properties, classpath:/config.properties" />
+
+<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="location" value="classpath:application.properties" />
+</bean> -->
+
+	 <!-- 激活组件扫描功能,在包com.goebuy及其子包下面自动扫描通过注解配置的组件 -->
 	<context:component-scan base-package="com.goebuy" />
 
-	<!-- 表示JPA Repository所在的包 -->
-	<jpa:repositories base-package="com.goebuy.service" />
+
+	<!-- 表示JPA Data Jpa配置 Repository所在的包 -->
+	<jpa:repositories base-package="com.goebuy.service" transaction-manager-ref="transactionManager" entity-manager-factory-ref="entityManagerFactory"/>
 
 	<!-- 静态资源(js、image等)的访问 -->
 	<mvc:default-servlet-handler />
@@ -32,44 +39,93 @@
 	<!-- 开启注解 -->
 	<mvc:annotation-driven />
 
+
+	<!-- 拦截器 -->
+	<mvc:interceptors>
+		<!-- 多个拦截器,顺序执行 -->
+		<!-- 认证拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.goebuy.interceptor.LoginInterceptor"  />
+			 <!-- <mvc:exclude-mapping path="/lib/**" />  -->
+		</mvc:interceptor>
+
+		<!-- 授权拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.goebuy.interceptor.PermissionInterceptor" />
+			  <!--不进行拦截的路径-->
+        <!-- <mvc:exclude-mapping path="/lib/**" />  -->
+
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+	<bean id="mailsender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.tju.edu.cn"></property>
+		<property name="port" value="25"></property>
+		<property name="username"  value="${mail.username}"></property>
+		<property name="password"  value="${mail.password}" ></property>
+		<property name="protocol"  value="smtp"></property>
+		<property name="defaultEncoding" value="utf-8"></property>
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.timeout">25000</prop>
+			</props>
+		</property>
+	</bean>
+
 	<!--ViewResolver 视图解析器 -->
 	<!--用于支持Servlet、JSP视图解析 -->
-	<bean id="jspViewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+	<bean id="jspViewResolver"
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/pages/" />
 		<property name="suffix" value=".jsp" />
 	</bean>
 
-	<!--这里是对静态资源的映射-->
-	<!--<mvc:resources mapping="/js/**" location="/js/" />-->
-	<!--<mvc:resources mapping="/css/**" location="/css/" />-->
-	<!--<mvc:resources mapping="/img/**" location="/img/" />-->
 
-	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="defaultPersistenceUnit" />
-		<!-- <property name="packagesToScan" value="com.gaussic.model" /> -->
+<!-- JPA实体管理工厂的配置 -->
+
+ <!--这里是对静态资源的映射-->
+<!--     <mvc:resources mapping="/js/**" location="/resources/js/" />
+    <mvc:resources mapping="/css/**" location="/resources/css/" />
+    <mvc:resources mapping="/img/**" location="/resources/img/" /> -->
+
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceUnitName"
+			value="defaultPersistenceUnit" />
+			<!--待扫描的实体类包 -->
 		<property name="packagesToScan" value="com.goebuy.entity" />
 		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" >
+			<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+			</bean>
 		</property>
 		<property name="jpaProperties">
 			<props>
 				<prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
-				<prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/springdemo?useSSL=false
-				</prop>
 				<!-- <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/springdemo?useSSL=false
 				</prop> -->
+				 <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/springdemo?useSSL=false
+				</prop>
 				<prop key="hibernate.connection.username">root</prop>
 				<prop key="hibernate.connection.password">root</prop>
 				<!-- <prop key="hibernate.show_sql">true</prop> -->
 				<prop key="hibernate.show_sql">false</prop>
-				<!--  一般情况下，会在项目启动的过程中，自动检查 注解的实体 和数据表，如果数据库不存在的表或者字段，会根据实体自动生成。-->
-				<prop key="generateDdl" >true</prop>
+				<!--  一般情况下，会在项目启动的过程中，自动检查 注解的实体 和数据表，如果数据库不存在的表或者字段，会根据实体自动生成。--> 
+				<prop key="generateDdl" >true</prop>	
 				<prop key="hibernate.connection.useUnicode">true</prop>
 				<prop key="hibernate.connection.characterEncoding">UTF-8</prop>
-				<prop key="hibernate.format_sql">true</prop>
+				<prop key="hibernate.format_sql">false</prop>
+				<!-- <prop key="hibernate.format_sql">true</prop> -->
 				<prop key="hibernate.use_sql_comments">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
+			    <prop key="hibernate.hbm2ddl.auto">update</prop>
+				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
 				<prop key="hibernate.connection.autoReconnect">true</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="connection.autoReconnectForPools">true</prop>
@@ -89,6 +145,7 @@
 		</property>
 	</bean>
 
+
 	<!-- 配置文件上传，如果没有使用文件上传可以不用配置，当然如果不配，那么配置文件中也不必引入上传组件包 -->
 	<bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">            <!-- 默认编码 -->
 		<property name="defaultEncoding" value="utf-8" />
@@ -100,32 +157,39 @@
 		<property name="resolveLazily" value="true"/>
 	</bean>
 
-	<!-- 事务管理 -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	<!-- Jpa 事务管理 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory"
+			ref="entityManagerFactory" />
 	</bean>
 
-	<!--事务通知-->
-	<!--   <tx:advice id="txAdvice" transaction-manager="transactionManager">
-          <tx:attributes>
-              事务传播，默认REQUIRED，这是一个具有事务的方法，没有则创建事务
-              事务隔离，默认DEFAULT，此设置是为了解决并发事务中，脏读、不可重复读外、幻读，性能会下降
-              <tx:method name="add*" isolation="SERIALIZABLE" propagation="REQUIRED"/>
-              <tx:method name="delete*"/>
-              <tx:method name="update*"/>
-              只读事务，只做查询，不修改数据的事务。JDBC驱动会进行优化
-              <tx:method name="find*" read-only="true"/>
-              <tx:method name="get*" read-only="true"/>
-              <tx:method name="*" read-only="true"/>
-          </tx:attributes>
-      </tx:advice> -->
+
+  <!--事务通知-->
+  <!--   <tx:advice id="txAdvice" transaction-manager="transactionManager">
+        <tx:attributes>
+            事务传播，默认REQUIRED，这是一个具有事务的方法，没有则创建事务
+            事务隔离，默认DEFAULT，此设置是为了解决并发事务中，脏读、不可重复读外、幻读，性能会下降
+            <tx:method name="add*" isolation="SERIALIZABLE" propagation="REQUIRED"/>
+            <tx:method name="delete*"/>
+            <tx:method name="update*"/>
+            只读事务，只做查询，不修改数据的事务。JDBC驱动会进行优化
+            <tx:method name="find*" read-only="true"/>
+            <tx:method name="get*" read-only="true"/>
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice> -->
 
 	<!-- 开启事务管理注解 -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	  <tx:annotation-driven
+		transaction-manager="transactionManager"  />
 
-	<!-- 启动对@AspectJ注解的支持 -->
-	<aop:aspectj-autoproxy proxy-target-class="true"/>
-	<!-- 切面  -->
-	<bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" />
+
+
+	 <!-- 启动对@AspectJ注解的支持 --> 
+     <aop:aspectj-autoproxy proxy-target-class="true"/>
+     <!-- 切面  -->
+  	<bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" />
+
 
 </beans>

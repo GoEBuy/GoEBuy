@@ -1,25 +1,28 @@
-package com.goebuy.entity;
+package com.goebuy.entity.event;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import com.alibaba.fastjson.JSON;
-
-import javax.persistence.*;
-
-import java.io.Serializable;
 import java.util.Date;
+
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.user.User;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "blog", schema = "springdemo", catalog = "")
-public class BlogEntity implements Serializable{
+public class BlogEntity extends BaseEntity<Integer> {
 	
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = -918558215156348481L;
 	
-	
-	private int id;
 	/* varchar */
     private String title;
     
@@ -32,18 +35,8 @@ public class BlogEntity implements Serializable{
     /**
      * many2one
      */
-    private UserEntity userByUserId;
+    private User userByUserId;
 
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @Basic
     @Column(name = "title", nullable = false, length = 100)
@@ -101,22 +94,17 @@ public class BlogEntity implements Serializable{
 
     /**
      * 1对多在多端,  在多端（从表的外键）添加外键字段指向一端（主表的主键）的主键字段	
+     * Hibernate Annotation的默认的FetchType在ManyToOne是EAGER的,在OneToMany上默认的是LAZY.
      * @return
      */
     @ManyToOne(fetch= FetchType.EAGER)
     @JoinColumn( name = "user_id",   referencedColumnName = "id", nullable = false)
-    public UserEntity getUserByUserId() {
+    public User getUserByUserId() {
         return userByUserId;
     }
 
-    public void setUserByUserId(UserEntity userByUserId) {
+    public void setUserByUserId(User userByUserId) {
         this.userByUserId = userByUserId;
     }
-    
-    @Override
-    public String toString() {
-    	return JSON.toJSONString(this);
-    }
-    
     
 }

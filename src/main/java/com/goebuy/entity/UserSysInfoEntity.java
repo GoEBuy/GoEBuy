@@ -1,19 +1,15 @@
 package com.goebuy.entity;
 
-import java.io.Serializable;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.Index;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.alibaba.fastjson.JSON;
+import com.goebuy.entity.user.User;
 
 /**
  * 用戶系統通知信息
@@ -22,17 +18,15 @@ import com.alibaba.fastjson.JSON;
  *
  */
 @Entity
-@Table(name = "user_sysinfo", schema = "springdemo", catalog = "")
-public class UserSysInfoEntity implements Serializable {
+@Table(name = "user_sysinfo", indexes={@Index(name="user_Index", columnList="user_id")} , schema = "springdemo", catalog = "")
+public class UserSysInfoEntity extends BaseEntity<Integer> {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 4333026409014680730L;
 
-	private int id;
-
-	private UserEntity user;
+	private User user;
 
 	private SystemInfoEntity sysInfo;
 
@@ -43,23 +37,12 @@ public class UserSysInfoEntity implements Serializable {
 	 */
 	private String time;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public UserEntity getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(UserEntity user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
@@ -90,11 +73,6 @@ public class UserSysInfoEntity implements Serializable {
 
 	public void setTime(String time) {
 		this.time = time;
-	}
-
-	@Override
-	public String toString() {
-		return JSON.toJSONString(this);
 	}
 
 }

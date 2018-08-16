@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ValueConstants;
 
-import com.goebuy.entity.BlogEntity;
-import com.goebuy.entity.UserEntity;
+import com.goebuy.entity.event.BlogEntity;
+import com.goebuy.entity.user.User;
 import com.goebuy.service.BlogService;
 import com.goebuy.service.UserService;
 
@@ -89,7 +88,7 @@ public class BlogController {
 
     	
     	logger.info("addBlog");
-        List<UserEntity> userList = userRepository.findAll();
+        List<User> userList = userRepository.findAll();
         // 向jsp注入用户列表
         modelMap.addAttribute("userList", userList);
         return "admin/addBlog";
@@ -130,7 +129,7 @@ public class BlogController {
     	logger.info("updateBlog");
     	
         BlogEntity blog = blogRepository.findOne(id);
-        List<UserEntity> userList = userRepository.findAll();
+        List<User> userList = userRepository.findAll();
         modelMap.addAttribute("blog", blog);
         modelMap.addAttribute("userList", userList);
         return "admin/updateBlog";
