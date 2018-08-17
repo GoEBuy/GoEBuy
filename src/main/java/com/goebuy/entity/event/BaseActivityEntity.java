@@ -22,10 +22,10 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	/** 创建人 */
 	protected User creator;
 	
-	protected String create_time;
+	protected String createTime;
 	
 	/**最后一次更新时间 */
-	protected String update_time;
+	protected String updateTime;
 	
 	/** 标题 */
 	protected String name;
@@ -33,25 +33,26 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	protected String description;
 
 	/**活动开始日期 */
-	protected String start_date;
+	protected String startDate;
 	
-	protected String end_date;
+	protected String endDate;
 	/**活动开始时间 */
-	protected String start_time;
+	protected String startTime;
 	
-	protected String end_time;
+	protected String endTime;
 	
 	
 	/**填写字段 */
-	protected String field_set;
+	protected String fieldSet;
 	
 	/**标签集合， 最多5个 */
-	protected String tag_set;
+	protected String tagSet;
 	
 	/**咨询电话 */
-	protected String contact_phone;
+	protected String contactPhone;
 	
-	/** 状态*/
+	
+	/** 活动状态*/
 	protected String state;
 	
 	/** 活动链接地址 */
@@ -74,22 +75,22 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	
 	@Basic
 	@Column(name = "create_time",updatable = false,  nullable = false)
-	public String getCreate_time() {
-		return create_time;
+	public String getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreate_time(String create_time) {
-		this.create_time = create_time;
+	public void setCreateTime(String create_time) {
+		this.createTime = create_time;
 	}
 	//columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
 	@Basic
-	@Column(name = "update_time",  nullable = false)
-	public String getUpdate_time() {
-		return update_time;
+	@Column(name = "updateTime",  nullable = false)
+	public String getUpdateTime() {
+		return updateTime;
 	}
 
-	public void setUpdate_time(String update_time) {
-		this.update_time = update_time;
+	public void setUpdateTime(String update_time) {
+		this.updateTime = update_time;
 	}
 
 	@Basic
@@ -114,68 +115,68 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 
 	@Basic
 	@Column(name = "start_date", nullable = true)
-	public String getStart_date() {
-		return start_date;
+	public String getStartDate() {
+		return startDate;
 	}
 
-	public void setStart_date(String start_date) {
-		this.start_date = start_date;
+	public void setStartDate(String start_date) {
+		this.startDate = start_date;
 	}
 	
 	@Basic
 	@Column(name = "end_date", nullable = true)
-	public String getEnd_date() {
-		return end_date;
+	public String getEndDate() {
+		return endDate;
 	}
 
-	public void setEnd_date(String end_date) {
-		this.end_date = end_date;
+	public void setEndDate(String end_date) {
+		this.endDate = end_date;
 	}
 	@Basic
 	@Column(name = "start_time", nullable = true)
-	public String getStart_time() {
-		return start_time;
+	public String getStartTime() {
+		return startTime;
 	}
 
-	public void setStart_time(String start_time) {
-		this.start_time = start_time;
+	public void setStartTime(String start_time) {
+		this.startTime = start_time;
 	}
 	@Basic
 	@Column(name = "end_time", nullable = true)
-	public String getEnd_time() {
-		return end_time;
+	public String getEndTime() {
+		return endTime;
 	}
 
-	public void setEnd_time(String end_time) {
-		this.end_time = end_time;
+	public void setEndTime(String end_time) {
+		this.endTime = end_time;
 	}
 	
 	@Basic
 	@Column(name = "field_set", nullable = true)
-	public String getField_set() {
-		return field_set;
+	public String getFieldSet() {
+		return fieldSet;
 	}
 
-	public void setField_set(String field_set) {
-		this.field_set = field_set;
+	public void setFieldSet(String field_set) {
+		this.fieldSet = field_set;
 	}
 	@Basic
 	@Column(name = "tag_set", nullable = true)
-	public String getTag_set() {
-		return tag_set;
+	public String getTagSet() {
+		return tagSet;
 	}
 
-	public void setTag_set(String tag_set) {
-		this.tag_set = tag_set;
+	public void setTagSet(String tagSet) {
+		this.tagSet = tagSet;
 	}
 	@Basic
 	@Column(name = "contact_phone", nullable = true)
-	public String getContact_phone() {
-		return contact_phone;
+	public String getContactPhone() {
+		return contactPhone;
 	}
 
-	public void setContact_phone(String contact_phone) {
-		this.contact_phone = contact_phone;
+	public void setContactPhone(String contactPhone) {
+		this.contactPhone = contactPhone;
 	}
 	@Basic
 	@Column(name = "state", nullable = true)

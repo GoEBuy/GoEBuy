@@ -35,12 +35,12 @@ public class UserQuestion extends BaseEntity<Integer> {
 	/** 手机号 */
 	private String phone;
 	
-	private String field_set;
+	private String fieldSet;
 	
 	/** 创建人 */
 	private User creator;
 	
-	private String create_time;
+	private String createTime;
 
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -81,12 +81,12 @@ public class UserQuestion extends BaseEntity<Integer> {
 	}
 	@Basic
 	@Column(name = "field_set", nullable = true)
-	public String getField_set() {
-		return field_set;
+	public String getFieldSet() {
+		return fieldSet;
 	}
 
-	public void setField_set(String field_set) {
-		this.field_set = field_set;
+	public void setFieldSet(String fieldSet) {
+		this.fieldSet = fieldSet;
 	}
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -99,12 +99,12 @@ public class UserQuestion extends BaseEntity<Integer> {
 	}
 	@Basic
 	@Column(name = "create_time", nullable = true)
-	public String getCreate_time() {
-		return create_time;
+	public String getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreate_time(String create_time) {
-		this.create_time = create_time;
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 
 }

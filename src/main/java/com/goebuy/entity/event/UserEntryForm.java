@@ -16,7 +16,7 @@ import javax.persistence.Table;
  * @author Administrator
  */
 @Entity
-@Table(name = "user_entryform", schema = "springdemo",  catalog = "")
+@Table(name = "user_entry_form", schema = "springdemo",  catalog = "")
 public class UserEntryForm extends BaseEntity<Integer> {
 
 	/**
@@ -30,24 +30,24 @@ public class UserEntryForm extends BaseEntity<Integer> {
 	private EntryForm entryForm;
 	
 	/** 审核状态 */
-	private String state_verify;
+	private String stateVerify;
 	
 	/** 交易状态 */
-	private String state_exchange;
+	private String stateExchange;
 	
 	/**报名渠道 */
 	private String channel;
 
 	/** 售票类型 */
-	private String ticket_type;
+	private String ticketType;
 	
 	/** 金额 */
 	private double price;
 	/** 序列号 */
-	private String seqno;
+	private String seqNo;
 	
 	/** 签到状态 */
-	private String state_sign;
+	private String stateSign;
 
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -70,22 +70,22 @@ public class UserEntryForm extends BaseEntity<Integer> {
 	
 	@Basic
 	@Column(name = "state_verify", nullable = true)
-	public String getState_verify() {
-		return state_verify;
+	public String getStateVerify() {
+		return stateVerify;
 	}
 
-	public void setState_verify(String state_verify) {
-		this.state_verify = state_verify;
+	public void setStateVerify(String state_verify) {
+		this.stateVerify = state_verify;
 	}
 
 	@Basic
 	@Column(name = "state_exchange", nullable = true)
-	public String getState_exchange() {
-		return state_exchange;
+	public String getStateExchange() {
+		return stateExchange;
 	}
 
-	public void setState_exchange(String state_exchange) {
-		this.state_exchange = state_exchange;
+	public void setStateExchange(String state_exchange) {
+		this.stateExchange = state_exchange;
 	}
 	@Basic
 	@Column(name = "channel", nullable = true)
@@ -98,12 +98,12 @@ public class UserEntryForm extends BaseEntity<Integer> {
 	}
 	@Basic
 	@Column(name = "ticket_type", nullable = true)
-	public String getTicket_type() {
-		return ticket_type;
+	public String getTicketType() {
+		return ticketType;
 	}
 
-	public void setTicket_type(String ticket_type) {
-		this.ticket_type = ticket_type;
+	public void setTicketType(String ticket_type) {
+		this.ticketType = ticket_type;
 	}
 	@Basic
 	@Column(name = "price", nullable = true)
@@ -116,23 +116,22 @@ public class UserEntryForm extends BaseEntity<Integer> {
 	}
 	
 	@Basic
-	@Column(name = "seqno", nullable = true)
-	public String getSeqno() {
-//		unique=true, 
-		return seqno;
+	@Column(name = "seq_no", 	unique=true,  nullable = true)
+	public String getSeqNo() {
+		return seqNo;
 	}
 
-	public void setSeqno(String seqno) {
-		this.seqno = seqno;
+	public void setSeqNo(String seqNo) {
+		this.seqNo = seqNo;
 	}
 	@Basic
 	@Column(name = "state_sign", nullable = true)
-	public String getState_sign() {
-		return state_sign;
+	public String getStateSign() {
+		return stateSign;
 	}
 
-	public void setState_sign(String state_sign) {
-		this.state_sign = state_sign;
+	public void setStateSign(String stateSign) {
+		this.stateSign = stateSign;
 	}
 	
 	
