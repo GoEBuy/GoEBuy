@@ -50,7 +50,7 @@ public class UserEntryForm extends BaseEntity<Integer> {
 	private String state_sign;
 
 	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL,})
 	public User getUser() {
 		return user;
 	}

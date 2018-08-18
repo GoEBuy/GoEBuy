@@ -46,11 +46,6 @@ public class User extends BaseEntity<Integer> {
      */
     private PersonCertification personCertification;   //认证信息
 
-    /**
-     * OneToMany
-     */
-    private Collection<BlogEntity> blogsById;
-
     @Basic
     @Column(name = "user_id", nullable = false)
     public String getUserId() {
@@ -178,20 +173,6 @@ public class User extends BaseEntity<Integer> {
 
     public void setPersonCertification(PersonCertification personCertification) {
         this.personCertification = personCertification;
-    }
-
-    /**
-     * 一对多： 一个one对应多个many，首先在一端添加, mappedBy = "one" 表示one是一对多管理的被维护端， 既当添加many时顺带添加一个one
-     *Hibernate Annotation的默认的FetchType在ManyToOne是EAGER的,在OneToMany上默认的是LAZY
-     * @return  fetch=FetchType.LAZY,
-     */
-    @OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER, mappedBy = "userByUserId")
-    public Collection<BlogEntity> getBlogsById() {
-        return blogsById;
-    }
-
-    public void setBlogsById(Collection<BlogEntity> blogsById) {
-        this.blogsById = blogsById;
     }
 
 //    @Override
