@@ -48,7 +48,7 @@ CREATE TABLE `blog` (
   `pub_date` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user_id_idx` (`user_id`),
-  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `user_id` FOREIGN KEY (`user_id`) REFERENCES `legalRepresentative` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -63,13 +63,13 @@ INSERT INTO `blog` VALUES (1,'SpringMVC教程','这是SpringMVC的简单教程�
 UNLOCK TABLES;
 
 --
--- Table structure for table `user`
+-- Table structure for table `legalRepresentative`
 --
 
-DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `legalRepresentative`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `user` (
+CREATE TABLE `legalRepresentative` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nickname` varchar(45) NOT NULL,
   `password` varchar(45) NOT NULL,
@@ -80,13 +80,13 @@ CREATE TABLE `user` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `user`
+-- Dumping data for table `legalRepresentative`
 --
 
-LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,'Steve','gaussic2','Steve','NoJob'),(2,'Bill','111111','Bill','Gates'),(3,'Mark','22222','Mark','Zuckerberg'),(4,'gauss','11111111','Gaussic','D');
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+LOCK TABLES `legalRepresentative` WRITE;
+/*!40000 ALTER TABLE `legalRepresentative` DISABLE KEYS */;
+INSERT INTO `legalRepresentative` VALUES (1,'Steve','gaussic2','Steve','NoJob'),(2,'Bill','111111','Bill','Gates'),(3,'Mark','22222','Mark','Zuckerberg'),(4,'gauss','11111111','Gaussic','D');
+/*!40000 ALTER TABLE `legalRepresentative` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

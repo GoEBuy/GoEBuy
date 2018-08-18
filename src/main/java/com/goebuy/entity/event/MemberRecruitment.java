@@ -7,7 +7,7 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
- * 招募表
+ * 会员招募表
  *
  * Created by luodejin on 2018/8/15.
  */
@@ -24,7 +24,7 @@ public class MemberRecruitment extends BaseActivityEntity<Integer> {
     private String memberPrivilege;       //会员特权
     private String memberFee;             //会费
     private String qq;                    //已开启QQ通讯组件的QQ号码
-    private String gzQrCode;               //微信公众号二维码
+    private String gzQrcode;              //微信公众号二维码
 
     /**
      * 分享信息
@@ -74,13 +74,13 @@ public class MemberRecruitment extends BaseActivityEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "gz_qr_code", nullable = true)
-    public String getGzQrCode() {
-        return gzQrCode;
+    @Column(name = "gz_qrcode", nullable = true)
+    public String getGzQrcode() {
+        return gzQrcode;
     }
 
-    public void setGzQrCode(String gzQrCode) {
-        this.gzQrCode = gzQrCode;
+    public void setGzQrcode(String gzQrcode) {
+        this.gzQrcode = gzQrcode;
     }
 
     @Basic

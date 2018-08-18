@@ -12,7 +12,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * 会员招募表
+ * 用户会员招募表
  *
  * Created by luodejin on 2018/8/15.
  */
@@ -26,7 +26,7 @@ public class UserMemberRecruitment extends BaseEntity<Integer> {
 
     private MemberRecruitment memberRecruitment;
 
-    private String initiationTime;        //招募入会时间
+    private String createTime;        //招募入会时间
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public User getUser() {
@@ -47,12 +47,12 @@ public class UserMemberRecruitment extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "initiation_time", nullable = false)
-    public String getInitiationTime() {
-        return initiationTime;
+    @Column(name = "create_time", nullable = false)
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setInitiationTime(String initiationTime) {
-        this.initiationTime = initiationTime;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }

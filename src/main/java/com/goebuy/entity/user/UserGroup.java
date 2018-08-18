@@ -21,9 +21,9 @@ public class UserGroup extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = 8793511690544771276L;
 
-    private User user;              //用户
+    private User user;                    //用户
     private Group group;                  //群组
-    private String initiationTime;        //用户进入群组时间
+    private String createTime;            //用户进入群组时间
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public User getUser() {
@@ -43,12 +43,12 @@ public class UserGroup extends BaseEntity<Integer> {
         this.group = group;
     }
     @Basic
-    @Column(name = "initiationTime", nullable = false)
-    public String getInitiationTime() {
-        return initiationTime;
+    @Column(name = "create_time", nullable = false)
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setInitiationTime(String initiationTime) {
-        this.initiationTime = initiationTime;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
     }
 }

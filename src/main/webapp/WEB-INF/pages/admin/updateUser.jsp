@@ -28,25 +28,25 @@
         <div class="form-group">
             <label for="firstName">Nickname:</label>
             <input type="text" class="form-control" id="nickname" name="nickname" placeholder="Enter Nickname:"
-                   value="${user.nickname}"/>
+                   value="${legalRepresentative.nickname}"/>
         </div>
         <div class="form-group">
             <label for="firstName">First Name:</label>
             <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter FirstName:"
-                   value="${user.firstName}"/>
+                   value="${legalRepresentative.firstName}"/>
         </div>
         <div class="form-group">
             <label for="lastName">Last Name:</label>
             <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Enter LastName:"
-                   value="${user.lastName}"/>
+                   value="${legalRepresentative.lastName}"/>
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
             <input type="text" class="form-control" id="password" name="password" placeholder="Enter Password:"
-                   value="${user.password}"/>
+                   value="${legalRepresentative.password}"/>
         </div>
         <!-- 把 id 一并写入 userP 中 -->
-        <input type="hidden" id="id" name="id" value="${user.id}"/>
+        <input type="hidden" id="id" name="id" value="${legalRepresentative.id}"/>
 
         <div class="form-group">
             <button type="submit" class="btn btn-sm btn-success">提交</button>

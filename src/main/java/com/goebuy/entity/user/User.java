@@ -1,9 +1,6 @@
 package com.goebuy.entity.user;
 
 import com.goebuy.entity.BaseEntity;
-import com.goebuy.entity.event.BlogEntity;
-
-import java.util.Collection;
 
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -11,7 +8,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,11 +20,11 @@ public class User extends BaseEntity<Integer> {
     /**
      * 基本信息
      */
-    private String userId;                //用户id
-    private String name;                  //姓名
+    private String nickname;              //昵称
+    private String password;              //密码
+    private String name;                  //真实姓名
     private String email;                 //邮箱
     private String phoneNo;               //手机号码
-    private WeChat weChat;                //微信
     private int gender;                   //性别
     private String address;               //地址
     private String birthday;              //生日
@@ -39,21 +35,47 @@ public class User extends BaseEntity<Integer> {
     private String education;             //学历
     private String institution;           //就职单位或就读学校名称
     private String job;                   //担任职务或就读专业
-    private String ext;                   //扩展信息
+
+    private boolean isMerchant;           //是否是商户
+    private Merchant merchant;            //关联的商户账号
 
     /**
-     * 认证信息，非必须
+     * 个人账号认证信息，非必须
      */
-    private PersonCertification personCertification;   //认证信息
+    private String idCardNo;              //身份证号码
+    private String idCardFrontPic;        //身份证正面照
+    private String idCardBackPic;         //身份证反面照
+
+    /**
+     * 微信信息
+     */
+    private String wechatNo;              //微信号
+    private String wechatNickname;        //微信昵称
+    private String wechatHeadPic;         //微信头像
+
+    private String createTime;            //创建时间
+    private String updateTime;            //最近更新时间
+
+    private String ext;                   //扩展信息
 
     @Basic
-    @Column(name = "user_id", nullable = false)
-    public String getUserId() {
-        return userId;
+    @Column(name = "nickname", nullable = true)
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    @Basic
+    @Column(name = "password", nullable = true)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Basic
@@ -84,16 +106,6 @@ public class User extends BaseEntity<Integer> {
 
     public void setPhoneNo(String phoneNo) {
         this.phoneNo = phoneNo;
-    }
-
-    @Basic
-    @Column(name = "wechat", nullable = true)
-    public WeChat getWeChat() {
-        return weChat;
-    }
-
-    public void setWeChat(WeChat weChat) {
-        this.weChat = weChat;
     }
 
     @Basic
@@ -157,6 +169,105 @@ public class User extends BaseEntity<Integer> {
     }
 
     @Basic
+    @Column(name = "is_merchant", nullable = true)
+    public boolean isMerchant() {
+        return isMerchant;
+    }
+
+    public void setMerchant(boolean merchant) {
+        isMerchant = merchant;
+    }
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
+    public Merchant getMerchant() {
+        return merchant;
+    }
+
+    public void setMerchant(Merchant merchant) {
+        this.merchant = merchant;
+    }
+
+    @Basic
+    @Column(name = "id_card_no", nullable = false)
+    public String getIdCardNo() {
+        return idCardNo;
+    }
+
+    public void setIdCardNo(String idCardNo) {
+        this.idCardNo = idCardNo;
+    }
+
+    @Basic
+    @Column(name = "id_card_front_pic", nullable = false)
+    public String getIdCardFrontPic() {
+        return idCardFrontPic;
+    }
+
+    public void setIdCardFrontPic(String idCardFrontPic) {
+        this.idCardFrontPic = idCardFrontPic;
+    }
+
+    @Basic
+    @Column(name = "id_card_back_pic", nullable = false)
+    public String getIdCardBackPic() {
+        return idCardBackPic;
+    }
+
+    public void setIdCardBackPic(String idCardBackPic) {
+        this.idCardBackPic = idCardBackPic;
+    }
+
+    @Basic
+    @Column(name = "wechat_no", nullable = false)
+    public String getWechatNo() {
+        return wechatNo;
+    }
+
+    public void setWechatNo(String wechatNo) {
+        this.wechatNo = wechatNo;
+    }
+
+    @Basic
+    @Column(name = "wechat_nickname", nullable = false)
+    public String getWechatNickname() {
+        return wechatNickname;
+    }
+
+    public void setWechatNickname(String wechatNickname) {
+        this.wechatNickname = wechatNickname;
+    }
+
+    @Basic
+    @Column(name = "wechat_head_pic", nullable = true)
+    public String getWechatHeadPic() {
+        return wechatHeadPic;
+    }
+
+    public void setWechatHeadPic(String wechatHeadPic) {
+        this.wechatHeadPic = wechatHeadPic;
+    }
+
+    @Basic
+    @Column(name = "create_time", nullable = false)
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    @Basic
+    @Column(name = "update_time", nullable = false)
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @Basic
     @Column(name = "ext", nullable = true)
     public String getExt() {
         return ext;
@@ -166,16 +277,7 @@ public class User extends BaseEntity<Integer> {
         this.ext = ext;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public PersonCertification getPersonCertification() {
-        return personCertification;
-    }
-
-    public void setPersonCertification(PersonCertification personCertification) {
-        this.personCertification = personCertification;
-    }
-
-//    @Override
+    //    @Override
 //    public boolean equals(Object o) {
 //        if (this == o) return true;
 //        if (o == null || getClass() != o.getClass()) return false;

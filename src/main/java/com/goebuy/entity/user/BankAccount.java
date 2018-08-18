@@ -16,38 +16,40 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/8/15.
  */
 @Entity
-@Table(name = "bank_account", schema = "springdemo", indexes={@Index(name="bank_card_number_Index", columnList="bankCardNo")}, catalog = "")
+@Table(name = "bank_account", schema = "springdemo", indexes={@Index(name="bank_card_number_Index", columnList="cardNo")}, catalog = "")
 public class BankAccount extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = 208075760882253739L;
 
-    private String accountType;           //账号类型：企业或法人
-    private String bankName;              //银行名称
+    private String type;                  //账号类型：1 企业, 2 个人
+    private String name;                  //银行名称
     private String cityName;              //开户银行所在城市
-    private String bankBranchName;        //开户银行支行名称
-    private String bankCardNo;            //银行卡号
-    private String phoneNumber;           //银行预留手机号
-    private CompanyCertification companyCertification; //账号类型为企业
-    private PersonCertification personCertification;   //账号类型为法人
+    private String branchName;            //开户银行支行名称
+    private String cardNo;                //银行卡号
+    private String phoneNo;               //银行预留手机号
+    private User cardholder;              //持卡人
+
+    private String createTime;            //创建时间
+    private String updateTime;            //最近更新时间
 
     @Basic
-    @Column(name = "account_type", nullable = false)
-    public String getAccountType() {
-        return accountType;
+    @Column(name = "type", nullable = false)
+    public String getAType() {
+        return type;
     }
 
-    public void setAccountType(String accountType) {
-        this.accountType = accountType;
+    public void setType(String accountType) {
+        this.type = type;
     }
 
     @Basic
-    @Column(name = "bank_name", nullable = false)
-    public String getBankName() {
-        return bankName;
+    @Column(name = "name", nullable = false)
+    public String getName() {
+        return name;
     }
 
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -61,51 +63,61 @@ public class BankAccount extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "bank_branch_name", nullable = false)
-    public String getBankBranchName() {
-        return bankBranchName;
+    @Column(name = "branch_name", nullable = false)
+    public String getBranchName() {
+        return branchName;
     }
 
-    public void setBankBranchName(String bankBranchName) {
-        this.bankBranchName = bankBranchName;
-    }
-
-    @Basic
-    @Column(name = "bank_card_name", nullable = false)
-    public String getBankCardNo() {
-        return bankCardNo;
-    }
-
-    public void setBankCardNo(String bankCardNo) {
-        this.bankCardNo = bankCardNo;
+    public void setBranchName(String branchName) {
+        this.branchName = branchName;
     }
 
     @Basic
-    @Column(name = "phone_number", nullable = false)
-    public String getPhoneNumber() {
-        return phoneNumber;
+    @Column(name = "card_no", nullable = false)
+    public String getCardNo() {
+        return cardNo;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+    }
+
+    @Basic
+    @Column(name = "phone_no", nullable = false)
+    public String getPhoneNo() {
+        return phoneNo;
+    }
+
+    public void setPhoneNo(String phoneNo) {
+        this.phoneNo = phoneNo;
     }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
-    public CompanyCertification getCompanyCertification() {
-        return companyCertification;
+    public User getCardholder() {
+        return cardholder;
     }
 
-
-    public void setCompanyCertification(CompanyCertification companyCertification) {
-        this.companyCertification = companyCertification;
+    public void setCardholder(User cardholder) {
+        this.cardholder = cardholder;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
-    public PersonCertification getPersonCertification() {
-        return personCertification;
+    @Basic
+    @Column(name = "create_time", nullable = false)
+    public String getCreateTime() {
+        return createTime;
     }
 
-    public void setPersonCertification(PersonCertification personCertification) {
-        this.personCertification = personCertification;
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    @Basic
+    @Column(name = "update_time", nullable = false)
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
     }
 }

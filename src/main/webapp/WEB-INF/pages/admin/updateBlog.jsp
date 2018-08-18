@@ -35,12 +35,12 @@
         <div class="form-group">
             <label for="userByUserId.id">Author:</label>
             <select class="form-control" id="userByUserId.id" name="userByUserId.id">
-                <c:forEach items="${userList}" var="user">
-                    <c:if test="${user.id==blog.userByUserId.id}">
-                        <option value="${user.id}" selected="selected">${user.nickname}, ${user.firstName} ${user.lastName}</option>
+                <c:forEach items="${userList}" var="legalRepresentative">
+                    <c:if test="${legalRepresentative.id==blog.userByUserId.id}">
+                        <option value="${legalRepresentative.id}" selected="selected">${legalRepresentative.nickname}, ${legalRepresentative.firstName} ${legalRepresentative.lastName}</option>
                     </c:if>
-                    <c:if test="${user.id!=blog.userByUserId.id}">
-                        <option value="${user.id}">${user.nickname}, ${user.firstName} ${user.lastName}</option>
+                    <c:if test="${legalRepresentative.id!=blog.userByUserId.id}">
+                        <option value="${legalRepresentative.id}">${legalRepresentative.nickname}, ${legalRepresentative.firstName} ${legalRepresentative.lastName}</option>
                     </c:if>
                 </c:forEach>
             </select>

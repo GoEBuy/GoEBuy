@@ -26,23 +26,23 @@
     <table class="table table-bordered table-striped">
         <tr>
             <th>ID</th>
-            <td>${user.id}</td>
+            <td>${legalRepresentative.id}</td>
         </tr>
         <tr>
             <th>Nickname</th>
-            <td>${user.nickname}</td>
+            <td>${legalRepresentative.nickname}</td>
         </tr>
         <tr>
             <th>First Name</th>
-            <td>${user.firstName}</td>
+            <td>${legalRepresentative.firstName}</td>
         </tr>
         <tr>
             <th>Last Name</th>
-            <td>${user.lastName}</td>
+            <td>${legalRepresentative.lastName}</td>
         </tr>
         <tr>
             <th>Password</th>
-            <td>${user.password}</td>
+            <td>${legalRepresentative.password}</td>
         </tr>
     </table>
 </div>
