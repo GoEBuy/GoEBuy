@@ -3,13 +3,20 @@ package com.goebuy.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.goebuy.entity.user.User;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+
+import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.goebuy.biz.UserBiz;
+import com.goebuy.entity.user.User;
 
 import junit.framework.TestCase;
 
@@ -21,107 +28,121 @@ public class UserTest extends TestCase {
 //	 @Autowired
 //	 ApplicationContext ctx;
 
-//	    protected Logger logger = LoggerFactory.getLogger(getClass());
+	@Autowired
+	private UserBiz biz;
 
 	@Autowired
-	UserService userService;
-	
-	
+	private EntityManagerFactory factory;
+
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+		assertNotNull(biz);
+		if (biz == null) {
+			throw new RuntimeException("userService is null");
+		}
+//			EntityManagerFactory factory=Persistence.createEntityManagerFactory("entityManagerFactory");
+		assertNotNull(factory);
+		EntityManager em = factory.createEntityManager();
+		assertNotNull(em);
+	}
 
 	@Before
 	public void init() {
 		System.out.println("init");
+
 	}
-	
+
+	@After
+	public void after() {
+		System.out.println("after");
+	}
+
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+		if (factory != null) {
+			factory.close();
+		}
+	}
+
 	@Test
 	public void testCount() {
-		System.out.println("user count: " + userService.count());
+		System.out.println("user count: " + biz.count());
 	}
-	
+
 	@Test
 	public void testListAll() {
-		List<User> users =userService.findAll();
-		if(users!=null) {
-			for(User user : users ) {
-				System.out.println("user: " + user);
+		List<User> users = biz.findAll();
+		if (users != null) {
+			for (User userEntity : users) {
+				System.out.println("user: " + userEntity);
 			}
-		}else {
-			System.out.println("users is null");
+		} else {
+			System.out.println("users is empty");
 		}
 	}
 
 	@Test
 	public void testUserAdd() {
-		System.out.println("hello");
-		if (userService == null) {
-			System.out.println("userService is null");
-		}else {
-			User u =new User();
+		System.out.println("testUserAdd");
+		if (biz.findByName("addyyy2") == null) {
+			User u = new User();
 			u.setName("addyyy2");
 //			u.setPassword("yyy2");
-			userService.saveAndFlush( u);
+			biz.saveAndFlush(u);
 		}
-//		EntityManagerFactory factory=Persistence.createEntityManagerFactory("entityManagerFactory");
-//		EntityManager em=factory.createEntityManager();
-//		User u =new User();
-//		u.setNickname("addyyy1");
-//		u.setPassword("yyy1");
-//		em.getTransaction().begin();//开始事物
-//		    //Session.save()-->Persist();
-//		em.persist(u); //持久化到数据库.persist:持久化
-//		em.getTransaction().commit();
-//		em.close();
-//		factory.close();
-		
+
 	}
-	
-	@Test 
+
+	@Test
 	public void testUserFind() {
 		System.out.println("testUserFind");
-	List<User> userList = 	userService.findByNameMatch("yyy");
-	if(userList !=null) {
-		for(User u : userList) {
-			System.out.println(u);
+		List<User> userList = biz.findByNameMatch("yyy");
+		if (userList != null) {
+			for (User u : userList) {
+				System.out.println(u);
+			}
+		} else {
+			System.out.println("userlist is null");
 		}
-	}else {
-		System.out.println("userlist is null");
 	}
-	}
-	
-	
-	@Test//通过id列表来查询
-	public void testFindUserByIds(){
+
+	@Test // 通过id列表来查询
+	public void testFindUserByIds() {
 		List<Integer> listIds = new ArrayList<Integer>();
 		listIds.add(2);
 		listIds.add(4);
 		listIds.add(7);
-		List<User> users  = userService.findAll(listIds);
-//		System.out.println(JSON.toJSONString(users));
+		List<User> users = biz.findByIds(listIds);
 	}
-	
-	
-//	@Test
-//	public void testUserDelete() {
-//		if (userService == null) {
-//			System.out.println("userService is null");
-//		}else {
+
+	@Test
+	public void testEntityManager() {
+		User u = new User();
+		u.setName("addtest");
+//		u.setPassword("addtest");
+		if (biz.findByName(u.getName()) == null) {
+			EntityManager em = factory.createEntityManager();
+			em.getTransaction().begin();
+			// Session.save()-->Persist();
+			em.persist(u); // 持久化到数据库.persist:持久化
+			em.getTransaction().commit();
+			em.close();
+			assertNotNull(biz.findByName(u.getName()));
+		}
+
+	}
+
+	@Ignore
+	@Test
+	public void testUserDelete() {
 //			userService.findOne(new Exam)
-//			User u =new User();
+//			UserEntity u =new UserEntity();
 //			u.setNickname("addyyy2");
 //			u.setPassword("yyy2");
 //			userService.saveAndFlush( u);
-//		}
-//		EntityManagerFactory factory=Persistence.createEntityManagerFactory("entityManagerFactory");
-//		EntityManager em=factory.createEntityManager();
-//		User u =new User();
-//		u.setNickname("addyyy1");
-//		u.setPassword("yyy1");
-//		em.getTransaction().begin();//开始事物
-//		    //Session.save()-->Persist();
-//		em.persist(u); //持久化到数据库.persist:持久化
-//		em.getTransaction().commit();
-//		em.close();
-//		factory.close();
-//	}
-	
+
+	}
+
 }

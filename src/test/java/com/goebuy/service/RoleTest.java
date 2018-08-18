@@ -1,5 +1,6 @@
 package com.goebuy.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Before;
@@ -82,13 +83,19 @@ public class RoleTest extends TestCase {
 	@Test
 	public void testAdd() {
 		System.out.println("testAdd");
-		if (biz == null) {
-			System.out.println("roleService is null");
-		}else {
-			if(biz.findByName("normal")==null) {
-				biz.save(new Role("normal", "normal"));
+		Role r1 = new Role("staff");
+		Role r2 = new Role("admin");
+		Role r3 = new Role("superadmin");
+		Role r4 = new Role("normal");
+		List<Role> list = new ArrayList<>();
+		list.add(r1);
+		list.add(r2);
+		list.add(r3);
+		for(Role r: list) {
+			if(biz.findByName(r.getRole())==null) {
+				biz.saveAndFlush(r);
 			}else {
-				System.out.println("exist");
+				System.out.println("role "+r.getRole()+" exist");
 			}
 		}
 	}
