@@ -8,7 +8,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "sys_systemlog",indexes={@Index(name="operationType_index", columnList="operationType")}, schema = "springdemo", catalog = "")
-public class SystemLogEntity extends BaseEntity<Integer> {
+public class SystemLog extends BaseEntity<Integer> {
 
 
 	/**
@@ -74,7 +74,7 @@ public class SystemLogEntity extends BaseEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "requestIp", nullable = true, length = 20)
+	@Column(name = "request_ip", nullable = true, length = 20)
 	public String getRequestIp() {
 		return requestIp;
 	}
@@ -84,7 +84,7 @@ public class SystemLogEntity extends BaseEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "exceptioncode", nullable = true, length = 20)
+	@Column(name = "exception_code", nullable = true, length = 20)
 	public String getExceptioncode() {
 		return exceptioncode;
 	}
@@ -94,7 +94,7 @@ public class SystemLogEntity extends BaseEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "exceptionDetail", nullable = true, length = 20)
+	@Column(name = "exception_detail", nullable = true, length = 20)
 	public String getExceptionDetail() {
 		return exceptionDetail;
 	}
@@ -114,7 +114,7 @@ public class SystemLogEntity extends BaseEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "createBy", nullable = true, length = 30)
+	@Column(name = "create_by", nullable = true, length = 30)
 	public String getCreateBy() {
 		return createBy;
 	}
@@ -124,7 +124,7 @@ public class SystemLogEntity extends BaseEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "createDate", nullable = false, length = 30)
+	@Column(name = "create_date", nullable = false, length = 30)
 	public String getCreateDate() {
 		return createDate;
 	}
@@ -134,7 +134,7 @@ public class SystemLogEntity extends BaseEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "loginName", nullable = false, length = 30)
+	@Column(name = "login_name", nullable = false, length = 30)
 	public String getLoginName() {
 		return loginName;
 	}
@@ -144,7 +144,7 @@ public class SystemLogEntity extends BaseEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "resultMsg", nullable = true, length = 100)
+	@Column(name = "result_msg", nullable = true, length = 100)
 	public String getResultMsg() {
 		return resultMsg;
 	}
@@ -155,7 +155,7 @@ public class SystemLogEntity extends BaseEntity<Integer> {
 
 
 	@Basic
-	@Column(name = "operationType", nullable = true, length = 10)
+	@Column(name = "operation_type", nullable = true, length = 10)
 	public String getOperationType() {
 		return operationType;
 	}
@@ -166,7 +166,7 @@ public class SystemLogEntity extends BaseEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "operationName", nullable = true, length = 30)
+	@Column(name = "operation_name", nullable = true, length = 30)
 	public String getOperationName() {
 		return operationName;
 	}
@@ -177,7 +177,7 @@ public class SystemLogEntity extends BaseEntity<Integer> {
 
 
 
-	public SystemLogEntity(String loginName, String description, String method, Long logType, String resultMsg,
+	public SystemLog(String loginName, String description, String method, Long logType, String resultMsg,
 						   String createDate) {
 		super();
 		this.loginName = loginName;
@@ -188,7 +188,7 @@ public class SystemLogEntity extends BaseEntity<Integer> {
 		this.createDate = createDate;
 	}
 
-	public SystemLogEntity() {
+	public SystemLog() {
 		super();
 	}
 

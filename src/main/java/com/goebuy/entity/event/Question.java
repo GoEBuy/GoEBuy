@@ -35,7 +35,7 @@ public class Question extends BaseActivityEntity<Integer> {
 		this.content = content;
 	}
 	@Basic
-	@Column(name = "isShow", nullable = true)
+	@Column(name = "is_show", nullable = true)
 	public boolean isShow() {
 		return isShow;
 	}

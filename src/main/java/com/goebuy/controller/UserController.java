@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.goebuy.annotation.SystemLog;
+import com.goebuy.annotation.SystemLogAnnotation;
 import com.goebuy.service.UserService;
 
 @Controller
@@ -39,7 +39,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
-	@SystemLog(operationType = "list", operationName = "user")
+	@SystemLogAnnotation(operationType = "list", operationName = "user")
 	public String getUsers(HttpServletRequest request, ModelMap modelMap) {
 		// 查询user表中所有记录
 		System.out.println("getUsers");
@@ -143,15 +143,14 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/users/addP", method = RequestMethod.POST)
-	@SystemLog(operationType = "add", operationName = "user")
+	@SystemLogAnnotation(operationType = "add", operationName = "user")
 	public String addUserPost(HttpServletRequest request, @ModelAttribute("user") User user) {
 		// 注意此处，post请求传递过来的是一个UserEntity对象，里面包含了该用户的信息
 		// 通过@ModelAttribute()注解可以获取传递过来的'user'，并创建这个对象
 
 		// 数据库中添加一个用户，该步暂时不会刷新缓存
 		// userRepository.save(user);
-		System.out.println(user.getFirstName());
-		System.out.println(user.getLastName());
+		System.out.println(user.getName());
 
 		// 数据库中添加一个用户，并立即刷新缓存
 		userRepository.saveAndFlush(user);
@@ -168,7 +167,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/users/show/{id}", method = RequestMethod.GET)
-	@SystemLog(operationType = "list", operationName = "user")
+	@SystemLogAnnotation(operationType = "list", operationName = "user")
 	public String showUser(HttpServletRequest request, @PathVariable("id") Integer userId, ModelMap modelMap) {
 		System.out.println("showUser");
 		// 找到userId所表示的用户
@@ -182,7 +181,7 @@ public class UserController {
 
 	// 更新用户信息 页面
 	@RequestMapping(value = "/admin/users/update/{id}", method = RequestMethod.GET)
-	@SystemLog(operationType = "update", operationName = "user")
+	@SystemLogAnnotation(operationType = "update", operationName = "user")
 	public String updateUser(@PathVariable("id") Integer userId, ModelMap modelMap) {
 
 		System.out.println("updateUser");
@@ -195,9 +194,9 @@ public class UserController {
 
 	// 更新用户信息 操作
 	@RequestMapping(value = "/admin/users/updateP", method = RequestMethod.POST)
-	@SystemLog(operationType = "update", operationName = "user")
+	@SystemLogAnnotation(operationType = "update", operationName = "user")
 	public String updateUserPost(HttpServletRequest request, @ModelAttribute("user") User user) {
-		userRepository.updateUser(user.getNickname(), user.getFirstName(), user.getLastName(), user.getPassword(),
+		userRepository.updateUser(user.getName(), user.getName(), user.getName(), user.getName(),
 				user.getId());
 		userRepository.flush(); // 刷新缓冲区
 		return "redirect:/admin/users";
@@ -209,7 +208,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/admin/users/delete/{id}", method = RequestMethod.GET)
-	@SystemLog(operationType = "delete", operationName = "user")
+	@SystemLogAnnotation(operationType = "delete", operationName = "user")
 	public String deleteUser(@PathVariable("id") Integer userId) {
 
 		// 删除id为userId的用户

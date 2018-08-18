@@ -14,7 +14,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "auth_rolepermission", schema = "springdemo", catalog = "")
+@Table(name = "auth_role_permission", schema = "springdemo", catalog = "")
 public class RolePermission extends BaseEntity<Integer> {
 
 	/**

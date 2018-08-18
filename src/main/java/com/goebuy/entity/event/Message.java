@@ -31,15 +31,15 @@ public class Message extends BaseEntity<Integer> {
 	private User user;
 	
 	/** 发送时间 */
-	private String create_time;
+	private String createTime;
 	
 	/** 目标用户*/
-	private String tousers;
+	private String toUsers;
 	
 	private String content;
 	
 	/** 目标人数 */
-	private int to_count;
+	private int toCount;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	public User getUser() {
@@ -52,21 +52,21 @@ public class Message extends BaseEntity<Integer> {
 
 	@Basic
 	@Column(name = "create_time", nullable = true)
-	public String getCreate_time() {
-		return create_time;
+	public String getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreate_time(String create_time) {
-		this.create_time = create_time;
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 	@Basic
-	@Column(name = "tousers", nullable = false )
-	public String getTousers() {
-		return tousers;
+	@Column(name = "to_users", nullable = false )
+	public String getToUsers() {
+		return toUsers;
 	}
 
-	public void setTousers(String tousers) {
-		this.tousers = tousers;
+	public void setToUsers(String toUsers) {
+		this.toUsers = toUsers;
 	}
 	@Basic
 	@Column(name = "content", nullable = false)
@@ -80,12 +80,12 @@ public class Message extends BaseEntity<Integer> {
 	
 	@Basic
 	@Column(name = "to_count", nullable = true)
-	public int getTo_count() {
-		return to_count;
+	public int getToCount() {
+		return toCount;
 	}
 
-	public void setTo_count(int to_count) {
-		this.to_count = to_count;
+	public void setToCount(int toCount) {
+		this.toCount = toCount;
 	}	
 	
 	

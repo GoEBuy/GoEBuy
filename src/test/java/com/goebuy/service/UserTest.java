@@ -57,8 +57,8 @@ public class UserTest extends TestCase {
 			System.out.println("userService is null");
 		}else {
 			User u =new User();
-			u.setNickname("addyyy2");
-			u.setPassword("yyy2");
+			u.setName("addyyy2");
+//			u.setPassword("yyy2");
 			userService.saveAndFlush( u);
 		}
 //		EntityManagerFactory factory=Persistence.createEntityManagerFactory("entityManagerFactory");
