@@ -23,8 +23,20 @@ public class EntryForm extends BaseActivityEntity<Integer> {
 	/** 售票类型 */
 	private String ticketType;
 	
+	/** 报名开始日期 */
+	private String enrollStartDate;
+	
+	private String enrollEndDate;
+	
+	/** 报名开始时间 */
+	private String enrollStartTime;
+	
+	private String enrollEndTime;
+	
 	/** 报名限制 */
 	private String enrollType;
+	
+	
 	
 	/**余票显示 */
 	private boolean showLeftTicket;
@@ -38,6 +50,45 @@ public class EntryForm extends BaseActivityEntity<Integer> {
 	/**	仅限会员*/
 	private boolean needVip=false;
 
+	
+	
+	@Basic
+	@Column(name = "enroll_start_date", nullable = true)
+	public String getEnrollStartDate() {
+		return enrollStartDate;
+	}
+
+	public void setEnrollStartDate(String enroll_start_date) {
+		this.enrollStartDate = enroll_start_date;
+	}
+	@Basic
+	@Column(name = "enroll_end_date", nullable = true)
+	public String getEnrollEndDate() {
+		return enrollEndDate;
+	}
+
+	public void setEnrollEndDate(String enroll_end_date) {
+		this.enrollEndDate = enroll_end_date;
+	}
+	@Basic
+	@Column(name = "enroll_start_time", nullable = true)
+	public String getEnrollStartTime() {
+		return enrollStartTime;
+	}
+
+	public void setEnrollStartTime(String enroll_start_time) {
+		this.enrollStartTime = enroll_start_time;
+	}
+	
+	@Basic
+	@Column(name = "enroll_end_time", nullable = true)
+	public String getEnrollEndTime() {
+		return enrollEndTime;
+	}
+
+	public void setEnrollEndTime(String enroll_end_time) {
+		this.enrollEndTime = enroll_end_time;
+	}
 	
 	@Basic
 	@Column(name = "ticket_type", nullable = true)
