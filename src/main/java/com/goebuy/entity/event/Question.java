@@ -20,20 +20,8 @@ public class Question extends BaseActivityEntity<Integer> {
 	 */
 	private static final long serialVersionUID = -6857678746433501077L;
 
-	/** 问卷内容 */
-	private String content;
-	
 	/** 是否展示提交用户数和提交用户头像*/
 	private boolean isShow;
-	@Basic
-	@Column(name = "content", nullable = true)
-	public String getContent() {
-		return content;
-	}
-
-	public void setContent(String content) {
-		this.content = content;
-	}
 	@Basic
 	@Column(name = "is_show", nullable = true)
 	public boolean isShow() {

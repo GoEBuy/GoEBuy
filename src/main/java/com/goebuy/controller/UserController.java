@@ -196,8 +196,7 @@ public class UserController {
 	@RequestMapping(value = "/admin/users/updateP", method = RequestMethod.POST)
 	@SystemLogAnnotation(operationType = "update", operationName = "user")
 	public String updateUserPost(HttpServletRequest request, @ModelAttribute("user") User user) {
-		userRepository.updateUser(user.getName(), user.getName(), user.getName(), user.getName(),
-				user.getId());
+		userRepository.updateUser(user.getName(), user.getId());
 		userRepository.flush(); // 刷新缓冲区
 		return "redirect:/admin/users";
 	}

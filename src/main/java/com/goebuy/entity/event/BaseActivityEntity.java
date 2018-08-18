@@ -61,6 +61,24 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	/**活动二维码图片 */
 	protected String qrcode;
 	
+	
+	/**
+     * 分享信息
+     */
+	/**分享标题*/
+	private String shareTitle;
+	/**分享描述*/
+	private String shareDesc;
+	/*分享图片*/
+	private String shareImg;
+	
+	/** 客服qq  已开启QQ通讯组件的QQ号码 */
+	private String qq;
+	
+	/**公众号二维码 */ 
+	private String gzQrcode;
+
+	
 //	private int version;
 
 
@@ -206,6 +224,54 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 		this.qrcode = qrcode;
 	}
 
+	@Basic
+	@Column(name = "qq", nullable = true)
+	public String getQq() {
+		return qq;
+	}
+
+	public void setQq(String qq) {
+		this.qq = qq;
+	}
+	
+	@Basic
+	@Column(name = "share_title", nullable = true)
+	public String getShareTitle() {
+		return shareTitle;
+	}
+
+	public void setShareTitle(String share_title) {
+		this.shareTitle = share_title;
+	}
+	@Basic
+	@Column(name = "share_desc", nullable = true)
+	public String getShareDesc() {
+		return shareDesc;
+	}
+
+	public void setShareDesc(String share_desc) {
+		this.shareDesc = share_desc;
+	}
+	@Basic
+	@Column(name = "share_img", nullable = true)
+	public String getShareImg() {
+		return shareImg;
+	}
+
+	public void setShareImg(String share_img) {
+		this.shareImg = share_img;
+	}
+	@Basic
+	@Column(name = "gz_qrcode", nullable = true)
+	public String getGzQrcode() {
+		return gzQrcode;
+	}
+
+	public void setGzQrcode(String gz_qrcode) {
+		this.gzQrcode = gz_qrcode;
+	}
+	
+	
 	@Override
 	public String toString() {
 		return JSON.toJSONString(this);
