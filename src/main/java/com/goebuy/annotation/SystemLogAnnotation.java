@@ -18,7 +18,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.PARAMETER, ElementType.METHOD})  
 @Retention(RetentionPolicy.RUNTIME)  
 @Documented  
-public @interface SystemLog {
+public @interface SystemLogAnnotation {
 
 
     /** 要执行的操作类型比如：add, update, get, find, delete, list 操作 **/  

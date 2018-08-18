@@ -27,25 +27,26 @@ public class Tip extends BaseActivityEntity<Integer> {
 	private String content;
 	
 	/** 打赏后内容  */
-	private String hidden_content;
+	private String hiddenContent;
 	
 	/**设置打赏后可见内容*/
-	private String after_show;
+	private String afterShow;
 	
 	/**打赏金额 */
 	private double fee;
 	
 	/**打赏金额设置  6等级：1，5，10，50， 100，200 */
-	private String feelevel;
+	private String feeLevel;
 	
 	/** 展示自定义打赏金额*/
-	private boolean iscustomfee;
+	private boolean isCustomFee;
 	
 	/**展示用户打赏排行榜 */
-	private boolean show_rank;
+	private boolean showRank;
+	
 	
 	/**后台数据统计时间 打赏发布后无法再修改统计时间， 7天，1个月， 3个月 */
-	private int statics_day_span=30;
+	private int staticsDaySpan=30;
 
 	
 	@Basic
@@ -68,21 +69,21 @@ public class Tip extends BaseActivityEntity<Integer> {
 
 	@Basic
 	@Column(name = "hidden_content", length=10000, nullable = true)
-	public String getHidden_content() {
-		return hidden_content;
+	public String getHiddenContent() {
+		return hiddenContent;
 	}
 
-	public void setHidden_content(String hidden_content) {
-		this.hidden_content = hidden_content;
+	public void setHiddenContent(String hiddenContent) {
+		this.hiddenContent = hiddenContent;
 	}
 	@Basic
 	@Column(name = "after_show", nullable = true)
-	public String getAfter_show() {
-		return after_show;
+	public String getAfterShow() {
+		return afterShow;
 	}
 
-	public void setAfter_show(String after_show) {
-		this.after_show = after_show;
+	public void setAfterShow(String afterShow) {
+		this.afterShow = afterShow;
 	}
 	@Basic
 	@Column(name = "fee", nullable = true)
@@ -94,40 +95,41 @@ public class Tip extends BaseActivityEntity<Integer> {
 		this.fee = fee;
 	}
 	@Basic
-	@Column(name = "feelevel", nullable = true)
-	public String getFeelevel() {
-		return feelevel;
+	@Column(name = "fee_level", nullable = true)
+	public String getFeeLevel() {
+		return feeLevel;
 	}
 
-	public void setFeelevel(String feelevel) {
-		this.feelevel = feelevel;
+	public void setFeeLevel(String feelevel) {
+		this.feeLevel = feelevel;
 	}
 	@Basic
-	@Column(name = "iscustomfee", nullable = true)
-	public boolean isIscustomfee() {
-		return iscustomfee;
+	@Column(name = "is_custom_fee", nullable = true)
+	public boolean isCustomFee() {
+		return isCustomFee;
 	}
 
-	public void setIscustomfee(boolean iscustomfee) {
-		this.iscustomfee = iscustomfee;
+	public void setCustomFee(boolean isCustomFee) {
+		this.isCustomFee = isCustomFee;
 	}
+
 	@Basic
 	@Column(name = "show_rank", nullable = true)
-	public boolean isShow_rank() {
-		return show_rank;
+	public boolean isShowRank() {
+		return showRank;
 	}
 
-	public void setShow_rank(boolean show_rank) {
-		this.show_rank = show_rank;
+	public void setShowRank(boolean showRank) {
+		this.showRank = showRank;
 	}
 	@Basic
 	@Column(name = "statics_day_span", nullable = true)
-	public int getStatics_day_span() {
-		return statics_day_span;
+	public int getStaticsDaySpan() {
+		return staticsDaySpan;
 	}
 
-	public void setStatics_day_span(int statics_day_span) {
-		this.statics_day_span = statics_day_span;
+	public void setStaticsDaySpan(int staticsDaySpan) {
+		this.staticsDaySpan = staticsDaySpan;
 	}
 	
 	

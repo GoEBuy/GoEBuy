@@ -30,13 +30,13 @@ public class UserTip extends BaseEntity<Integer> {
 	private Tip tip;
 	
 	/** 用户打赏金额*/
-	private double userfee;
+	private double userFee;
 	
 	/** 打赏渠道*/
 	private String channel;
 	
 	/** 打赏时间 */
-	private String pay_time;
+	private String payTime;
 	
 	/** 打赏评论*/
 	private String remark;
@@ -58,12 +58,12 @@ public class UserTip extends BaseEntity<Integer> {
 	}
 	
 	@Basic
-	@Column(name = "userfee", nullable = true)
-	public double getUserfee() {
-		return userfee;
+	@Column(name = "user_fee", nullable = true)
+	public double getUserFee() {
+		return userFee;
 	}
-	public void setUserfee(double userfee) {
-		this.userfee = userfee;
+	public void setUserFee(double userFee) {
+		this.userFee = userFee;
 	}
 
 	@Basic
@@ -77,11 +77,11 @@ public class UserTip extends BaseEntity<Integer> {
 	
 	@Basic
 	@Column(name = "pay_time", nullable = true)
-	public String getPay_time() {
-		return pay_time;
+	public String getPayTime() {
+		return payTime;
 	}
-	public void setPay_time(String pay_time) {
-		this.pay_time = pay_time;
+	public void setPayTime(String payTime) {
+		this.payTime = payTime;
 	}
 	
 	@Basic

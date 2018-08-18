@@ -12,7 +12,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "entryform",indexes={@Index(name="index_name", columnList="name")},  schema = "springdemo",  catalog = "")
+@Table(name = "entry_form",indexes={@Index(name="index_name", columnList="name")},  schema = "springdemo",  catalog = "")
 public class EntryForm extends BaseActivityEntity<Integer> {
 
 	/**
@@ -21,53 +21,53 @@ public class EntryForm extends BaseActivityEntity<Integer> {
 	private static final long serialVersionUID = 9010868247836235386L;
 
 	/** 售票类型 */
-	private String ticket_type;
+	private String ticketType;
 	
 	/** 报名限制 */
-	private String enroll_type;
+	private String enrollType;
 	
 	/**余票显示 */
-	private boolean show_leftticket;
+	private boolean showLeftTicket;
 	
 	/**人数限制 默认不限制 -1*/
 	private int maxCnt=-1;
 	
 	/**是否需要审核*/
-	private boolean need_verify=false;
+	private boolean needVerify=false;
 	
 	/**	仅限会员*/
-	private boolean need_vip;
+	private boolean needVip=false;
 
 	
 	@Basic
 	@Column(name = "ticket_type", nullable = true)
-	public String getTicket_type() {
-		return ticket_type;
+	public String getTicketType() {
+		return ticketType;
 	}
 
-	public void setTicket_type(String ticket_type) {
-		this.ticket_type = ticket_type;
+	public void setTicketType(String ticketType) {
+		this.ticketType = ticketType;
 	}
 	@Basic
 	@Column(name = "enroll_type", nullable = true)
-	public String getEnroll_type() {
-		return enroll_type;
+	public String getEnrollType() {
+		return enrollType;
 	}
 
-	public void setEnroll_type(String enroll_type) {
-		this.enroll_type = enroll_type;
+	public void setEnrollType(String enrollType) {
+		this.enrollType = enrollType;
 	}
 	@Basic
-	@Column(name = "show_leftticket", nullable = true)
-	public boolean isShow_leftticket() {
-		return show_leftticket;
+	@Column(name = "show_left_ticket", nullable = true)
+	public boolean isShowLeftTicket() {
+		return showLeftTicket;
 	}
 
-	public void setShow_leftticket(boolean show_leftticket) {
-		this.show_leftticket = show_leftticket;
+	public void setShowLeftTicket(boolean showLeftTicket) {
+		this.showLeftTicket = showLeftTicket;
 	}
 	@Basic
-	@Column(name = "maxCnt", nullable = true)
+	@Column(name = "max_cnt", nullable = true)
 	public int getMaxCnt() {
 		return maxCnt;
 	}
@@ -77,21 +77,21 @@ public class EntryForm extends BaseActivityEntity<Integer> {
 	}
 	@Basic
 	@Column(name = "need_verify", nullable = true)
-	public boolean isNeed_verify() {
-		return need_verify;
+	public boolean isNeedVerify() {
+		return needVerify;
 	}
 
-	public void setNeed_verify(boolean need_verify) {
-		this.need_verify = need_verify;
+	public void setNeedVerify(boolean needVerify) {
+		this.needVerify = needVerify;
 	}
 	@Basic
 	@Column(name = "need_vip", nullable = true)
-	public boolean isNeed_vip() {
-		return need_vip;
+	public boolean isNeedVip() {
+		return needVip;
 	}
 
-	public void setNeed_vip(boolean need_vip) {
-		this.need_vip = need_vip;
+	public void setNeedVip(boolean needVip) {
+		this.needVip = needVip;
 	}
 	
 	

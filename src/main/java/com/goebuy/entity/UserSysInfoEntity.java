@@ -28,7 +28,7 @@ public class UserSysInfoEntity extends BaseEntity<Integer> {
 
 	private User user;
 
-	private SystemInfoEntity sysInfo;
+	private SystemInfo sysInfo;
 
 	private boolean hasRead;
 
@@ -47,16 +47,16 @@ public class UserSysInfoEntity extends BaseEntity<Integer> {
 	}
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public SystemInfoEntity getSysInfo() {
+	public SystemInfo getSysInfo() {
 		return sysInfo;
 	}
 	
-	public void setSysInfo(SystemInfoEntity sysInfo) {
+	public void setSysInfo(SystemInfo sysInfo) {
 		this.sysInfo = sysInfo;
 	}
 
 	@Basic
-	@Column(name = "hasRead", nullable = true)
+	@Column(name = "has_read", nullable = true)
 	public boolean isHasRead() {
 		return hasRead;
 	}

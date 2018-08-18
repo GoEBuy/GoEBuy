@@ -13,23 +13,30 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
- * 标签库类
+ * 标签库类, 用户标签与活动标签统一
  * @author Administrator
  */
 @Entity
 @Table(name = "tag", indexes={@Index(name="index_name", columnList="name")}, schema = "springdemo",  catalog = "")
 public class Tag extends BaseEntity<Integer> {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -498561889458454959L;
+
 	/**标签名称 */
 	private String name; 
 	
 	private User user;
 	
-	private String create_time;
+	private String createTime;
 	
 	/** 是否是通用标签  */
 	private boolean isCommon;
 
+	
+	
 	public String getName() {
 		return name;
 	}
@@ -49,12 +56,12 @@ public class Tag extends BaseEntity<Integer> {
 	
 	@Basic
 	@Column(name = "create_time", nullable = true)
-	public String getCreate_time() {
-		return create_time;
+	public String getCreateTime() {
+		return createTime;
 	}
 
-	public void setCreate_time(String create_time) {
-		this.create_time = create_time;
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
 	
 	@Basic
