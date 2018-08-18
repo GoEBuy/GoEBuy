@@ -3,10 +3,10 @@ package com.goebuy.service;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.goebuy.entity.SystemLogEntity;
+import com.goebuy.entity.SystemLog;
 
 @Repository
-public interface SysLogService extends JpaRepository<SystemLogEntity, Integer> {
+public interface SysLogService extends JpaRepository<SystemLog, Integer> {
 
 //	@Autowired
 //	EntityManager entityManager=null;

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ValueConstants;
 
-import com.goebuy.annotation.SystemLog;
+import com.goebuy.annotation.SystemLogAnnotation;
 import com.goebuy.entity.auth.Role;
 import com.goebuy.service.RoleService;
 
@@ -107,7 +107,7 @@ public class RoleController {
 
     // 添加博文，POST请求，重定向为查看博客页面
     @RequestMapping(value = "/admin/roles/addP", method = RequestMethod.POST)
-    @SystemLog(operationType = "add", operationName = "role")
+    @SystemLogAnnotation(operationType = "add", operationName = "role")
     public String addRolePost(HttpServletRequest request, @ModelAttribute("Role") Role roleEntity) {
     	
     	logger.info("addBlogPost");
@@ -143,7 +143,7 @@ public class RoleController {
 
     // 修改博客内容，POST请求
     @RequestMapping(value = "/admin/roles/updateP", method = RequestMethod.POST)
-    @SystemLog(operationType = "update", operationName = "role")
+    @SystemLogAnnotation(operationType = "update", operationName = "role")
     public String updateRolePost(HttpServletRequest request, @ModelAttribute("role") Role roleEntity) {
     	
     	logger.info("updateRolePost");
@@ -162,7 +162,7 @@ public class RoleController {
      * @return
      */
     @RequestMapping("/admin/roles/delete/{id}")
-    @SystemLog(operationType = "delete", operationName = "role")
+    @SystemLogAnnotation(operationType = "delete", operationName = "role")
     public String deleteRole(HttpServletRequest request, @PathVariable("id") int id) {
     	
     	logger.info("deleteRole");

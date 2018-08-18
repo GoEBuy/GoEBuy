@@ -4,8 +4,9 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
-import com.goebuy.entity.user.User;
+
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -23,8 +24,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 
-import com.goebuy.annotation.SystemLog;
-import com.goebuy.entity.SystemLogEntity;
+import com.goebuy.annotation.SystemLogAnnotation;
+import com.goebuy.entity.SystemLog;
+import com.goebuy.entity.user.User;
 import com.goebuy.service.SysLogService;
 
 /**
@@ -58,7 +60,7 @@ public class SystemLogAspect {
 	private String startTime = null, endTime = null;
 	Object[] method_params = null;
 	String methodName = null;
-	SystemLog sysLogAnnotation = null;
+	SystemLogAnnotation sysLogAnnotation = null;
 	String packages = null;
 	String operationType = "";
 	String operationName = "";
@@ -142,7 +144,7 @@ public class SystemLogAspect {
 		System.out.println("==========开始执行controller-around环绕通知===============");
 
 		Object obj = null;
-		SystemLogEntity log = new SystemLogEntity();
+		SystemLog log = new SystemLog();
 
 		// 记录方法开始执行的时间
 		startTimeMillis = System.currentTimeMillis();
@@ -305,7 +307,7 @@ public class SystemLogAspect {
 	 * @return
 	 * @throws Exception
 	 */
-	public static SystemLog getSystemLogAnnonation(JoinPoint joinPoint) {
+	public static SystemLogAnnotation getSystemLogAnnonation(JoinPoint joinPoint) {
 
 		String targetName = joinPoint.getTarget().getClass().getName();
 		String methodName = joinPoint.getSignature().getName();
@@ -321,7 +323,7 @@ public class SystemLogAspect {
 				if (m.getName().equals(methodName)) {
 					Class[] tmpCs = m.getParameterTypes();
 					if (tmpCs.length == arguments.length) {
-						SystemLog methodCache = m.getAnnotation(SystemLog.class);
+						SystemLogAnnotation methodCache = m.getAnnotation(SystemLogAnnotation.class);
 						return methodCache;
 					}
 				}

@@ -17,8 +17,8 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "sys_info", indexes={@Index(name="title_index", columnList="title")}, schema = "springdemo", catalog = "")
-public class SystemInfoEntity extends BaseEntity<Integer> {
+@Table(name = "sys_sysinfo", indexes={@Index(name="title_index", columnList="title")}, schema = "springdemo", catalog = "")
+public class SystemInfo extends BaseEntity<Integer> {
 
 	/**
 	 * 
@@ -34,7 +34,7 @@ public class SystemInfoEntity extends BaseEntity<Integer> {
 	/**
 	 * many2one
 	 */
-	private User userByUserId;
+	private User user;
 
 	private String pubDate;
 
@@ -67,12 +67,12 @@ public class SystemInfoEntity extends BaseEntity<Integer> {
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
-	public User getUserByUserId() {
-		return userByUserId;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUserByUserId(User userByUserId) {
-		this.userByUserId = userByUserId;
+	public void setUser(User userByUserId) {
+		this.user = userByUserId;
 	}
 
 	@Basic
@@ -112,7 +112,7 @@ public class SystemInfoEntity extends BaseEntity<Integer> {
 		if (o == null || getClass() != o.getClass())
 			return false;
 
-		SystemInfoEntity that = (SystemInfoEntity) o;
+		SystemInfo that = (SystemInfo) o;
 
 		if (id != that.id)
 			return false;
