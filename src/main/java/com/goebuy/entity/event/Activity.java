@@ -1,8 +1,12 @@
 package com.goebuy.entity.event;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,6 +23,9 @@ public class Activity extends BaseActivityEntity<Integer> {
 	 */
 	private static final long serialVersionUID = -2912999476359178126L;
 
+	/**活动分类id， 唯一  */
+	private ActivityCategory activityCate;
+	
 	/** 报名开始日期 */
 	private String enrollStartDate;
 	
@@ -61,7 +68,16 @@ public class Activity extends BaseActivityEntity<Integer> {
 	private boolean needVip;
 	
 	
-	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="ActivityCategory_id")
+	public ActivityCategory getActivityCate() {
+		return activityCate;
+	}
+
+	public void setActivityCate(ActivityCategory activityCate) {
+		this.activityCate = activityCate;
+	}
+
 	@Basic
 	@Column(name = "enroll_start_date", nullable = true)
 	public String getEnrollStartDate() {

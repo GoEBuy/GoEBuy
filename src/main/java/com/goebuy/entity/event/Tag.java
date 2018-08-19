@@ -27,13 +27,13 @@ public class Tag extends BaseEntity<Integer> {
 
 	/**标签名称 */
 	private String name; 
-	
+	/** 创建人 */
 	private User user;
 	
 	private String createTime;
 	
-	/** 是否是通用标签  */
-	private boolean isCommon;
+	/** 是否是通用标签 , 默认为否 */
+	private boolean isCommon = false;
 
 	
 	

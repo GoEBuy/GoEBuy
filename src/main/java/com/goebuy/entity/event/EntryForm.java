@@ -33,7 +33,7 @@ public class EntryForm extends BaseActivityEntity<Integer> {
 	
 	private String enrollEndTime;
 	
-	/** 报名限制 */
+	/** 报名限制 : 不限制， 没人限报一次 */
 	private String enrollType;
 	
 	
