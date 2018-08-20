@@ -69,7 +69,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	private String shareTitle;
 	/**分享描述*/
 	private String shareDesc;
-	/*分享图片*/
+	/**分享图片*/
 	private String shareImg;
 	
 	/** 客服qq  已开启QQ通讯组件的QQ号码 */

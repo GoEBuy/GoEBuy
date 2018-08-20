@@ -22,7 +22,7 @@ public class Group extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = -8029735894274024826L;
 
-    private String name;             //群组名称
+    private String name;                  //群组名称
     private int type;                     //群组类别：1 事件群组，2 标签群组，3 用户自定义群组
 
     /**

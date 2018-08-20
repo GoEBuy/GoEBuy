@@ -21,8 +21,8 @@ public class MemberRecruitment extends BaseActivityEntity<Integer> {
      * 基本信息
      */
     private String poster;                //项目海报：640＊400
-    private String memberPrivilege;       //会员特权
-    private String memberFee;             //会费
+    private String privilege;             //会员特权
+    private String fee;                   //会费
 
 
     @Basic
@@ -36,23 +36,23 @@ public class MemberRecruitment extends BaseActivityEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "member_privilege", nullable = false)
-    public String getMemberPrivilege() {
-        return memberPrivilege;
+    @Column(name = "privilege", nullable = false)
+    public String getPrivilege() {
+        return privilege;
     }
 
-    public void setMemberPrivilege(String memberPrivilege) {
-        this.memberPrivilege = memberPrivilege;
+    public void setPrivilege(String privilege) {
+        this.privilege = privilege;
     }
 
     @Basic
-    @Column(name = "member_fee", nullable = false)
-    public String getMemberFee() {
-        return memberFee;
+    @Column(name = "fee", nullable = false)
+    public String getFee() {
+        return fee;
     }
 
-    public void setMemberFee(String memberFee) {
-        this.memberFee = memberFee;
+    public void setFee(String fee) {
+        this.fee = fee;
     }
 
 }
