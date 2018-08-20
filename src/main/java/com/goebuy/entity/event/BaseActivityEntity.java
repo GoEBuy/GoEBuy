@@ -19,7 +19,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	 */
 	private static final long serialVersionUID = 7207739713485965568L;
 
-	/** 创建人 */
+	/** 创建人，对应会员用户表 */
 	protected User creator;
 	
 	protected String createTime;
@@ -52,8 +52,8 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	protected String contactPhone;
 	
 	
-	/** 活动状态*/
-	protected String state;
+	/** 活动状态 0:未开始 1:进行中 2:已结束*/
+	protected int state;
 	
 	/** 活动链接地址 */
 	protected String url;
@@ -198,11 +198,11 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	}
 	@Basic
 	@Column(name = "state", nullable = true)
-	public String getState() {
+	public int getState() {
 		return state;
 	}
 
-	public void setState(String state) {
+	public void setState(int state) {
 		this.state = state;
 	}
 	@Basic
