@@ -39,7 +39,7 @@ public class RoleController {
 	
 
     @Autowired
-    RoleService roleRepository;	
+    RoleService roleRepository;			
 
 
 //	@RequestMapping(value = "/", method = RequestMethod.GET)

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="js/jquery-1.7.2.js"></script>
+<script type="text/javascript">
+
+
+    /**
+    * 实际应用时，里边的参数应根据实际而改变，而不是写死的，
+    * 这里仅仅①简单地模拟前后端，②简单测试接口
+    *
+    */
+
+
+    function del() {
+        $.ajax({
+            type : "delete",
+            url : "http://localhost/student/deleteone/4",
+            async : true
+        });
+    }
+
+    function upd() {
+        $.ajax({
+            type : "put",
+            data:"id=6&t_name=cun&major=计科",
+            url : "http://localhost/student/updateone",
+            async : true
+        });
+    }
+</script>
+
+</head>
+<body>
+    <!-- 删除 -->
+    <button id="btn" onclick="del()">delete request</button>
+
+    <!-- 更新 -->
+    <button id="btn2" onclick="upd()">update request</button>
+
+    <!-- 增加 -->
+    <form action="http://localhost/student/addone" method="post">
+        major<input type="text" name="major" /> 
+        t_name<input type="text" name="t_name" /> 
+        <input type="submit" value="submit" />
+    </form>
+
+    <!-- 查询 -->
+    <a href="http://localhost/student/findone/6">select request</a>
+
+
+
+
+</body>
+</html>
