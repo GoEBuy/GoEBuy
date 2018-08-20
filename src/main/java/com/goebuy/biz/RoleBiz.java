@@ -127,6 +127,11 @@ public class RoleBiz extends AbstractBiz<Role, Integer>{
 		return service.findAll();
 	}
 
+	@Override
+	public boolean exists(int id) {
+		return service.exists(id);
+	}
+
 	
 	
 	

@@ -41,8 +41,6 @@ public class Activity extends BaseActivityEntity<Integer> {
 	/**报名后跳转页面 */
 	private String gotoPage;
 	
-	/**客服qq */
-	private String qq;
 	
 	/** 售票类型 */
 	private String ticketType;
@@ -62,15 +60,7 @@ public class Activity extends BaseActivityEntity<Integer> {
 	/**	仅限会员*/
 	private boolean needVip;
 	
-	private String shareTitle;
 	
-	private String shareDesc;
-	
-	private String shareImg;
-	
-	/**公众号二维码 */ 
-	private String gzQrcode;
-
 	
 	@Basic
 	@Column(name = "enroll_start_date", nullable = true)
@@ -145,15 +135,7 @@ public class Activity extends BaseActivityEntity<Integer> {
 	public void setGotoPage(String gotopage) {
 		this.gotoPage = gotopage;
 	}
-	@Basic
-	@Column(name = "qq", nullable = true)
-	public String getQq() {
-		return qq;
-	}
-
-	public void setQq(String qq) {
-		this.qq = qq;
-	}
+	
 	@Basic
 	@Column(name = "ticket_type", nullable = true)
 	public String getTicketType() {
@@ -208,42 +190,6 @@ public class Activity extends BaseActivityEntity<Integer> {
 
 	public void setNeedVip(boolean need_vip) {
 		this.needVip = need_vip;
-	}
-	@Basic
-	@Column(name = "share_title", nullable = true)
-	public String getShareTitle() {
-		return shareTitle;
-	}
-
-	public void setShareTitle(String share_title) {
-		this.shareTitle = share_title;
-	}
-	@Basic
-	@Column(name = "share_desc", nullable = true)
-	public String getShareDesc() {
-		return shareDesc;
-	}
-
-	public void setShareDesc(String share_desc) {
-		this.shareDesc = share_desc;
-	}
-	@Basic
-	@Column(name = "share_img", nullable = true)
-	public String getShareImg() {
-		return shareImg;
-	}
-
-	public void setShareImg(String share_img) {
-		this.shareImg = share_img;
-	}
-	@Basic
-	@Column(name = "gz_qrcode", nullable = true)
-	public String getGzQrcode() {
-		return gzQrcode;
-	}
-
-	public void setGzQrcode(String gz_qrcode) {
-		this.gzQrcode = gz_qrcode;
 	}
 	
 	

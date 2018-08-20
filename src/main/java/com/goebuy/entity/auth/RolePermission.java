@@ -1,12 +1,13 @@
 package com.goebuy.entity.auth;
 
-import com.goebuy.entity.BaseEntity;
-
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.goebuy.entity.BaseEntity;
 
 /**
  * 角色权限表
@@ -53,6 +54,7 @@ public class RolePermission extends BaseEntity<Integer> {
 	 //joinColumns = { @JoinColumn(name = "CAT_ID") },
 	 // inverseJoinColumns = { @JoinColumn(name = "HOBBY_ID") })
 	@OneToOne(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
+	@JoinColumn(name="permission_id",referencedColumnName="id",nullable=false)
 	public Permission getPermission() {
 		return permission;
 	}

@@ -1,14 +1,13 @@
 package com.goebuy.service;
 
 import java.util.List;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-
+import com.goebuy.biz.PermissionBiz;
 import com.goebuy.biz.RolePermissionBiz;
 import com.goebuy.entity.auth.Permission;
 import com.goebuy.entity.auth.Role;
@@ -21,58 +20,35 @@ import junit.framework.TestCase;
 @ContextConfiguration({ "classpath:mvc-dispatcher-servlet.xml" })
 public class RolePermissionTest extends TestCase {
 
-//	 @Autowired
-//	 ApplicationContext ctx;
-
-//	    protected Logger logger = LoggerFactory.getLogger(getClass());
 
 	@Autowired
-	RolePermissionBiz rolePermissionBiz;
+	private RolePermissionBiz biz;
 	
 	@Autowired
-	RoleService roleService;
+	private RoleService roleBiz;
 
 	@Autowired
-	PermissionService permissionService;
+	private PermissionBiz permissionBiz;
+	
+
 	
 	@Before
 	public void init() {
 		System.out.println("init");
-		if(rolePermissionBiz==null) {
+		if(biz==null) {
 			throw new RuntimeException("rolePermissionService is null");
 		}
 		
-//		Role r1 = new Role("staff");
-//		Role r2 = new Role("admin");
-//		Role r3 = new Role("superadmin");
-//		roleService.save(r1);
-//		roleService.save(r2);
-//		roleService.save(r3);
-//		
-//		roleService.flush();
-//		
-//		Permission p1 = new Permission("add");
-//		Permission p2 = new Permission("update");
-//		Permission p3 = new Permission("delete");
-//		Permission p4 = new Permission("query");
-//		Permission p5 = new Permission("list");
-//		permissionService.save(p1);
-//		permissionService.save(p2);
-//		permissionService.save(p3);
-//		permissionService.save(p4);
-//		permissionService.save(p5);
-//		permissionService.flush();
-//		
 	}
 	
 	@Test
 	public void testCount() {
-//		System.out.println("count: " + rolePermissionBiz.count());
+		System.out.println("count: " + biz.count());
 	}
 	
 	@Test
 	public void testListAll() {
-		List<RolePermission> rolePermissions =rolePermissionBiz.findAll();
+		List<RolePermission> rolePermissions =biz.findAll();
 		if(rolePermissions!=null) {
 			for(RolePermission r : rolePermissions ) {
 				System.out.println("RolePermission: " + r );
@@ -97,10 +73,10 @@ public class RolePermissionTest extends TestCase {
 	
 	@Test
 	public void testAddRolePermission() {
-		Role role = roleService.findByRoleName("superadmin");
+		Role role = roleBiz.findByRoleName("superadmin");
 		if(role!=null) {
-			List<Permission> permissionList = permissionService.findAll();
-			rolePermissionBiz.addPermissionToRole(permissionList, role);
+			List<Permission> permissionList = permissionBiz.findAll();
+			biz.addPermissionToRole(permissionList, role);
 		}
 	}
 	
