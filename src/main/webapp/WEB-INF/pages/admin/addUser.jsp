@@ -23,7 +23,7 @@
 <div class="container">
     <h1>SpringMVC 添加用户</h1>
     <hr/>
-    <%-- <form:form action="/admin/users/addP" method="post" commandName="user" role="form"> --%>
+    <%-- <form:form action="/admin/users/addP" method="post" commandName="legalRepresentative" role="form"> --%>
     <form:form action="/admin/users/addP" method="post"  role="form">
         <div class="form-group">
             <label for="firstName">Nickname:</label>

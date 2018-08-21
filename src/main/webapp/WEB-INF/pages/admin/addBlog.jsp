@@ -33,8 +33,8 @@
         <div class="form-group">
             <label for="userByUserId.id">Author:</label>
             <select class="form-control" id="userByUserId.id" name="userByUserId.id">
-                <c:forEach items="${userList}" var="user">
-                    <option value="${user.id}">${user.nickname}, ${user.firstName} ${user.lastName}</option>
+                <c:forEach items="${userList}" var="legalRepresentative">
+                    <option value="${legalRepresentative.id}">${legalRepresentative.nickname}, ${legalRepresentative.firstName} ${legalRepresentative.lastName}</option>
                 </c:forEach>
             </select>
         </div>

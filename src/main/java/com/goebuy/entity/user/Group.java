@@ -3,9 +3,12 @@ package com.goebuy.entity.user;
 import com.goebuy.entity.BaseEntity;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -19,40 +22,28 @@ public class Group extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = -8029735894274024826L;
 
-    private String groupId;               //群组id
-    private String groupName;             //群组名称
+    private String name;                  //群组名称
     private int type;                     //群组类别：1 事件群组，2 标签群组，3 用户自定义群组
 
     /**
      * 若为事件群组，存事件id
-     * 若为标签群组，存标签id_事件id，存最后一次事件(活动)
-     * 若为用户自定义群组，存群组id
+     * 若为标签群组，存最后一次事件(活动)id
      */
     private String sourceId;
 
-    private String creatorId;             //创建人id
+    private User creator;                 //创建人id
     private String createTime;            //创建时间
     private String updateTime;            //最近更新时间
     private int state;                    //群组状态: 1 正常，2 解散
 
     @Basic
-    @Column(name = "group_id", nullable = false)
-    public String getGroupId() {
-        return groupId;
+    @Column(name = "name", nullable = false)
+    public String getName() {
+        return name;
     }
 
-    public void setGroupId(String groupId) {
-        this.groupId = groupId;
-    }
-
-    @Basic
-    @Column(name = "group_name", nullable = false)
-    public String getGroupName() {
-        return groupName;
-    }
-
-    public void setGroupName(String groupName) {
-        this.groupName = groupName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Basic
@@ -75,14 +66,13 @@ public class Group extends BaseEntity<Integer> {
         this.sourceId = sourceId;
     }
 
-    @Basic
-    @Column(name = "creator_id", nullable = false)
-    public String getCreatorId() {
-        return creatorId;
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
+    public User getCreator() {
+        return creator;
     }
 
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     @Basic

@@ -31,9 +31,5 @@ public class Question extends BaseActivityEntity<Integer> {
 	public void setShow(boolean isShow) {
 		this.isShow = isShow;
 	}
-	
-	
-	
-	
-	
+
 }

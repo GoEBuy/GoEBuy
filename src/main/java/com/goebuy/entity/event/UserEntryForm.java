@@ -33,24 +33,26 @@ public class UserEntryForm extends BaseEntity<Integer> {
 	private String stateVerify;
 	
 	/** 交易状态 */
-	private String stateExchange;
+	private int exchangeState;
 	
-	/**报名渠道 */
+	/** 报名渠道 */
 	private String channel;
 
 	/** 售票类型 */
-	private String ticketType;
+	private int ticketType;
 	
 	/** 金额 */
 	private double price;
+
 	/** 序列号 */
 	private String seqNo;
 	
 	/** 签到状态 */
 	private String stateSign;
 
-	
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	private String createTime;
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL,})
 	public User getUser() {
 		return user;
 	}
@@ -79,13 +81,13 @@ public class UserEntryForm extends BaseEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "state_exchange", nullable = true)
-	public String getStateExchange() {
-		return stateExchange;
+	@Column(name = "exchange_state", nullable = true)
+	public int getExchangeState() {
+		return exchangeState;
 	}
 
-	public void setStateExchange(String state_exchange) {
-		this.stateExchange = state_exchange;
+	public void setExchangeState(int state_exchange) {
+		this.exchangeState = state_exchange;
 	}
 	@Basic
 	@Column(name = "channel", nullable = true)
@@ -98,11 +100,11 @@ public class UserEntryForm extends BaseEntity<Integer> {
 	}
 	@Basic
 	@Column(name = "ticket_type", nullable = true)
-	public String getTicketType() {
+	public int getTicketType() {
 		return ticketType;
 	}
 
-	public void setTicketType(String ticket_type) {
+	public void setTicketType(int ticket_type) {
 		this.ticketType = ticket_type;
 	}
 	@Basic
@@ -133,9 +135,15 @@ public class UserEntryForm extends BaseEntity<Integer> {
 	public void setStateSign(String stateSign) {
 		this.stateSign = stateSign;
 	}
-	
-	
-	
-	
+
+	@Basic
+	@Column(name = "create_time", nullable = false)
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
+	}
 	
 }
