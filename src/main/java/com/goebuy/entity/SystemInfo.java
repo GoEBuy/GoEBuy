@@ -1,7 +1,5 @@
 package com.goebuy.entity;
 
-import com.goebuy.entity.user.User;
-
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +7,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.goebuy.entity.user.User;
 
 /**
  * 系统通知信息

@@ -1,7 +1,7 @@
 # TODO
-* add properties done
-* database
+* database建立， 约束验证
 * syslog
+* 添加模板引擎， 生成小程序模板
 * login control, permission control
 * session control 会话跟踪
 * 基于角色的权限管理系统

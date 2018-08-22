@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -17,17 +18,17 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/8/15.
  */
 @Entity
-@Table(name = "user_member_recruitment", schema = "springdemo",  catalog = "")
+@Table(name = "user_member_recruitment", indexes={@Index(name="index_user", columnList="user_id")}, schema = "springdemo",  catalog = "")
 public class UserMemberRecruitment extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = 2508655292139612838L;
-
+    /** 被招募的用户 */
     private User user;
 
     private MemberRecruitment memberRecruitment;
 
     /** 招募入会时间 */
-    private String createTime;        //
+    private String createTime;        
 
     /** 报名渠道 */
     private String channel;

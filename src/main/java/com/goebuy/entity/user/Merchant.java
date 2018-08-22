@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/8/14.
  */
 @Entity
-@Table(name = "merchant", schema = "springdemo", indexes={@Index(name="nick_name_Index", columnList="nickName")}, catalog = "")
+@Table(name = "merchant", schema = "springdemo", indexes={@Index(name="email_Index", columnList="email"),@Index(name="name_Index", columnList="name"),@Index(name="phone_no_index", columnList="phone_no")}, catalog = "")
 public class Merchant extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = 4554875451091830646L;
@@ -37,8 +37,8 @@ public class Merchant extends BaseEntity<Integer> {
     /**
      * 认证信息
      */
-    private int state;                    //状态：1 未认证，2 审核中，3 认证成功, 4 禁用，5 注销
-    private int certificateType;          //认证类型：1 企业账号认证，2 个人账号认证
+    private Integer state;                    //状态：1 未认证，2 审核中，3 认证成功, 4 禁用，5 注销
+    private Integer certificateType;          //认证类型：1 企业账号认证，2 个人账号认证
     private Company companyCertification; //企业账号认证
     private User personCertification;     //个人账号认证
     private String certificateTime;       //认证时间
@@ -52,25 +52,25 @@ public class Merchant extends BaseEntity<Integer> {
      * 附加信息
      *
      */
-    private int merchantLevel;            //商户等级
-    private int merchantIntegral;         //商户积分
+    private Integer merchantLevel;            //商户等级
+    private Integer merchantIntegral;         //商户积分
 
     /**
      * 会员卡信息
      */
     private boolean isVip;                //是否vip
-    private long vipId;                   //vip卡号
-    private int vipType;                  //vip类型
+    private Long vipId;                   //vip卡号
+    private Integer vipType;                  //vip类型
     private String vipStartTime;          //商户付费成为vip的时间
     private String vipEndTime;            //vip到期时间
-    private int vipCount;                 //缴费次数
+    private Integer vipCount;                 //缴费次数
 
     /**
      * 登录信息
      */
     private String loginTime;             //最后登录时间
     private String loginIp;               //最后登录IP
-    private int loginCount;               //登录次数
+    private Integer loginCount;               //登录次数
 
     private User introducer;              //介绍人
     private String channel;               //渠道
@@ -116,7 +116,7 @@ public class Merchant extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "phone_no", nullable = false)
+    @Column(name = "phone_no", length = 15, nullable = false)
     public String getPhoneNo() {
         return phoneNo;
     }
@@ -156,22 +156,22 @@ public class Merchant extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "state", nullable = false)
-    public int getState() {
+    @Column(name = "state",  nullable = false)
+    public Integer getState() {
         return state;
     }
 
-    public void setState(int state) {
+    public void setState(Integer state) {
         this.state = state;
     }
 
     @Basic
-    @Column(name = "certificate_type", nullable = true)
-    public int getCertificateType() {
+    @Column(name = "certificate_type", nullable = false)
+    public Integer getCertificateType() {
         return certificateType;
     }
 
-    public void setCertificateType(int certificateType) {
+    public void setCertificateType(Integer certificateType) {
         this.certificateType = certificateType;
     }
 
@@ -214,21 +214,21 @@ public class Merchant extends BaseEntity<Integer> {
 
     @Basic
     @Column(name = "merchant_level", nullable = true)
-    public int getMerchantLevel() {
+    public Integer getMerchantLevel() {
         return merchantLevel;
     }
 
-    public void setMerchantLevel(int merchantLevel) {
+    public void setMerchantLevel(Integer merchantLevel) {
         this.merchantLevel = merchantLevel;
     }
 
     @Basic
     @Column(name = "merchant_integral", nullable = true)
-    public int getMerchantIntegral() {
+    public Integer getMerchantIntegral() {
         return merchantIntegral;
     }
 
-    public void setMerchantIntegral(int merchantIntegral) {
+    public void setMerchantIntegral(Integer merchantIntegral) {
         this.merchantIntegral = merchantIntegral;
     }
 
@@ -244,21 +244,21 @@ public class Merchant extends BaseEntity<Integer> {
 
     @Basic
     @Column(name = "vip_id", nullable = true)
-    public long getVipId() {
+    public Long getVipId() {
         return vipId;
     }
 
-    public void setVipId(long vipId) {
+    public void setVipId(Long vipId) {
         this.vipId = vipId;
     }
 
     @Basic
     @Column(name = "vip_type", nullable = true)
-    public int getVipType() {
+    public Integer getVipType() {
         return vipType;
     }
 
-    public void setVipType(int vipType) {
+    public void setVipType(Integer vipType) {
         this.vipType = vipType;
     }
 
@@ -284,11 +284,11 @@ public class Merchant extends BaseEntity<Integer> {
 
     @Basic
     @Column(name = "vip_count", nullable = true)
-    public int getVipCount() {
+    public Integer getVipCount() {
         return vipCount;
     }
 
-    public void setVipCount(int vipCount) {
+    public void setVipCount(Integer vipCount) {
         this.vipCount = vipCount;
     }
 
@@ -314,11 +314,11 @@ public class Merchant extends BaseEntity<Integer> {
 
     @Basic
     @Column(name = "lonin_count", nullable = true)
-    public int getLoginCount() {
+    public Integer getLoginCount() {
         return loginCount;
     }
 
-    public void setLoginCount(int loginCount) {
+    public void setLoginCount(Integer loginCount) {
         this.loginCount = loginCount;
     }
 

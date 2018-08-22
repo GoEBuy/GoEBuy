@@ -18,7 +18,7 @@ import com.goebuy.entity.user.Merchant;
  *
  */
 @Entity
-@Table(name = "activity_cate",  indexes={@Index(name="cate_name_Index", columnList="cateName"), @Index(name="pcate_id_Index", columnList="pcateId")} , schema = "springdemo",  catalog = "")
+@Table(name = "activity_cate",  indexes={@Index(name="cate_name_Index", columnList="cate_name"), @Index(name="pcate_id_Index", columnList="pcate_id")} , schema = "springdemo",  catalog = "")
 public class ActivityCategory extends BaseEntity<Integer>{
 
 	/**
@@ -27,7 +27,7 @@ public class ActivityCategory extends BaseEntity<Integer>{
 	private static final long serialVersionUID = 711037462787375173L;
 
 	/** 父类活动分类id */
-	private int pcateId = -1;
+	private ActivityCategory pcateId;
 	
 	/** 活动分类名称 */
 	private String cateName;
@@ -41,18 +41,20 @@ public class ActivityCategory extends BaseEntity<Integer>{
 	/** 是否是通用标签库  */
 	private boolean isCommon=false;
 
-	@Basic
-	@Column(name = "pcate_id", nullable = true)
-	public int getPcateId() {
+//	@Basic
+//	@Column(name = "pcate_id", nullable = true)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="pcate_id")
+	public ActivityCategory getPcateId() {
 		return pcateId;
 	}
 
-	public void setPcateId(int pcateId) {
+	public void setPcateId(ActivityCategory pcateId) {
 		this.pcateId = pcateId;
 	}
 
 	@Basic
-	@Column(name = "cate_name", nullable = false, unique= true )
+	@Column(name = "cate_name", length=30, nullable = false, unique= true )
 	public String getCateName() {
 		return cateName;
 	}
@@ -61,7 +63,7 @@ public class ActivityCategory extends BaseEntity<Integer>{
 		this.cateName = cateName;
 	}
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
 	@JoinColumn(name="merchant_id")
 	public Merchant getCreateUser() {
 		return createUser;

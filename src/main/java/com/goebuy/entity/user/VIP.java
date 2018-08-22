@@ -1,15 +1,16 @@
 package com.goebuy.entity.user;
 
-import com.goebuy.entity.BaseEntity;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.goebuy.entity.BaseEntity;
 
 /**
  * 会员卡表
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/8/16.
  */
 @Entity
-@Table(name = "vip", schema = "springdemo", indexes={@Index(name="bank_card_number_Index", columnList="bankCardNo")}, catalog = "")
+@Table(name = "vip", schema = "springdemo", indexes={@Index(name="index_merchant_id", columnList="user_id")}, catalog = "")
 public class VIP extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = -1177028922840848586L;
@@ -31,7 +32,7 @@ public class VIP extends BaseEntity<Integer> {
     private String duration;              //有效期
     private int state;                    //状态：1 在售，2 未在售
 
-    private User creator;                 //创建人
+    private Merchant creator;                 //创建人
     private String createTime;            //该种会员卡创建时间
     private String updateTime;            //该种会员卡最近更新时间
 
@@ -96,7 +97,7 @@ public class VIP extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "duration", nullable = false)
+    @Column(name = "state", nullable = false)
     public int getState() {
         return state;
     }
@@ -106,11 +107,12 @@ public class VIP extends BaseEntity<Integer> {
     }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
-    public User getCreator() {
+    @JoinColumn(name="user_id")
+    public Merchant getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(Merchant creator) {
         this.creator = creator;
     }
 

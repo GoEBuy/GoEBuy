@@ -38,9 +38,6 @@ public class UserTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		assertNotNull(biz);
-		if (biz == null) {
-			throw new RuntimeException("userService is null");
-		}
 //			EntityManagerFactory factory=Persistence.createEntityManagerFactory("entityManagerFactory");
 		assertNotNull(factory);
 		EntityManager em = factory.createEntityManager();
@@ -115,6 +112,11 @@ public class UserTest extends TestCase {
 		listIds.add(4);
 		listIds.add(7);
 		List<User> users = biz.findByIds(listIds);
+		if(users!=null) {
+			for(User u: users) {
+				System.out.println(u);
+			}
+		}
 	}
 
 	@Test

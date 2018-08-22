@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "user_tip", schema = "springdemo",  catalog = "")
+@Table(name = "user_tip", indexes={@Index(name="index_user", columnList="user_id")}, schema = "springdemo",  catalog = "")
 public class UserTip extends BaseEntity<Integer> {
 
 	/**
@@ -25,6 +26,7 @@ public class UserTip extends BaseEntity<Integer> {
 	 */
 	private static final long serialVersionUID = 8685619633799829922L;
 
+	/** 打赏用户 */
 	private User user;
 	
 	private Tip tip;

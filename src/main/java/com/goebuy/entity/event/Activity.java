@@ -52,11 +52,11 @@ public class Activity extends BaseActivityEntity<Integer> {
 	/** 售票类型 */
 	private String ticketType;
 	
-	/** 报名限制 */
+	/** 报名限制 : 不限制， 没人限报一次 */
 	private String enrollType;
 	
 	/**余票显示 */
-	private boolean showLeftTicket;
+	private boolean showLeftTicket=true;
 	
 	/**人数限制 默认不限制 -1*/
 	private int maxCnt=-1;
@@ -65,7 +65,7 @@ public class Activity extends BaseActivityEntity<Integer> {
 	private boolean needVerify=false;
 	
 	/**	仅限会员*/
-	private boolean needVip;
+	private boolean needVip =false;
 	
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
@@ -116,7 +116,7 @@ public class Activity extends BaseActivityEntity<Integer> {
 		this.enrollEndTime = enroll_end_time;
 	}
 	@Basic
-	@Column(name = "location", nullable = true)
+	@Column(name = "location", length=120, nullable = true)
 	public String getLocation() {
 		return location;
 	}

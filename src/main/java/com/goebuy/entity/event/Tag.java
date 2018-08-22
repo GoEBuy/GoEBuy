@@ -1,8 +1,5 @@
 package com.goebuy.entity.event;
 
-import com.goebuy.entity.BaseEntity;
-import com.goebuy.entity.user.User;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +8,9 @@ import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.user.Merchant;
 
 /**
  * 标签库类, 用户标签与活动标签统一
@@ -28,7 +28,7 @@ public class Tag extends BaseEntity<Integer> {
 	/**标签名称 */
 	private String name; 
 	/** 创建人 */
-	private User user;
+	private Merchant user;
 	
 	private String createTime;
 	
@@ -46,11 +46,11 @@ public class Tag extends BaseEntity<Integer> {
 	}
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public User getUser() {
+	public Merchant getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Merchant user) {
 		this.user = user;
 	}
 	

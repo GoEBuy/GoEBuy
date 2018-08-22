@@ -221,12 +221,4 @@
           </tx:attributes>
       </tx:advice> -->
 
-	<!-- 开启事务管理注解 -->
-	<tx:annotation-driven transaction-manager="transactionManager" />
-
-	<!-- 启动对@AspectJ注解的支持 -->
-	<aop:aspectj-autoproxy proxy-target-class="true"/>
-	<!-- 切面  -->
-	<bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" />
-
 </beans>

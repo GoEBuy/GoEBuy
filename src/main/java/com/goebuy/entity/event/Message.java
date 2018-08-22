@@ -1,23 +1,24 @@
 package com.goebuy.entity.event;
 
-import com.goebuy.entity.BaseEntity;
-import com.goebuy.entity.user.User;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.user.Merchant;
+
 /**
- * 
+ * 短信表
  * @author Administrator
  *
  */
 @Entity
-@Table(name = "message", schema = "springdemo",  catalog = "")
+@Table(name = "message", indexes={@Index(name="name_user", columnList="user_id")}, schema = "springdemo",  catalog = "")
 public class Message extends BaseEntity<Integer> {
 	/**
 	 * 
@@ -28,7 +29,7 @@ public class Message extends BaseEntity<Integer> {
 	/**
 	 * 创建人
 	 */
-	private User user;
+	private Merchant user;
 	
 	/** 发送时间 */
 	private String createTime;
@@ -42,11 +43,11 @@ public class Message extends BaseEntity<Integer> {
 	private int toCount;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public User getUser() {
+	public Merchant getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Merchant user) {
 		this.user = user;
 	}
 

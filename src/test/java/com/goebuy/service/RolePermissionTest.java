@@ -2,12 +2,14 @@ package com.goebuy.service;
 
 import java.util.List;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import com.goebuy.biz.PermissionBiz;
+import com.goebuy.biz.RoleBiz;
 import com.goebuy.biz.RolePermissionBiz;
 import com.goebuy.entity.auth.Permission;
 import com.goebuy.entity.auth.Role;
@@ -25,7 +27,7 @@ public class RolePermissionTest extends TestCase {
 	private RolePermissionBiz biz;
 	
 	@Autowired
-	private RoleService roleBiz;
+	private RoleBiz roleBiz;
 
 	@Autowired
 	private PermissionBiz permissionBiz;
@@ -38,7 +40,7 @@ public class RolePermissionTest extends TestCase {
 		if(biz==null) {
 			throw new RuntimeException("rolePermissionService is null");
 		}
-		
+		assertNotNull(roleBiz);
 	}
 	
 	@Test
@@ -73,11 +75,9 @@ public class RolePermissionTest extends TestCase {
 	
 	@Test
 	public void testAddRolePermission() {
-		Role role = roleBiz.findByRoleName("superadmin");
-		if(role!=null) {
-			List<Permission> permissionList = permissionBiz.findAll();
-			biz.addPermissionToRole(permissionList, role);
-		}
+		Role role = roleBiz.findRoleByRoleName("superadmin");
+		List<Permission> permissionList = permissionBiz.findAll();
+		biz.addPermissionToRole(permissionList, role);
 	}
 	
 }

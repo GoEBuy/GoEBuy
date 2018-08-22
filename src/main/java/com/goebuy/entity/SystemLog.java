@@ -7,7 +7,7 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "sys_systemlog",indexes={@Index(name="operationType_index", columnList="operationType")}, schema = "springdemo", catalog = "")
+@Table(name = "sys_systemlog",indexes={@Index(name="operation_type_index", columnList="operation_type"),@Index(name="index_login_name", columnList="login_name"), @Index(name="index_operation_name", columnList="operation_name")}, schema = "springdemo", catalog = "")
 public class SystemLog extends BaseEntity<Integer> {
 
 
@@ -26,7 +26,7 @@ public class SystemLog extends BaseEntity<Integer> {
 
 	private String method;
 
-	private Long logType;
+	private Integer logType=-1;
 
 	/**请求IP地址 */
 	private String requestIp;
@@ -63,13 +63,14 @@ public class SystemLog extends BaseEntity<Integer> {
 		this.method = method == null ? null : method.trim();
 	}
 
+	//columnDefinition="long default -1",
 	@Basic
-	@Column(name = "logType", nullable = true )
-	public Long getLogType() {
+	@Column(name = "logType",  nullable = true )
+	public Integer getLogType() {
 		return logType;
 	}
 
-	public void setLogType(Long logType) {
+	public void setLogType(Integer logType) {
 		this.logType = logType;
 	}
 
@@ -177,7 +178,7 @@ public class SystemLog extends BaseEntity<Integer> {
 
 
 
-	public SystemLog(String loginName, String description, String method, Long logType, String resultMsg,
+	public SystemLog(String loginName, String description, String method, Integer logType, String resultMsg,
 						   String createDate) {
 		super();
 		this.loginName = loginName;
