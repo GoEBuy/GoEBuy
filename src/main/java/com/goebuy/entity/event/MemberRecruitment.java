@@ -12,7 +12,7 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/8/15.
  */
 @Entity
-@Table(name = "member_recruitment",indexes={@Index(name="name_index", columnList="name")},  schema = "springdemo")
+@Table(name = "member_recruitment",indexes={@Index(name="index_merchant", columnList="merchant_id"), @Index(name="index_name", columnList="name")} ,  schema = "springdemo")
 public class MemberRecruitment extends BaseActivityEntity<Integer> {
 
     private static final long serialVersionUID = 6833768588441240453L;

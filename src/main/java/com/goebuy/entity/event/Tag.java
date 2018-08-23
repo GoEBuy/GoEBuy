@@ -1,23 +1,24 @@
 package com.goebuy.entity.event;
 
-import com.goebuy.entity.BaseEntity;
-import com.goebuy.entity.user.User;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.user.Merchant;
 
 /**
  * 标签库类, 用户标签与活动标签统一
  * @author Administrator
  */
 @Entity
-@Table(name = "tag", indexes={@Index(name="index_name", columnList="name")}, schema = "springdemo",  catalog = "")
+@Table(name = "tag", indexes={@Index(name="index_merchant", columnList="merchant_id"), @Index(name="index_name", columnList="name"),  @Index(name="index_is_common", columnList="is_common") }, schema = "springdemo",  catalog = "")
 public class Tag extends BaseEntity<Integer> {
 	
 	/**
@@ -28,7 +29,7 @@ public class Tag extends BaseEntity<Integer> {
 	/**标签名称 */
 	private String name; 
 	/** 创建人 */
-	private User user;
+	private Merchant user;
 	
 	private String createTime;
 	
@@ -46,11 +47,12 @@ public class Tag extends BaseEntity<Integer> {
 	}
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public User getUser() {
+	@JoinColumn(name="merchant_id")
+	public Merchant getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Merchant user) {
 		this.user = user;
 	}
 	

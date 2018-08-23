@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -16,10 +17,12 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/8/15.
  */
 @Entity
-@Table(name = "bank_account", schema = "springdemo", indexes={@Index(name="bank_card_number_Index", columnList="cardNo")}, catalog = "")
+@Table(name = "bank_account", schema = "springdemo", indexes={@Index(name="bank_card_number_Index", columnList="card_no")}, catalog = "")
 public class BankAccount extends BaseEntity<Integer> {
 
-    private static final long serialVersionUID = 208075760882253739L;
+    
+
+	private static final long serialVersionUID = 208075760882253739L;
 
     private String type;                  //账号类型：1 企业, 2 个人
     private String name;                  //银行名称
@@ -34,12 +37,12 @@ public class BankAccount extends BaseEntity<Integer> {
 
     @Basic
     @Column(name = "type", nullable = false)
-    public String getAType() {
-        return type;
-    }
-
+    public String getType() {
+		return type;
+	}
+    
     public void setType(String accountType) {
-        this.type = type;
+        this.type = accountType;
     }
 
     @Basic
@@ -73,7 +76,7 @@ public class BankAccount extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "card_no", nullable = false)
+    @Column(name = "card_no",length = 30, unique = true, nullable = false)
     public String getCardNo() {
         return cardNo;
     }
@@ -83,7 +86,7 @@ public class BankAccount extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "phone_no", nullable = false)
+    @Column(name = "phone_no", length=15, nullable = false)
     public String getPhoneNo() {
         return phoneNo;
     }
@@ -93,6 +96,7 @@ public class BankAccount extends BaseEntity<Integer> {
     }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
+    @JoinColumn(name="cardholder_id")
     public User getCardholder() {
         return cardholder;
     }

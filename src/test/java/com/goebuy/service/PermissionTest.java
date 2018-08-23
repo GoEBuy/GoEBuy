@@ -53,7 +53,7 @@ public class PermissionTest extends TestCase {
 		permissions.add(new Permission("update"));
 		permissions.add(new Permission("list"));
 		permissions.add(new Permission("find"));
-		Permission p4 = new Permission("query");
+		permissions.add(new Permission("query"));
 		for(Permission permission : permissions) {
 			if(biz.findByName(permission.getPermission()) ==null ) {
 				biz.saveAndFlush(permission);

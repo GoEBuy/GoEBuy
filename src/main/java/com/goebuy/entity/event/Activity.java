@@ -5,6 +5,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
  * indexes={@Index(name="name_Index", columnList="nickname")}
  */
 @Entity
-@Table(name = "activity", schema = "springdemo",  catalog = "")
+@Table(name = "activity", indexes={@Index(name="index_merchant", columnList="merchant_id"), @Index(name="index_name", columnList="name")} ,  schema = "springdemo",  catalog = "")
 public class Activity extends BaseActivityEntity<Integer> {
 	
 	/**
@@ -52,11 +53,11 @@ public class Activity extends BaseActivityEntity<Integer> {
 	/** 售票类型 */
 	private String ticketType;
 	
-	/** 报名限制 */
+	/** 报名限制 : 不限制， 没人限报一次 */
 	private String enrollType;
 	
 	/**余票显示 */
-	private boolean showLeftTicket;
+	private boolean showLeftTicket=true;
 	
 	/**人数限制 默认不限制 -1*/
 	private int maxCnt=-1;
@@ -65,11 +66,11 @@ public class Activity extends BaseActivityEntity<Integer> {
 	private boolean needVerify=false;
 	
 	/**	仅限会员*/
-	private boolean needVip;
+	private boolean needVip =false;
 	
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name="ActivityCategory_id")
+	@JoinColumn(name="activity_category_id")
 	public ActivityCategory getActivityCate() {
 		return activityCate;
 	}
@@ -116,7 +117,7 @@ public class Activity extends BaseActivityEntity<Integer> {
 		this.enrollEndTime = enroll_end_time;
 	}
 	@Basic
-	@Column(name = "location", nullable = true)
+	@Column(name = "location", length=120, nullable = true)
 	public String getLocation() {
 		return location;
 	}

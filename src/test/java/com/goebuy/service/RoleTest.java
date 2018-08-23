@@ -42,11 +42,6 @@ public class RoleTest extends TestCase {
 //		factory.close();
 		System.out.println("init");
 		assertNotNull(biz);
-		if(biz==null) {
-			System.out.println("biz is null");
-		}else {
-			System.out.println(biz);
-		}
 	}
 	
 	@Test
@@ -91,6 +86,7 @@ public class RoleTest extends TestCase {
 		list.add(r1);
 		list.add(r2);
 		list.add(r3);
+		list.add(r4);
 		for(Role r: list) {
 			if(biz.findByName(r.getRole())==null) {
 				biz.saveAndFlush(r);

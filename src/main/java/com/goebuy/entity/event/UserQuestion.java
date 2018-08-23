@@ -1,22 +1,25 @@
 package com.goebuy.entity.event;
 
-import com.goebuy.entity.BaseEntity;
-import com.goebuy.entity.user.User;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.user.Merchant;
+import com.goebuy.entity.user.User;
 
 /**
  * 用户问卷表
  * @author Administrator
  */
 @Entity
-@Table(name = "user_question", schema = "springdemo",  catalog = "")
+@Table(name = "user_question", indexes={@Index(name="index_merchant", columnList="merchant_id"), @Index(name="index_user", columnList="user_id")}, schema = "springdemo",  catalog = "")
 public class UserQuestion extends BaseEntity<Integer> {
 
 	/**
@@ -29,21 +32,22 @@ public class UserQuestion extends BaseEntity<Integer> {
 	
 	private Question question;
 	
-	/** 姓名*/
+	/** 问卷填写姓名*/
 	private String username;
 
-	/** 手机号 */
+	/** 问卷填写 手机号 */
 	private String phone;
 	
 	private String fieldSet;
 	
 	/** 创建人 */
-	private User creator;
+	private Merchant creator;
 	
 	private String createTime;
 
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="user_id")
 	public User getUser() {
 		return user;
 	}
@@ -53,6 +57,7 @@ public class UserQuestion extends BaseEntity<Integer> {
 	}
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="question_id")
 	public Question getQuestion() {
 		return question;
 	}
@@ -90,11 +95,12 @@ public class UserQuestion extends BaseEntity<Integer> {
 	}
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public User getCreator() {
+	@JoinColumn(name="merchant_id")
+	public Merchant getCreator() {
 		return creator;
 	}
 
-	public void setCreator(User creator) {
+	public void setCreator(Merchant creator) {
 		this.creator = creator;
 	}
 	@Basic

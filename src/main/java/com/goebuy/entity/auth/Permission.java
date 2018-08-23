@@ -5,11 +5,12 @@ import com.goebuy.entity.BaseEntity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "auth_permission", schema = "springdemo", catalog = "")
+@Table(name = "auth_permission", indexes={@Index(name="index_permission", columnList="permission")} ,  schema = "springdemo", catalog = "")
 public class Permission extends BaseEntity<Integer> {
 
 	private static final long serialVersionUID = -5860846395796220265L;

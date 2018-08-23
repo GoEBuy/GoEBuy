@@ -3,6 +3,7 @@ package com.goebuy.entity.auth;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -15,7 +16,7 @@ import com.goebuy.entity.BaseEntity;
  *
  */
 @Entity
-@Table(name = "auth_role_permission", schema = "springdemo", catalog = "")
+@Table(name = "auth_role_permission",indexes={@Index(name="index_role", columnList="role_id"), @Index(name="index_permission", columnList="permission_id")} ,  schema = "springdemo", catalog = "")
 public class RolePermission extends BaseEntity<Integer> {
 
 	/**
@@ -40,6 +41,7 @@ public class RolePermission extends BaseEntity<Integer> {
 
 
 	@OneToOne(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
+	@JoinColumn(name="role_id", nullable=false)
 	public Role getRole() {
 		return role;
 	}

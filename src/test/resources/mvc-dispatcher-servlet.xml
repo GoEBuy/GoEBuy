@@ -38,11 +38,9 @@
 	<!--<property name="location" value="classpath:application.properties" />-->
 	<!--</bean>-->
 
-	<!-- 激活组件扫描功能,在包com.goebuy及其子包下面自动扫描通过注解配置的组件 -->
-	<context:component-scan base-package="com.goebuy" />
 
 	<!-- 表示JPA Repository所在的包 -->
-	<jpa:repositories base-package="com.goebuy.service" />
+	<!-- <jpa:repositories base-package="com.goebuy.service" /> -->
 
 	<!-- 静态资源(js、image等)的访问 -->
 	<mvc:default-servlet-handler />
@@ -103,14 +101,9 @@
     <mvc:resources mapping="/css/**" location="/resources/css/" />
     <mvc:resources mapping="/img/**" location="/resources/img/" /> -->
 
-	<!--这里是对静态资源的映射-->
-	<!--<mvc:resources mapping="/js/**" location="/js/" />-->
-	<!--<mvc:resources mapping="/css/**" location="/css/" />-->
-	<!--<mvc:resources mapping="/img/**" location="/img/" />-->
 
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="defaultPersistenceUnit" />
-		<!-- <property name="packagesToScan" value="com.gaussic.model" /> -->
 		<property name="packagesToScan" value="com.goebuy.entity" />
 		<property name="jpaVendorAdapter">
 
@@ -128,8 +121,8 @@
 				</prop>
 				<prop key="hibernate.connection.username">root</prop>
 				<prop key="hibernate.connection.password">root</prop>
-				<!-- <prop key="hibernate.show_sql">true</prop> -->
-				<prop key="hibernate.show_sql">false</prop>
+				 <prop key="hibernate.show_sql">true</prop> 
+				<!-- <prop key="hibernate.show_sql">false</prop> -->
 				<!--  一般情况下，会在项目启动的过程中，自动检查 注解的实体 和数据表，如果数据库不存在的表或者字段，会根据实体自动生成。-->
 				<prop key="generateDdl" >true</prop>
 				<prop key="hibernate.connection.useUnicode">true</prop>
@@ -169,28 +162,6 @@
 		<property name="resolveLazily" value="true"/>
 	</bean>
 
-	<!-- Jpa 事务管理 -->
-	<bean id="transactionManager"
-		class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory"
-			ref="entityManagerFactory" />
-	</bean>
-
-
-  <!--事务通知-->
-  <!--   <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            事务传播，默认REQUIRED，这是一个具有事务的方法，没有则创建事务
-            事务隔离，默认DEFAULT，此设置是为了解决并发事务中，脏读、不可重复读外、幻读，性能会下降
-            <tx:method name="add*" isolation="SERIALIZABLE" propagation="REQUIRED"/>
-            <tx:method name="delete*"/>
-            <tx:method name="update*"/>
-            只读事务，只做查询，不修改数据的事务。JDBC驱动会进行优化
-            <tx:method name="find*" read-only="true"/>
-            <tx:method name="get*" read-only="true"/>
-            <tx:method name="*" read-only="true"/>
-        </tx:attributes>
-    </tx:advice> -->
 
 
 	<!-- 开启事务管理注解 -->

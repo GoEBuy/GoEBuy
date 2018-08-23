@@ -38,9 +38,6 @@ public class UserTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		assertNotNull(biz);
-		if (biz == null) {
-			throw new RuntimeException("userService is null");
-		}
 //			EntityManagerFactory factory=Persistence.createEntityManagerFactory("entityManagerFactory");
 		assertNotNull(factory);
 		EntityManager em = factory.createEntityManager();
@@ -89,7 +86,29 @@ public class UserTest extends TestCase {
 		if (biz.findByName("addyyy2") == null) {
 			User u = new User();
 			u.setName("addyyy2");
-//			u.setPassword("yyy2");
+			u.setAddress("address");
+			u.setBirthday("birth");
+			u.setCreateTime("cratetime");
+			u.setEducation("edu");
+			u.setEmail("email");
+			u.setExt("ext");
+			u.setGender(0);
+//			u.setId(1);
+			u.setIdCardBackPic("setIdCardBackPic");
+			u.setIdCardFrontPic("setIdCardFrontPic");
+			u.setIdCardNo("setIdCardNo");
+			u.setInstitution("inst");
+			u.setJob("job");
+			u.setMerchant(false);
+			u.setName("name");
+			u.setNickname("nickname");
+			u.setPassword("password");
+			u.setPhoneNo("phoneno");
+			u.setUpdateTime("updatetime");
+			u.setUser(null);
+			u.setWechatHeadPic("wechatHeadPic");
+			u.setWechatNickname("wenickname");
+			u.setWechatNo("wechatNo");
 			biz.saveAndFlush(u);
 		}
 
@@ -115,13 +134,40 @@ public class UserTest extends TestCase {
 		listIds.add(4);
 		listIds.add(7);
 		List<User> users = biz.findByIds(listIds);
+		if(users!=null) {
+			for(User u: users) {
+				System.out.println(u);
+			}
+		}
 	}
 
 	@Test
 	public void testEntityManager() {
 		User u = new User();
 		u.setName("addtest");
-//		u.setPassword("addtest");
+		u.setAddress("address");
+		u.setBirthday("birth");
+		u.setCreateTime("cratetime");
+		u.setEducation("edu");
+		u.setEmail("email");
+		u.setExt("ext");
+		u.setGender(0);
+//		u.setId(1);
+		u.setIdCardBackPic("setIdCardBackPic");
+		u.setIdCardFrontPic("setIdCardFrontPic");
+		u.setIdCardNo("setIdCardNo");
+		u.setInstitution("inst");
+		u.setJob("job");
+		u.setMerchant(false);
+		u.setName("name");
+		u.setNickname("nickname");
+		u.setPassword("password");
+		u.setPhoneNo("phoneno");
+		u.setUpdateTime("updatetime");
+		u.setUser(null);
+		u.setWechatHeadPic("wechatHeadPic");
+		u.setWechatNickname("wenickname");
+		u.setWechatNo("wechatNo");
 		if (biz.findByName(u.getName()) == null) {
 			EntityManager em = factory.createEntityManager();
 			em.getTransaction().begin();
@@ -143,6 +189,12 @@ public class UserTest extends TestCase {
 //			u.setPassword("yyy2");
 //			userService.saveAndFlush( u);
 
+	}
+	
+	@Ignore
+	@Test
+	public void testDeleteAllInBatch() {
+		biz.deleteAllInBatch();
 	}
 
 }

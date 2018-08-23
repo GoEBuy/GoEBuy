@@ -5,6 +5,7 @@ import com.goebuy.entity.BaseEntity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 /**
@@ -13,7 +14,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "auth_role", schema = "springdemo", catalog = "")
+@Table(name = "auth_role", indexes={@Index(name="index_role", columnList="role")} ,  schema = "springdemo", catalog = "")
 public class Role extends BaseEntity<Integer> {
 
 	/**

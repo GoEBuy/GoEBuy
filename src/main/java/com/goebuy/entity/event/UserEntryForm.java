@@ -8,6 +8,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -16,7 +18,7 @@ import javax.persistence.Table;
  * @author Administrator
  */
 @Entity
-@Table(name = "user_entry_form", schema = "springdemo",  catalog = "")
+@Table(name = "user_entry_form", schema = "springdemo", indexes={@Index(name="index_entry_form_id", columnList="entry_form_id"),  @Index(name="index_user", columnList="user_id")}, catalog = "")
 public class UserEntryForm extends BaseEntity<Integer> {
 
 	/**
@@ -24,7 +26,7 @@ public class UserEntryForm extends BaseEntity<Integer> {
 	 */
 	private static final long serialVersionUID = -1144737462440938677L;
 
-	
+	/**填写报名表用户 */
 	private User user;
 	
 	private EntryForm entryForm;
@@ -53,6 +55,7 @@ public class UserEntryForm extends BaseEntity<Integer> {
 	private String createTime;
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL,})
+	@JoinColumn(name="user_id")
 	public User getUser() {
 		return user;
 	}
@@ -62,6 +65,7 @@ public class UserEntryForm extends BaseEntity<Integer> {
 	}
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="entry_form_id")
 	public EntryForm getEntryForm() {
 		return entryForm;
 	}

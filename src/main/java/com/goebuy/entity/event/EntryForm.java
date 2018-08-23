@@ -12,7 +12,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "entry_form",indexes={@Index(name="index_name", columnList="name")},  schema = "springdemo",  catalog = "")
+@Table(name = "entry_form",indexes={@Index(name="index_merchant", columnList="merchant_id"), @Index(name="index_name", columnList="name")},  schema = "springdemo",  catalog = "")
 public class EntryForm extends BaseActivityEntity<Integer> {
 
 	/**
@@ -20,8 +20,8 @@ public class EntryForm extends BaseActivityEntity<Integer> {
 	 */
 	private static final long serialVersionUID = 9010868247836235386L;
 
-	/** 售票类型 */
-	private String ticketType;
+	/** 售票类型 : 免费，收费 */
+	private int ticketType;
 	
 	/** 报名开始日期 */
 	private String enrollStartDate;
@@ -92,11 +92,11 @@ public class EntryForm extends BaseActivityEntity<Integer> {
 	
 	@Basic
 	@Column(name = "ticket_type", nullable = true)
-	public String getTicketType() {
+	public int getTicketType() {
 		return ticketType;
 	}
 
-	public void setTicketType(String ticketType) {
+	public void setTicketType(int ticketType) {
 		this.ticketType = ticketType;
 	}
 	@Basic
