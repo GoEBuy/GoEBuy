@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -176,6 +177,7 @@ public class Merchant extends BaseEntity<Integer> {
     }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="company_id")
     public Company getCompanyCertification() {
         return companyCertification;
     }
@@ -185,6 +187,7 @@ public class Merchant extends BaseEntity<Integer> {
     }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
     public User getPersonCertification() {
         return personCertification;
     }
@@ -204,6 +207,7 @@ public class Merchant extends BaseEntity<Integer> {
     }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="bank_account_id")
     public BankAccount getBankAccount() {
         return bankAccount;
     }

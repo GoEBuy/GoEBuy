@@ -18,7 +18,7 @@ import com.goebuy.entity.BaseEntity;
  *  Created by luodejin on 2018/8/14.
  */
 @Entity
-@Table(name = "group", schema = "springdemo", indexes={@Index(name="group_number_Index", columnList="name"),@Index(name="index_group_type", columnList="group_type")}, catalog = "")
+@Table(name = "group", schema = "springdemo", indexes={@Index(name="group_name_Index", columnList="name"),@Index(name="index_group_type", columnList="group_type")}, catalog = "")
 public class Group extends BaseEntity<Integer> {
 
  
@@ -75,12 +75,6 @@ public class Group extends BaseEntity<Integer> {
     public Merchant getCreator() {
         return creator;
     }
-
-//    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
-//    @JoinColumn(name="source_id")
-//    public BaseActivityEntity<Integer> getSourceId() {
-//		return sourceId;
-//	}
 
 	public void setCreator(Merchant creator) {
         this.creator = creator;

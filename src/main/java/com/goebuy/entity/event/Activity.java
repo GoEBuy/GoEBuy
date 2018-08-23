@@ -5,6 +5,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
  * indexes={@Index(name="name_Index", columnList="nickname")}
  */
 @Entity
-@Table(name = "activity", schema = "springdemo",  catalog = "")
+@Table(name = "activity", indexes={@Index(name="index_merchant", columnList="merchant_id"), @Index(name="index_name", columnList="name")} ,  schema = "springdemo",  catalog = "")
 public class Activity extends BaseActivityEntity<Integer> {
 	
 	/**
@@ -69,7 +70,7 @@ public class Activity extends BaseActivityEntity<Integer> {
 	
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name="ActivityCategory_id")
+	@JoinColumn(name="activity_category_id")
 	public ActivityCategory getActivityCate() {
 		return activityCate;
 	}

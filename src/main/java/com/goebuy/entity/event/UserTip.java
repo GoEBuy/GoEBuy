@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -44,6 +45,7 @@ public class UserTip extends BaseEntity<Integer> {
 	private String remark;
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="user_id", nullable=false)
 	public User getUser() {
 		return user;
 	}
@@ -52,6 +54,7 @@ public class UserTip extends BaseEntity<Integer> {
 	}
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="tip_id", nullable=false)
 	public Tip getTip() {
 		return tip;
 	}

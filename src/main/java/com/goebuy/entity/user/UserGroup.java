@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -32,6 +33,7 @@ public class UserGroup extends BaseEntity<Integer> {
     private String createTime;            //用户进入群组时间
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
     public User getUser() {
         return user;
     }
@@ -41,6 +43,7 @@ public class UserGroup extends BaseEntity<Integer> {
     }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="group_id")
     public Group getGroup() {
         return group;
     }

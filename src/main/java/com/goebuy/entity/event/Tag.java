@@ -6,6 +6,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -17,7 +18,7 @@ import com.goebuy.entity.user.Merchant;
  * @author Administrator
  */
 @Entity
-@Table(name = "tag", indexes={@Index(name="index_name", columnList="name")}, schema = "springdemo",  catalog = "")
+@Table(name = "tag", indexes={@Index(name="index_merchant", columnList="merchant_id"), @Index(name="index_name", columnList="name"),  @Index(name="index_is_common", columnList="is_common") }, schema = "springdemo",  catalog = "")
 public class Tag extends BaseEntity<Integer> {
 	
 	/**
@@ -46,6 +47,7 @@ public class Tag extends BaseEntity<Integer> {
 	}
 	
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="merchant_id")
 	public Merchant getUser() {
 		return user;
 	}

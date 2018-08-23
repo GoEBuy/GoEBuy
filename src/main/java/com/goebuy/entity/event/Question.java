@@ -12,7 +12,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "question", indexes={@Index(name="index_name", columnList="name")},  schema = "springdemo",  catalog = "")
+@Table(name = "question", indexes={@Index(name="index_merchant", columnList="merchant_id"), @Index(name="index_name", columnList="name") },  schema = "springdemo",  catalog = "")
 public class Question extends BaseActivityEntity<Integer> {
 
 	/**

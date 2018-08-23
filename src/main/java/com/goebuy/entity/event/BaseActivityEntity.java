@@ -20,7 +20,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	 */
 	private static final long serialVersionUID = 7207739713485965568L;
 
-	/** 创建人，对应会员用户表 */
+	/** 创建人, 对应会员用户表 */
 	protected Merchant creator;
 	
 	protected String createTime;

@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -18,7 +19,7 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/8/15.
  */
 @Entity
-@Table(name = "user_member_recruitment", indexes={@Index(name="index_user", columnList="user_id")}, schema = "springdemo",  catalog = "")
+@Table(name = "user_member_recruitment", indexes={@Index(name="index_user", columnList="user_id"), @Index(name="index_member_recuritment_id",columnList="member_recuritment_id") }, schema = "springdemo",  catalog = "")
 public class UserMemberRecruitment extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = 2508655292139612838L;
@@ -49,6 +50,7 @@ public class UserMemberRecruitment extends BaseEntity<Integer> {
     private int pv;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id")
     public User getUser() {
         return user;
     }
@@ -58,6 +60,7 @@ public class UserMemberRecruitment extends BaseEntity<Integer> {
     }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="member_recuritment_id")
     public MemberRecruitment getMemberRecruitment() {
         return memberRecruitment;
     }

@@ -18,7 +18,7 @@ import com.goebuy.entity.BaseEntity;
  * Created by luodejin on 2018/8/16.
  */
 @Entity
-@Table(name = "vip", schema = "springdemo", indexes={@Index(name="index_merchant_id", columnList="user_id")}, catalog = "")
+@Table(name = "vip", schema = "springdemo", indexes={@Index(name="index_merchant_id", columnList="merchant_id")}, catalog = "")
 public class VIP extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = -1177028922840848586L;
@@ -107,7 +107,7 @@ public class VIP extends BaseEntity<Integer> {
     }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
-    @JoinColumn(name="user_id")
+    @JoinColumn(name="merchant_id")
     public Merchant getCreator() {
         return creator;
     }
