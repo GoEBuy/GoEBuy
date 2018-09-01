@@ -1,4 +1,4 @@
-package com.goebuy.biz;
+package com.goebuy.biz.user;
 
 import java.util.List;
 
@@ -7,8 +7,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import com.goebuy.biz.AbstractBiz;
 import com.goebuy.entity.user.User;
-import com.goebuy.service.UserService;
+import com.goebuy.service.user.UserService;
 
 @Service
 public class UserBiz extends AbstractBiz<User, Integer>{

@@ -125,16 +125,16 @@
 				</prop>
 				<prop key="hibernate.connection.username">root</prop>
 				<prop key="hibernate.connection.password">root</prop>
-				<!-- <prop key="hibernate.show_sql">true</prop> -->
-				<prop key="hibernate.show_sql">false</prop>
+				 <prop key="hibernate.show_sql">true</prop> 
+				<!-- <prop key="hibernate.show_sql">false</prop> -->
 				<!--  一般情况下，会在项目启动的过程中，自动检查 注解的实体 和数据表，如果数据库不存在的表或者字段，会根据实体自动生成。-->
 				<prop key="generateDdl" >true</prop>
 				<prop key="hibernate.connection.useUnicode">true</prop>
 				<prop key="hibernate.connection.characterEncoding">UTF-8</prop>
 				<prop key="hibernate.format_sql">true</prop>
 				<prop key="hibernate.use_sql_comments">true</prop>
-				<prop key="hibernate.hbm2ddl.auto">update</prop>
-				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
+				<!-- <prop key="hibernate.hbm2ddl.auto">update</prop> -->
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 				<prop key="hibernate.connection.autoReconnect">true</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="connection.autoReconnectForPools">true</prop>

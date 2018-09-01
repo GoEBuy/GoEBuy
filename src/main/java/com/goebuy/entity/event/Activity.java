@@ -209,6 +209,15 @@ public class Activity extends BaseActivityEntity<Integer> {
 		this.needVip = need_vip;
 	}
 	
+	public Activity() {
+		
+	}
+	
+	public Activity(String name, String create_time) {
+		this.name = name;
+		this.createTime = create_time;
+	}
+	
 	
 	
 	

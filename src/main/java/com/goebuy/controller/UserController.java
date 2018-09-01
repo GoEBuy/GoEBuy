@@ -7,6 +7,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import com.goebuy.entity.user.User;
+import com.goebuy.service.user.UserService;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.goebuy.annotation.SystemLogAnnotation;
-import com.goebuy.service.UserService;
 
 @Controller
 public class UserController {

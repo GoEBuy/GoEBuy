@@ -5,28 +5,27 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.goebuy.biz.auth.RoleBiz;
-import com.goebuy.entity.auth.Role;
+import com.goebuy.biz.event.ActivityBiz;
+import com.goebuy.entity.event.Activity;
 
 import junit.framework.TestCase;
 
 ////@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
 @RunWith(SpringRunner.class)
 @ContextConfiguration({ "classpath:mvc-dispatcher-servlet.xml" })
-public class RoleTest extends TestCase {
+public class ActivityTest extends TestCase {
 
 //	 @Autowired
 //	 ApplicationContext ctx;
 
 	@Autowired
-	RoleBiz biz;
+	ActivityBiz biz;
 	
 	@Override
 	protected void setUp() throws Exception {
@@ -41,14 +40,6 @@ public class RoleTest extends TestCase {
 
 	@Before
 	public void before() {
-//		EntityManagerFactory factory=Persistence.createEntityManagerFactory("entityManagerFactory");
-//		EntityManager em=factory.createEntityManager();
-//		em.getTransaction().begin();//开始事物
-//		    //Session.save()-->Persist();
-//		em.persist(new PersonCertification("创梦网络")); //持久化到数据库.persist:持久化
-//		em.getTransaction().commit();
-//		em.close();
-//		factory.close();
 		System.out.println("before");
 	}
 	
@@ -64,9 +55,9 @@ public class RoleTest extends TestCase {
 	
 	@Test
 	public void testListAll() {
-		List<Role> roleList =biz.findAll();
+		List<Activity> roleList =biz.findAll();
 		if(roleList!=null) {
-			for(Role r : roleList ) {
+			for(Activity r : roleList ) {
 				System.out.println("Role: " + r );
 			}
 		}else {
@@ -74,13 +65,12 @@ public class RoleTest extends TestCase {
 		}
 	}
 
-	@Ignore
 	@Test
 	public void testFind() {
 		System.out.println("testFind");
-		List<Role> roleList = biz.findByNameMatch("adm");
+		List<Activity> roleList = biz.findByNameMatch("adm");
 		if (roleList!=null) {
-			for(Role r: roleList) {
+			for(Activity r: roleList) {
 				System.out.println(r);
 			}
 		}
@@ -90,20 +80,20 @@ public class RoleTest extends TestCase {
 	@Test
 	public void testAdd() {
 		System.out.println("testAdd");
-		Role r1 = new Role("staff");
-		Role r2 = new Role("admin");
-		Role r3 = new Role("superadmin");
-		Role r4 = new Role("normal");
-		List<Role> list = new ArrayList<>();
+		Activity r1 = new Activity("act1", "2018-08-09 12:01:01");
+		Activity r2 = new Activity("act2", "2018-08-19 12:01:01");
+		Activity r3 = new Activity("act3", "2018-08-29 12:01:01");
+		Activity r4 = new Activity("act4", "2018-07-09 12:01:01");
+		List<Activity> list = new ArrayList<>();
 		list.add(r1);
 		list.add(r2);
 		list.add(r3);
 		list.add(r4);
-		for(Role r: list) {
-			if(biz.findByName(r.getRole())==null) {
+		for(Activity r: list) {
+			if(biz.findByName(r.getName())==null) {
 				biz.saveAndFlush(r);
 			}else {
-				System.out.println("role "+r.getRole()+" exist");
+				System.out.println("activity "+r.getName() +" exist");
 			}
 		}
 	}

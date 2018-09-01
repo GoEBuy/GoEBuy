@@ -3,6 +3,7 @@ package com.goebuy.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.goebuy.biz.PermissionBiz;
+import com.goebuy.biz.auth.PermissionBiz;
 import com.goebuy.entity.auth.Permission;
 
 import junit.framework.TestCase;
@@ -22,9 +23,24 @@ public class PermissionTest extends TestCase {
 	@Autowired
 	PermissionBiz biz;
 	
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+	}
+	
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+	}
+	
 	@Before
-	public void init() {
+	public void before() {
 		assertNotNull(biz);
+	}
+	
+	@After
+	public void after() {
+		System.out.println("after");
 	}
 	
 	@Test
