@@ -1,15 +1,15 @@
 package com.goebuy.entity.user;
 
-import com.goebuy.entity.BaseEntity;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import com.goebuy.entity.BaseEntity;
 
 @Entity
 @Table(name = "user", schema = "springdemo", indexes={@Index(name="name_Index", columnList="name")}, catalog = "")
@@ -25,7 +25,8 @@ public class User extends BaseEntity<Integer> {
     private String name;                  //真实姓名
     private String email;                 //邮箱
     private String phoneNo;               //手机号码
-    private int gender;                   //性别
+    /**性别: 0男 1女 -1未知*/
+    private Integer gender = -1;                   //性别
     private String address;               //地址
     private String birthday;              //生日
 
@@ -36,8 +37,8 @@ public class User extends BaseEntity<Integer> {
     private String institution;           //就职单位或就读学校名称
     private String job;                   //担任职务或就读专业
 
-//    private boolean isMerchant;           //是否是商户
-    private Merchant merchant;            //关联的商户账号
+    private Boolean isMerchant=false;     //是否是商户
+    private Merchant user;                //关联的商户账号
 
     /**
      * 个人账号认证信息，非必须
@@ -109,16 +110,16 @@ public class User extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "gender", nullable = true)
-    public int getGender() {
-        return gender;
-    }
+    @Column(name = "gender", columnDefinition="tinyint default -1" )
+    public Integer getGender() {
+		return gender;
+	}
 
-    public void setGender(int gender) {
-        this.gender = gender;
-    }
+	public void setGender(Integer gender) {
+		this.gender = gender;
+	}
 
-    @Basic
+	@Basic
     @Column(name = "address", nullable = true)
     public String getAddress() {
         return address;
@@ -168,27 +169,29 @@ public class User extends BaseEntity<Integer> {
         this.job = job;
     }
 
-//    @Basic
-//    @Column(name = "is_merchant", nullable = true)
-//    public boolean isMerchant() {
-//        return isMerchant;
-//    }
-//
-//    public void setMerchant(boolean merchant) {
-//        isMerchant = merchant;
-//    }
-
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
-    public Merchant getMerchant() {
-        return merchant;
+    @Basic
+    @Column(name = "is_merchant", nullable = true)
+    public Boolean isMerchant() {
+        return isMerchant;
     }
 
-    public void setMerchant(Merchant merchant) {
-        this.merchant = merchant;
+    public void setMerchant(Boolean isMerchant) {
+        this.isMerchant = isMerchant;
+    }
+
+//    @OneToOne(fetch = FetchType.EAGER,  cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
+    @OneToOne(fetch = FetchType.EAGER,  cascade = {CascadeType.ALL})
+    @JoinColumn(name="user_id", nullable=true )
+    public Merchant getUser() {
+        return user;
+    }
+
+    public void setUser(Merchant merchant) {
+        this.user = merchant;
     }
 
     @Basic
-    @Column(name = "id_card_no", nullable = false)
+    @Column(name = "id_card_no", nullable = true)
     public String getIdCardNo() {
         return idCardNo;
     }
@@ -198,7 +201,7 @@ public class User extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "id_card_front_pic", nullable = false)
+    @Column(name = "id_card_front_pic", length=128, columnDefinition="varchar(128) default ''", nullable = true)
     public String getIdCardFrontPic() {
         return idCardFrontPic;
     }
@@ -208,7 +211,7 @@ public class User extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "id_card_back_pic", nullable = false)
+    @Column(name = "id_card_back_pic", length=128, columnDefinition="varchar(128) default ''", nullable = true)
     public String getIdCardBackPic() {
         return idCardBackPic;
     }
@@ -218,7 +221,7 @@ public class User extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "wechat_no", nullable = false)
+    @Column(name = "wechat_no", nullable = true)
     public String getWechatNo() {
         return wechatNo;
     }
@@ -228,7 +231,7 @@ public class User extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "wechat_nickname", nullable = false)
+    @Column(name = "wechat_nickname", nullable = true)
     public String getWechatNickname() {
         return wechatNickname;
     }
@@ -248,7 +251,7 @@ public class User extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "create_time", nullable = false)
+    @Column(name = "create_time", nullable = true)
     public String getCreateTime() {
         return createTime;
     }
@@ -258,7 +261,7 @@ public class User extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "update_time", nullable = false)
+    @Column(name = "update_time", nullable = true)
     public String getUpdateTime() {
         return updateTime;
     }

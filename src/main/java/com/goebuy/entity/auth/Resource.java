@@ -5,10 +5,11 @@ import com.goebuy.entity.BaseEntity;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "auth_resource", schema = "springdemo", catalog = "")
+@Table(name = "auth_resource", indexes={@Index(name="index_resource", columnList="resource")} ,  schema = "springdemo", catalog = "")
 public class Resource extends BaseEntity<Integer> {
 	
     /**

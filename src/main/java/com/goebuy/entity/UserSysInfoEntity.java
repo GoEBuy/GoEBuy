@@ -6,10 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.goebuy.entity.user.User;
+import com.goebuy.entity.user.Merchant;
 
 /**
  * 用戶系統通知信息
@@ -18,7 +19,7 @@ import com.goebuy.entity.user.User;
  *
  */
 @Entity
-@Table(name = "user_sysinfo", indexes={@Index(name="user_id_Index", columnList="user_id")} , schema = "springdemo", catalog = "")
+@Table(name = "user_sysinfo", indexes={@Index(name="index_merchant_id", columnList="merchant_id"),@Index(name="index_has_read", columnList="has_read")} , schema = "springdemo", catalog = "")
 public class UserSysInfoEntity extends BaseEntity<Integer> {
 
 	/**
@@ -26,7 +27,7 @@ public class UserSysInfoEntity extends BaseEntity<Integer> {
 	 */
 	private static final long serialVersionUID = 4333026409014680730L;
 
-	private User user;
+	private Merchant user;
 
 	private SystemInfo sysInfo;
 
@@ -37,16 +38,18 @@ public class UserSysInfoEntity extends BaseEntity<Integer> {
 	 */
 	private String time;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public User getUser() {
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL} )
+	@JoinColumn(name="merchant_id", nullable=false)
+	public Merchant getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Merchant user) {
 		this.user = user;
 	}
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="sys_info_id", nullable=false)
 	public SystemInfo getSysInfo() {
 		return sysInfo;
 	}

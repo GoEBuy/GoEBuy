@@ -1,14 +1,16 @@
 package com.goebuy.entity;
 
-import com.goebuy.entity.user.User;
-
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.goebuy.entity.user.Merchant;
 
 /**
  * 系统通知信息
@@ -17,7 +19,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "sys_sysinfo", indexes={@Index(name="title_index", columnList="title")}, schema = "springdemo", catalog = "")
+@Table(name = "sys_sysinfo", indexes={@Index(name="title_index", columnList="title"), @Index(name="index_user", columnList="merchant_id")}, schema = "springdemo", catalog = "")
 public class SystemInfo extends BaseEntity<Integer> {
 
 	/**
@@ -34,7 +36,7 @@ public class SystemInfo extends BaseEntity<Integer> {
 	/**
 	 * many2one
 	 */
-	private User user;
+	private Merchant user;
 
 	private String pubDate;
 
@@ -65,13 +67,13 @@ public class SystemInfo extends BaseEntity<Integer> {
 		this.content = content;
 	}
 
-	@ManyToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "id", nullable = true)
-	public User getUser() {
+	@ManyToOne( fetch = FetchType.EAGER,  cascade = {CascadeType.ALL}  )
+	@JoinColumn(name = "merchant_id", referencedColumnName = "id", nullable = true)
+	public Merchant getUser() {
 		return user;
 	}
 
-	public void setUser(User userByUserId) {
+	public void setUser(Merchant userByUserId) {
 		this.user = userByUserId;
 	}
 

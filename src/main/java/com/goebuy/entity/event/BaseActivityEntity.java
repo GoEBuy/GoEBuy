@@ -4,12 +4,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 
 import com.alibaba.fastjson.JSON;
 import com.goebuy.entity.BaseEntity;
-import com.goebuy.entity.user.User;
+import com.goebuy.entity.user.Merchant;
 
 @MappedSuperclass
 public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
@@ -19,8 +20,8 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	 */
 	private static final long serialVersionUID = 7207739713485965568L;
 
-	/** 创建人，对应会员用户表 */
-	protected User creator;
+	/** 创建人, 对应会员用户表 */
+	protected Merchant creator;
 	
 	protected String createTime;
 	
@@ -82,13 +83,14 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 //	private int version;
 
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	public User getCreator() {
+	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH,CascadeType.PERSIST} )
+	@JoinColumn(name="merchant_id")
+	public Merchant getCreator() {
 		return creator;
 	}
 
-	public void setCreator(User user) {
-		this.creator = user;
+	public void setCreator(Merchant merchant) {
+		this.creator = merchant;
 	}
 	
 	@Basic
@@ -112,7 +114,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	}
 
 	@Basic
-	@Column(name = "name", nullable = false)
+	@Column(name = "name", length=64, nullable = false)
 	public String getName() {
 		return name;
 	}
@@ -122,7 +124,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	}
 
 	@Basic
-	@Column(name = "description", nullable = true)
+	@Column(name = "description",  nullable = true)
 	public String getDescription() {
 		return description;
 	}
@@ -151,7 +153,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 		this.endDate = end_date;
 	}
 	@Basic
-	@Column(name = "start_time", nullable = true)
+	@Column(name = "start_time", length=30, columnDefinition="varchar(30) default '2009-01-01 00:00:00'", nullable = true)
 	public String getStartTime() {
 		return startTime;
 	}
@@ -160,10 +162,13 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 		this.startTime = start_time;
 	}
 	@Basic
-	@Column(name = "end_time", nullable = true)
+	@Column(name = "end_time", length=30, columnDefinition="varchar(30) default '2009-01-01 00:00:00'", nullable = true)
 	public String getEndTime() {
 		return endTime;
 	}
+//	@Temporal(TemporalType.TIMESTAMP)
+//	@Column(columnDefinition="TIMESTAMPTZ   default '2009-01-01 00:00:00'",nullable=false,insertable=false,updatable=false)
+//	Date enMenuVerTime;//英文菜品校验时间
 
 	public void setEndTime(String end_time) {
 		this.endTime = end_time;
@@ -188,7 +193,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 		this.tagSet = tagSet;
 	}
 	@Basic
-	@Column(name = "contact_phone", nullable = true)
+	@Column(name = "contact_phone", length=15, nullable = true)
 	public String getContactPhone() {
 		return contactPhone;
 	}
@@ -225,7 +230,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	}
 
 	@Basic
-	@Column(name = "qq", nullable = true)
+	@Column(name = "qq", length=15, nullable = true)
 	public String getQq() {
 		return qq;
 	}
@@ -235,7 +240,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	}
 	
 	@Basic
-	@Column(name = "share_title", nullable = true)
+	@Column(name = "share_title", length=64, nullable = true)
 	public String getShareTitle() {
 		return shareTitle;
 	}

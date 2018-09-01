@@ -1,15 +1,16 @@
 package com.goebuy.entity.user;
 
-import com.goebuy.entity.BaseEntity;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.goebuy.entity.BaseEntity;
 
 /**
  * 组织/企业表
@@ -17,7 +18,7 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/8/15.
  */
 @Entity
-@Table(name = "company_certification", schema = "springdemo", indexes={@Index(name="full_name_Index", columnList="full_name")}, catalog = "")
+@Table(name = "company_certification", schema = "springdemo", indexes={@Index(name="name_Index", columnList="name"), @Index(name="full_name_Index", columnList="full_name")}, catalog = "")
 public class Company extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = 53757879384651050L;
@@ -34,14 +35,14 @@ public class Company extends BaseEntity<Integer> {
     private String phoneNo;               //客服电话
     private User legalRepresentative;     //法定代表人
 
-//    private boolean isMerchant;           //是否是商户
-    private Merchant merchant;            //关联的商户账号
+    private boolean isMerchant;           //是否是商户
+    private Merchant user;                //关联的商户账号
 
     private String createTime;            //创建时间
     private String updateTime;            //最近更新时间
 
     @Basic
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length=64, nullable = false)
     public String getName() {
         return name;
     }
@@ -51,7 +52,7 @@ public class Company extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "full_name", nullable = false)
+    @Column(name = "full_name", length=64, nullable = false)
     public String getFullName() {
         return fullName;
     }
@@ -61,7 +62,7 @@ public class Company extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "business_license", nullable = false)
+    @Column(name = "business_license", length=50, nullable = false)
     public String getBusinessLicense() {
         return businessLicense;
     }
@@ -81,7 +82,7 @@ public class Company extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "address", nullable = false)
+    @Column(name = "address", length=125, nullable = false)
     public String getAddress() {
         return address;
     }
@@ -91,7 +92,7 @@ public class Company extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "phone_no", nullable = false)
+    @Column(name = "phone_no", length=15, nullable = false)
     public String getPhoneNo() {
         return phoneNo;
     }
@@ -109,23 +110,24 @@ public class Company extends BaseEntity<Integer> {
         this.legalRepresentative = legalRepresentative;
     }
 
-//    @Basic
-//    @Column(name = "is_merchant", nullable = true)
-//    public boolean isMerchant() {
-//        return isMerchant;
-//    }
-//
-//    public void setMerchant(boolean merchant) {
-//        isMerchant = merchant;
-//    }
-
-    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
-    public Merchant getMerchant() {
-        return merchant;
+    @Basic
+    @Column(name = "is_merchant", nullable = true)
+    public boolean isMerchant() {
+        return isMerchant;
     }
 
-    public void setMerchant(Merchant merchant) {
-        this.merchant = merchant;
+    public void setMerchant(boolean merchant) {
+    	isMerchant = merchant;
+    }
+
+    @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
+    @JoinColumn(name="merchant_id")
+    public Merchant getUser() {
+        return user;
+    }
+
+    public void setUser(Merchant merchant) {
+        this.user = merchant;
     }
 
     @Basic

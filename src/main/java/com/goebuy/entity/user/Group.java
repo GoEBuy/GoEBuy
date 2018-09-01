@@ -1,15 +1,16 @@
 package com.goebuy.entity.user;
 
-import com.goebuy.entity.BaseEntity;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Index;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.goebuy.entity.BaseEntity;
 
 /**
  * 群组表
@@ -17,10 +18,11 @@ import javax.persistence.Table;
  *  Created by luodejin on 2018/8/14.
  */
 @Entity
-@Table(name = "group", schema = "springdemo", indexes={@Index(name="name_Index", columnList="name")}, catalog = "")
+@Table(name = "group", schema = "springdemo", indexes={@Index(name="group_name_Index", columnList="name"),@Index(name="index_group_type", columnList="group_type")}, catalog = "")
 public class Group extends BaseEntity<Integer> {
 
-    private static final long serialVersionUID = -8029735894274024826L;
+
+	private static final long serialVersionUID = -8029735894274024826L;
 
     private String name;                  //群组名称
     private int type;                     //群组类别：1 事件群组，2 标签群组，3 用户自定义群组
@@ -29,15 +31,15 @@ public class Group extends BaseEntity<Integer> {
      * 若为事件群组，存事件id
      * 若为标签群组，存最后一次事件(活动)id
      */
-    private String sourceId;
+    private int sourceId;
 
-    private User creator;                 //创建人id
+    private Merchant creator;                 //创建人id
     private String createTime;            //创建时间
     private String updateTime;            //最近更新时间
     private int state;                    //群组状态: 1 正常，2 解散
 
     @Basic
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", length=64, unique=true, nullable = false)
     public String getName() {
         return name;
     }
@@ -58,20 +60,23 @@ public class Group extends BaseEntity<Integer> {
 
     @Basic
     @Column(name = "source_id", nullable = false)
-    public String getSourceId() {
+    public int getSourceId() {
         return sourceId;
     }
 
-    public void setSourceId(String sourceId) {
+    public void setSourceId(int sourceId) {
         this.sourceId = sourceId;
     }
 
+
+
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
-    public User getCreator() {
+    @JoinColumn(name="merchant_id")
+    public Merchant getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+	public void setCreator(Merchant creator) {
         this.creator = creator;
     }
 

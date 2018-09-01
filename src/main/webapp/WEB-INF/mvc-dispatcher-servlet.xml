@@ -194,17 +194,15 @@
 	  <tx:annotation-driven
 		transaction-manager="transactionManager"  />
 
-
-
 	 <!-- 启动对@AspectJ注解的支持 --> 
      <aop:aspectj-autoproxy proxy-target-class="true"/>
      <!-- 切面  -->
   	<bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" />
 
-	<!--&lt;!&ndash; 事务管理 &ndash;&gt;-->
-	<!--<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">-->
-		<!--<property name="entityManagerFactory" ref="entityManagerFactory" />-->
-	<!--</bean>-->
+	<!-- 事务管理 -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
 
 	<!--事务通知-->
 	<!--   <tx:advice id="txAdvice" transaction-manager="transactionManager">
@@ -220,13 +218,5 @@
               <tx:method name="*" read-only="true"/>
           </tx:attributes>
       </tx:advice> -->
-
-	<!--&lt;!&ndash; 开启事务管理注解 &ndash;&gt;-->
-	<!--<tx:annotation-driven transaction-manager="transactionManager" />-->
-
-	<!--&lt;!&ndash; 启动对@AspectJ注解的支持 &ndash;&gt;-->
-	<!--<aop:aspectj-autoproxy proxy-target-class="true"/>-->
-	<!--&lt;!&ndash; 切面  &ndash;&gt;-->
-	<!--<bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" />-->
 
 </beans>
