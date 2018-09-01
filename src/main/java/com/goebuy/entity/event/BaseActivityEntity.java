@@ -84,7 +84,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 
 
 	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.REFRESH,CascadeType.PERSIST} )
-	@JoinColumn(name="merchant_id")
+	@JoinColumn(name="merchant_id" )
 	public Merchant getCreator() {
 		return creator;
 	}
@@ -184,7 +184,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 		this.fieldSet = field_set;
 	}
 	@Basic
-	@Column(name = "tag_set", nullable = true)
+	@Column(name = "tag_set", columnDefinition = "varchar(120) COMMENT '活动标签集合'", nullable = true)
 	public String getTagSet() {
 		return tagSet;
 	}

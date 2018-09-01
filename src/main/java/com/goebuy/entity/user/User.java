@@ -60,7 +60,7 @@ public class User extends BaseEntity<Integer> {
     private String ext;                   //扩展信息
 
     @Basic
-    @Column(name = "nickname", nullable = true)
+    @Column(name = "nickname", unique=true,  nullable = true)
     public String getNickname() {
         return nickname;
     }
@@ -80,7 +80,7 @@ public class User extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "name", nullable = true)
+    @Column(name = "name",  nullable = true)
     public String getName() {
         return name;
     }
@@ -271,7 +271,7 @@ public class User extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "ext", nullable = true)
+    @Column(name = "ext", columnDefinition = "varchar(255) COMMENT '扩展字段'", nullable = true)
     public String getExt() {
         return ext;
     }

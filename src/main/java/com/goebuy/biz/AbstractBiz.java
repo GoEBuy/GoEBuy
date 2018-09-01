@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
+import com.goebuy.entity.user.User;
+
 public abstract class AbstractBiz<O, T extends Serializable> {
 	
 	public abstract O save(O addObj);
@@ -42,6 +44,5 @@ public abstract class AbstractBiz<O, T extends Serializable> {
 	public abstract long count();
 	
 	public abstract boolean exists(int id);
-	
 
 }

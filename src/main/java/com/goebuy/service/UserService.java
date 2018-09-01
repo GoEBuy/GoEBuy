@@ -35,6 +35,9 @@ public interface UserService extends JpaRepository<User, Integer> {
     @Query(value = "select b from User b where b.name=:qname")
     User findByName(@Param("qname") String name);
     
+    @Query(value = "select b from User b where b.nickname=:qnickname")
+    User findByNickName(@Param("qnickname") String nickname);
+    
     
 //    @Modifying 
 //    @Transactional  // 说明该方法是事务性操作

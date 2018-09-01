@@ -54,6 +54,10 @@ public class UserBiz extends AbstractBiz<User, Integer>{
 		return service.findByName(name);
 	}
 
+	public User findByNickName(String nickname) {
+		return service.findByNickName(nickname);
+	}
+	
 	@Override
 	public void deleteAllInBatch() {
 		service.deleteAllInBatch();
