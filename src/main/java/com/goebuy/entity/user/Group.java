@@ -17,7 +17,7 @@ import javax.persistence.Table;
  *  Created by luodejin on 2018/8/14.
  */
 @Entity
-@Table(name = "group", schema = "springdemo", indexes={@Index(name="group_number_Index", columnList="group_name")}, catalog = "")
+@Table(name = "group", schema = "springdemo", indexes={@Index(name="name_Index", columnList="name")}, catalog = "")
 public class Group extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = -8029735894274024826L;
@@ -47,7 +47,7 @@ public class Group extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "group_type", nullable = false)
+    @Column(name = "type", nullable = false)
     public int getType() {
         return type;
     }

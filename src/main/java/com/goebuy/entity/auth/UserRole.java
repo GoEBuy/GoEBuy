@@ -17,7 +17,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "auth_user_role", indexes={@Index(name="user_Index", columnList="user_id")} , schema = "springdemo", catalog = "")
+@Table(name = "auth_user_role", indexes={@Index(name="user_id_Index", columnList="user_id")} , schema = "springdemo", catalog = "")
 public class UserRole extends BaseEntity<Integer> {
 
 	/**

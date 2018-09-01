@@ -18,7 +18,7 @@ import com.goebuy.entity.user.User;
  *
  */
 @Entity
-@Table(name = "user_sysinfo", indexes={@Index(name="user_Index", columnList="user_id")} , schema = "springdemo", catalog = "")
+@Table(name = "user_sysinfo", indexes={@Index(name="user_id_Index", columnList="user_id")} , schema = "springdemo", catalog = "")
 public class UserSysInfoEntity extends BaseEntity<Integer> {
 
 	/**

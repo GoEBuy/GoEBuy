@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/8/15.
  */
 @Entity
-@Table(name = "company_certification", schema = "springdemo", indexes={@Index(name="full_name_Index", columnList="fullName")}, catalog = "")
+@Table(name = "company_certification", schema = "springdemo", indexes={@Index(name="full_name_Index", columnList="full_name")}, catalog = "")
 public class Company extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = 53757879384651050L;
@@ -34,7 +34,7 @@ public class Company extends BaseEntity<Integer> {
     private String phoneNo;               //客服电话
     private User legalRepresentative;     //法定代表人
 
-    private boolean isMerchant;           //是否是商户
+//    private boolean isMerchant;           //是否是商户
     private Merchant merchant;            //关联的商户账号
 
     private String createTime;            //创建时间
@@ -109,15 +109,15 @@ public class Company extends BaseEntity<Integer> {
         this.legalRepresentative = legalRepresentative;
     }
 
-    @Basic
-    @Column(name = "is_merchant", nullable = true)
-    public boolean isMerchant() {
-        return isMerchant;
-    }
-
-    public void setMerchant(boolean merchant) {
-        isMerchant = merchant;
-    }
+//    @Basic
+//    @Column(name = "is_merchant", nullable = true)
+//    public boolean isMerchant() {
+//        return isMerchant;
+//    }
+//
+//    public void setMerchant(boolean merchant) {
+//        isMerchant = merchant;
+//    }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
     public Merchant getMerchant() {

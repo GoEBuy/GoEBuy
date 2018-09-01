@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/8/16.
  */
 @Entity
-@Table(name = "vip", schema = "springdemo", indexes={@Index(name="bank_card_number_Index", columnList="bankCardNo")}, catalog = "")
+@Table(name = "vip", schema = "springdemo", indexes={@Index(name="name_index", columnList="name")}, catalog = "")
 public class VIP extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = -1177028922840848586L;
@@ -96,7 +96,7 @@ public class VIP extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "duration", nullable = false)
+    @Column(name = "state", nullable = false)
     public int getState() {
         return state;
     }

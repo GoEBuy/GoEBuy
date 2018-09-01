@@ -16,7 +16,7 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/8/15.
  */
 @Entity
-@Table(name = "bank_account", schema = "springdemo", indexes={@Index(name="bank_card_number_Index", columnList="cardNo")}, catalog = "")
+@Table(name = "bank_account", schema = "springdemo", indexes={@Index(name="card_no_Index", columnList="card_no")}, catalog = "")
 public class BankAccount extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = 208075760882253739L;
@@ -34,7 +34,7 @@ public class BankAccount extends BaseEntity<Integer> {
 
     @Basic
     @Column(name = "type", nullable = false)
-    public String getAType() {
+    public String getType() {
         return type;
     }
 

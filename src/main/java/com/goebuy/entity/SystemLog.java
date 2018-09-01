@@ -7,7 +7,7 @@ import javax.persistence.Index;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "sys_systemlog",indexes={@Index(name="operationType_index", columnList="operationType")}, schema = "springdemo", catalog = "")
+@Table(name = "sys_systemlog",indexes={@Index(name="operationType_index", columnList="operation_type")}, schema = "springdemo", catalog = "")
 public class SystemLog extends BaseEntity<Integer> {
 
 

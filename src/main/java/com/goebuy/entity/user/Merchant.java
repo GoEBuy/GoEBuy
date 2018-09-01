@@ -17,7 +17,7 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/8/14.
  */
 @Entity
-@Table(name = "merchant", schema = "springdemo", indexes={@Index(name="nick_name_Index", columnList="nickName")}, catalog = "")
+@Table(name = "merchant", schema = "springdemo", indexes={@Index(name="name_Index", columnList="name")}, catalog = "")
 public class Merchant extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = 4554875451091830646L;

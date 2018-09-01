@@ -18,7 +18,7 @@ import com.goebuy.entity.user.Merchant;
  *
  */
 @Entity
-@Table(name = "activity_cate",  indexes={@Index(name="cate_name_Index", columnList="cateName"), @Index(name="pcate_id_Index", columnList="pcateId")} , schema = "springdemo",  catalog = "")
+@Table(name = "activity_cate",  indexes={@Index(name="cate_name_Index", columnList="cate_name"), @Index(name="pcate_id_Index", columnList="pcate_id")} , schema = "springdemo",  catalog = "")
 public class ActivityCategory extends BaseEntity<Integer>{
 
 	/**

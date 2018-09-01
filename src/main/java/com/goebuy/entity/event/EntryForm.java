@@ -12,7 +12,7 @@ import javax.persistence.Table;
  *
  */
 @Entity
-@Table(name = "entry_form",indexes={@Index(name="index_name", columnList="name")},  schema = "springdemo",  catalog = "")
+@Table(name = "entry_form",indexes={@Index(name="name_index", columnList="name")},  schema = "springdemo",  catalog = "")
 public class EntryForm extends BaseActivityEntity<Integer> {
 
 	/**

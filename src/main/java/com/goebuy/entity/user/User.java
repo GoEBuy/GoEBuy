@@ -36,7 +36,7 @@ public class User extends BaseEntity<Integer> {
     private String institution;           //就职单位或就读学校名称
     private String job;                   //担任职务或就读专业
 
-    private boolean isMerchant;           //是否是商户
+//    private boolean isMerchant;           //是否是商户
     private Merchant merchant;            //关联的商户账号
 
     /**
@@ -168,15 +168,15 @@ public class User extends BaseEntity<Integer> {
         this.job = job;
     }
 
-    @Basic
-    @Column(name = "is_merchant", nullable = true)
-    public boolean isMerchant() {
-        return isMerchant;
-    }
-
-    public void setMerchant(boolean merchant) {
-        isMerchant = merchant;
-    }
+//    @Basic
+//    @Column(name = "is_merchant", nullable = true)
+//    public boolean isMerchant() {
+//        return isMerchant;
+//    }
+//
+//    public void setMerchant(boolean merchant) {
+//        isMerchant = merchant;
+//    }
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
     public Merchant getMerchant() {
