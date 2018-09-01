@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.goebuy.biz.AbstractBiz;
+import com.goebuy.entity.auth.Role;
 import com.goebuy.entity.user.User;
 import com.goebuy.service.user.UserService;
 
@@ -109,6 +110,7 @@ public class UserBiz extends AbstractBiz<User, Integer>{
 	public List<User> findAll() {
 		return service.findAll();
 	}
-
+	
+	
 
 }

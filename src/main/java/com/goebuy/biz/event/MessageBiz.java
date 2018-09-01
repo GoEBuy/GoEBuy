@@ -70,12 +70,14 @@ public class MessageBiz extends AbstractBiz<Message, Integer>{
 
 	@Override
 	public List<Message> findByNameMatch(String name) {
-		return service.findByNameMatch(name);
+		return null;
+//		return service.findByNameMatch(name);
 	}
 
 	@Override
 	public Message findByName(String name) {
-		return service.findByName(name);
+		return null;
+//		return service.findByName(name);
 	}
 
 	@Override

@@ -1,10 +1,6 @@
 package com.goebuy.service.event;
 
-import java.util.List;
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.goebuy.entity.event.Message;
@@ -27,12 +23,12 @@ public interface MessageService extends JpaRepository<Message, Integer> {
 //    @Query("update User us set us.name=:qname where us.id=:qId")
 //    public void updateUser(@Param("qname") String name, @Param("qId") Integer id);
 //    
-    @Query(value = "select b from Message b where b.name like %:name%")
-    List<Message> findByNameMatch(@Param("name") String name);
-    
-    
-    @Query(value = "select b from Message b where b.name=:qname")
-    Message findByName(@Param("qname") String name);
+//    @Query(value = "select b from Message b where b.name like %:name%")
+//    List<Message> findByNameMatch(@Param("name") String name);
+//    
+//    
+//    @Query(value = "select b from Message b where b.name=:qname")
+//    Message findByName(@Param("qname") String name);
 //    
 ////    @Query(value = "select b from User b where b.nickname=:qnickname")
 ////    User findByNickName(@Param("qnickname") String nickname);

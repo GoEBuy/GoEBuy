@@ -9,9 +9,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.goebuy.biz.AbstractBiz;
+import com.goebuy.entity.auth.Role;
 import com.goebuy.entity.auth.UserRole;
+import com.goebuy.entity.user.Merchant;
+import com.goebuy.entity.user.User;
 import com.goebuy.service.auth.UserRoleService;
-
 
 @Service
 public class UserRoleBiz extends AbstractBiz<UserRole, Integer>{
@@ -112,6 +114,22 @@ public class UserRoleBiz extends AbstractBiz<UserRole, Integer>{
 		return service.exists(id);
 	}
 
+	public void addUserRole(Merchant user, Role... role) {
+		for(Role r: role) {
+			UserRole userRole = new UserRole(user, r);
+			service.save(userRole);
+			service.flush();
+		}
+	}
+	
+	public void removeUserRole(Merchant user, Role...role) {
+		for(Role r: role) {
+			UserRole userRole = new UserRole(user, r);
+			service.delete(userRole);
+			service.flush();
+		}
+	}
+	
 	
 	
 }

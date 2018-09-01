@@ -26,6 +26,7 @@ public class PermissionTest extends TestCase {
 	@Override
 	protected void setUp() throws Exception {
 		super.setUp();
+		assertNotNull(biz);
 	}
 	
 	@Override
@@ -35,7 +36,6 @@ public class PermissionTest extends TestCase {
 	
 	@Before
 	public void before() {
-		assertNotNull(biz);
 	}
 	
 	@After
@@ -80,11 +80,13 @@ public class PermissionTest extends TestCase {
 	@Test
 	public void testDeleteByObj() {
 		long count = biz.count();
-		Permission permission = biz.findById(1);
+		Permission permission = biz.findByName("delete");
 		if(permission!=null) {
 			biz.deleteByObj(permission);
 			assertEquals(biz.count(), count-1);
-			biz.save(permission);
+			
+			biz.saveAndFlush(permission);
+			assertEquals(biz.count(), count);
 		}
 	}
 
