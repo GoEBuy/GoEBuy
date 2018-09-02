@@ -46,8 +46,15 @@
 	<mvc:default-servlet-handler />
 
 	<!-- 开启注解 -->
-	<mvc:annotation-driven />
-
+	<!-- <mvc:annotation-driven /> -->
+ 	<mvc:annotation-driven>
+	   <mvc:message-converters>
+	   	  <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+	      <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+	      <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+	      <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+  		 </mvc:message-converters>
+	</mvc:annotation-driven> 
 
 	<!-- 拦截器 -->
 	<mvc:interceptors>
@@ -170,7 +177,7 @@
 	 <!-- 启动对@AspectJ注解的支持 --> 
      <aop:aspectj-autoproxy proxy-target-class="true"/>
      <!-- 切面  -->
-  	<bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" />
+  <!-- 	<bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" /> -->
 	<!-- 事务管理 -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />

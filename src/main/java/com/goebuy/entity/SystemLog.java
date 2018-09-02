@@ -105,7 +105,7 @@ public class SystemLog extends BaseEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "params", nullable = true, length = 300)
+	@Column(name = "params", nullable = true, length = 120)
 	public String getParams() {
 		return params;
 	}
@@ -145,12 +145,15 @@ public class SystemLog extends BaseEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "result_msg", nullable = true, length = 100)
+	@Column(name = "result_msg", nullable = true, length = 255)
 	public String getResultMsg() {
 		return resultMsg;
 	}
 
 	public void setResultMsg(String resultMsg) {
+		if (resultMsg!=null && resultMsg.length()> 200) {
+			resultMsg = resultMsg.substring(0, 200);
+		}
 		this.resultMsg = resultMsg;
 	}
 

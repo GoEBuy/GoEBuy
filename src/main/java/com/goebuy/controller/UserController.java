@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ValueConstants;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -32,8 +30,9 @@ import com.goebuy.biz.user.UserBiz;
 import com.goebuy.entity.user.User;
 
 //@RequestMapping("/user")
+//@Controller
 //@EnableSwagger2
-@Controller
+@RestController
 public class UserController {
 
 
@@ -41,10 +40,9 @@ public class UserController {
 	@Autowired
 	UserBiz biz;
 
-	
 	@RequestMapping(value = "/users/", method = RequestMethod.GET)
-	@ResponseBody
-	public JSONObject getAll(HttpServletRequest request,
+	@SystemLogAnnotation(operationType = "list", operationName = "user")
+	public @ResponseBody ResponseEntity<Object>  getAll(
 			@RequestParam(value = "pi", required = false, defaultValue = ValueConstants.DEFAULT_NONE) String pageIndex,
 			@RequestParam(value = "ps", required = false, defaultValue = ValueConstants.DEFAULT_NONE) String pageSize) {
 		Pageable pageable = null;
@@ -64,27 +62,14 @@ public class UserController {
 		}
 		JSONObject js = new JSONObject();
 		js.put("data", users);
-		return js;
+		js.put("returncode", 200);
+		js.put("msg", null);
+		return ResponseEntity.status(HttpStatus.OK).body(js);
 	}
-
-//	@RequestMapping(value = "/users/", method = RequestMethod.GET  )
-//	@SystemLogAnnotation(operationType = "list", operationName = "user")
-//	@ResponseBody
-//	public String getUsers(HttpServletRequest request, ModelMap modelMap) {
-//		// 查询user表中所有记录
-//		System.out.println("getUsers");
-//		List<User> userList = biz.findAll();
-//		String count = biz.count() + "";
-//		// 将所有记录传递给要返回的jsp页面，放在userList当中
-//		modelMap.addAttribute("userList", userList);
-//		modelMap.addAttribute("userCnt", count);
-//		// 返回pages目录下的admin/users.jsp页面
-//		return "admin/users";
-//	}
 
 	// 文件上传、
 	@RequestMapping(value = "admin/upload")
-	public String showUploadPage(HttpServletRequest request) {
+	public String showUploadPage() {
 		// 跳转至文件上传界面 admin/file.jsp
 		return "admin/file";
 	}
@@ -95,7 +80,7 @@ public class UserController {
 //	　　4、要限制上传文件的最大值。
 //	　　5、要限制上传文件的类型，在收到上传文件名时，判断后缀名是否合法。
 	@RequestMapping(value = "admin/doUpload", method = RequestMethod.POST)
-	public String doUploadFile(HttpServletRequest request, @RequestParam("file") MultipartFile file, ModelMap modelMap)
+	public String doUploadFile( @RequestParam("file") MultipartFile file, ModelMap modelMap)
 			throws IOException {
 		// 消息提示
 		String message = "";
@@ -135,7 +120,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "admin/doDownload")
-	public ResponseEntity<byte[]> download(HttpServletRequest request, @RequestParam("file") File file,
+	public ResponseEntity<byte[]> download( @RequestParam("file") File file,
 			ModelMap modelMap) throws Exception {
 //	    	  ModelAndView mav = new ModelAndView();
 
@@ -188,10 +173,9 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET , produces="application/json;charset=UTF-8")
-	@SystemLogAnnotation(operationType = "list", operationName = "user")
-	@ResponseBody
-	public ResponseEntity<User> get(HttpServletRequest request, @PathVariable("id") Integer userId) {
-		System.out.println("showUser");
+	@SystemLogAnnotation(operationType = "get", operationName = "user")
+	public @ResponseBody ResponseEntity<User> get( @PathVariable("id") Integer userId) {
+		
 		// 找到userId所表示的用户
 		User user = biz.findById(userId);
 		if (null == user) {
@@ -226,7 +210,7 @@ public class UserController {
 //	@RequestBody User user
 	@RequestMapping( value ="/users/{id}", method = RequestMethod.PUT, produces="application/json;charset=UTF-8")
 	@SystemLogAnnotation(operationType = "update", operationName = "user")
-	public ResponseEntity<User> update(HttpServletRequest request, @ModelAttribute("user") User user) {
+	public ResponseEntity<User> update( @ModelAttribute("user") User user) {
 		try {
 			biz.saveAndFlush(user);
 			// 204
