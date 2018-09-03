@@ -1,7 +1,5 @@
 package com.goebuy.entity.user;
 
-import com.goebuy.entity.BaseEntity;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +9,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.goebuy.entity.BaseEntity;
 
 /**
  * 注册商户(商家)
@@ -326,7 +326,8 @@ public class Merchant extends BaseEntity<Integer> {
         this.loginCount = loginCount;
     }
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinColumn(name="")
+    @OneToOne(fetch = FetchType.EAGER,  cascade = CascadeType.ALL)
     public User getIntroducer() {
         return introducer;
     }

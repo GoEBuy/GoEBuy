@@ -1,4 +1,4 @@
-package com.goebuy.biz;
+package com.goebuy.biz.auth;
 
 import java.util.List;
 
@@ -8,8 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import com.goebuy.biz.AbstractBiz;
 import com.goebuy.entity.auth.Role;
-import com.goebuy.service.RoleService;
+import com.goebuy.service.auth.RoleService;
 
 @Service
 public class RoleBiz extends AbstractBiz<Role, Integer>{

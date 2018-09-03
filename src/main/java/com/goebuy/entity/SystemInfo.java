@@ -95,10 +95,10 @@ public class SystemInfo extends BaseEntity<Integer> {
 
 	public void setUpdateDate(String updateDate) {
 		this.updateDate = updateDate;
-	}
+			}
 
 	@Basic
-	@Column(name = "desc", columnDefinition = "内容简介", nullable = true, length=120)
+	@Column(name = "description", columnDefinition = "varchar(120) COMMENT '内容简介'", nullable = true, length=120)
 	public String getDesc() {
 		return desc;
 	}
