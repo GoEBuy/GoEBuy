@@ -38,8 +38,8 @@ public class Merchant extends BaseEntity<Integer> {
     /**
      * 认证信息
      */
-    private Integer state;                    //状态：1 未认证，2 审核中，3 认证成功, 4 禁用，5 注销
-    private Integer certificateType;          //认证类型：1 企业账号认证，2 个人账号认证
+    private Integer state;                //状态：1 未认证，2 审核中，3 认证成功, 4 禁用，5 注销
+    private Integer certificateType;      //认证类型：1 企业账号认证，2 个人账号认证
     private Company companyCertification; //企业账号认证
     private User personCertification;     //个人账号认证
     private String certificateTime;       //认证时间
@@ -53,18 +53,18 @@ public class Merchant extends BaseEntity<Integer> {
      * 附加信息
      *
      */
-    private Integer merchantLevel;            //商户等级
-    private Integer merchantIntegral;         //商户积分
+    private Integer merchantLevel;        //商户等级
+    private Integer merchantIntegral;     //商户积分
 
     /**
      * 会员卡信息
      */
     private boolean isVip;                //是否vip
     private Long vipId;                   //vip卡号
-    private Integer vipType;                  //vip类型
+    private Integer vipType;              //vip类型
     private String vipStartTime;          //商户付费成为vip的时间
     private String vipEndTime;            //vip到期时间
-    private Integer vipCount;                 //缴费次数
+    private Integer vipCount;             //缴费次数
 
     /**
      * 登录信息

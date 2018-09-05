@@ -41,7 +41,7 @@ public class UserMemberRecruitment extends BaseEntity<Integer> {
     private double price;
 
     /** 交易状态 */
-    private String exchangeState;     //1 待支付，2 已成功报名(交易成功)，3 已关闭报名(交易关闭)
+    private String exchangeState;     //0 待支付，1 已成功报名(交易成功)，2 已关闭报名(交易关闭)
 
     /** 操作 */
     private String operation;

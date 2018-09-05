@@ -33,7 +33,7 @@ public class Group extends BaseEntity<Integer> {
      */
     private int sourceId;
 
-    private Merchant creator;                 //创建人id
+    private Merchant creator;             //创建人id
     private String createTime;            //创建时间
     private String updateTime;            //最近更新时间
     private int state;                    //群组状态: 1 正常，2 解散

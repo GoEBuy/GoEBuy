@@ -26,7 +26,7 @@ public class User extends BaseEntity<Integer> {
     private String email;                 //邮箱
     private String phoneNo;               //手机号码
     /**性别: 0男 1女 -1未知*/
-    private Integer gender = -1;                   //性别
+    private Integer gender = -1;          //性别
     private String address;               //地址
     private String birthday;              //生日
 
