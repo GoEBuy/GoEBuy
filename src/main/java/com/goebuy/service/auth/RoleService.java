@@ -1,4 +1,4 @@
-package com.goebuy.service;
+package com.goebuy.service.auth;
 
 
 import java.util.List;

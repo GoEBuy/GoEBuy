@@ -14,7 +14,7 @@ import com.goebuy.entity.BaseEntity;
 import com.goebuy.entity.user.Merchant;
 
 /**
- * 短信表
+ *  短信表
  * @author Administrator
  *
  */
@@ -38,6 +38,7 @@ public class Message extends BaseEntity<Integer> {
 	/** 目标用户*/
 	private String toUsers;
 	
+	/** 短信内容 */
 	private String content;
 	
 	/** 目标人数 */

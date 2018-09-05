@@ -52,5 +52,10 @@ public class UserRole extends BaseEntity<Integer> {
 		this.role = role;
 	}
 
+	
+	public UserRole(Merchant user , Role role) {
+		this.user= user;
+		this.role = role;
+	}
 
 }

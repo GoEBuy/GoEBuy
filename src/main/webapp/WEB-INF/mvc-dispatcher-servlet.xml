@@ -45,11 +45,17 @@
 
 
 	<!-- 静态资源(js、image等)的访问 -->
-	<mvc:default-servlet-handler />
+	 <mvc:default-servlet-handler /> 
 
-	<!-- 开启注解 -->
-	<mvc:annotation-driven />
-
+	<!--开启注解 -->
+	 <mvc:annotation-driven>
+	   <mvc:message-converters>
+	   	  <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+	      <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+	      <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>
+	      <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
+  		 </mvc:message-converters>
+	</mvc:annotation-driven> 
 
 	<!-- 拦截器 -->
 	<mvc:interceptors>
@@ -89,22 +95,27 @@
 
 	<!--ViewResolver 视图解析器 -->
 	<!--用于支持Servlet、JSP视图解析 -->
-	<bean id="jspViewResolver"
+ 	<bean id="jspViewResolver"
 		  class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
 		<property name="prefix" value="/WEB-INF/pages/" />
 		<property name="suffix" value=".jsp" />
-	</bean>
+	</bean> 
 
 
 <!-- JPA实体管理工厂的配置 -->
 
+<!-- location元素表示webapp目录下的static包下的所有文件；
+mapping元素表示以/static开头的所有请求路径，如/static/a 或者/static/a/b； -->
  <!--这里是对静态资源的映射-->
 <!--     <mvc:resources mapping="/js/**" location="/resources/js/" />
     <mvc:resources mapping="/css/**" location="/resources/css/" />
     <mvc:resources mapping="/img/**" location="/resources/img/" /> -->
-
-
+    <!-- 加入对swagger静态资源jar包的访问路径 -->
+	<mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>	
+	<mvc:resources mapping="swagger-ui.html" location="classpath:classpath:/META-INF/resources/"/>
+	
+	
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName"
@@ -125,14 +136,14 @@
 				</prop>
 				<prop key="hibernate.connection.username">root</prop>
 				<prop key="hibernate.connection.password">root</prop>
-				<!-- <prop key="hibernate.show_sql">true</prop> -->
-				<prop key="hibernate.show_sql">false</prop>
+				 <prop key="hibernate.show_sql">true</prop> 
+				<!-- <prop key="hibernate.show_sql">false</prop> -->
 				<!--  一般情况下，会在项目启动的过程中，自动检查 注解的实体 和数据表，如果数据库不存在的表或者字段，会根据实体自动生成。-->
 				<prop key="generateDdl" >true</prop>
 				<prop key="hibernate.connection.useUnicode">true</prop>
 				<prop key="hibernate.connection.characterEncoding">UTF-8</prop>
 				<prop key="hibernate.format_sql">true</prop>
-				<prop key="hibernate.use_sql_comments">true</prop>
+				<prop key="hibernate.use_sql_comments">true</prop> 
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<!-- <prop key="hibernate.hbm2ddl.auto">create</prop> -->
 				<prop key="hibernate.connection.autoReconnect">true</prop>
@@ -191,32 +202,14 @@
     </tx:advice> -->
 
 	<!-- 开启事务管理注解 -->
-	  <tx:annotation-driven
-		transaction-manager="transactionManager"  />
+	  <tx:annotation-driven transaction-manager="transactionManager"  />
 
 	 <!-- 启动对@AspectJ注解的支持 --> 
      <aop:aspectj-autoproxy proxy-target-class="true"/>
+    
+    
      <!-- 切面  -->
-  	<bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" />
+  <!-- 	<bean id="systemLogAspect" class="com.goebuy.aspect.SystemLogAspect" /> -->
 
-	<!-- 事务管理 -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-
-	<!--事务通知-->
-	<!--   <tx:advice id="txAdvice" transaction-manager="transactionManager">
-          <tx:attributes>
-              事务传播，默认REQUIRED，这是一个具有事务的方法，没有则创建事务
-              事务隔离，默认DEFAULT，此设置是为了解决并发事务中，脏读、不可重复读外、幻读，性能会下降
-              <tx:method name="add*" isolation="SERIALIZABLE" propagation="REQUIRED"/>
-              <tx:method name="delete*"/>
-              <tx:method name="update*"/>
-              只读事务，只做查询，不修改数据的事务。JDBC驱动会进行优化
-              <tx:method name="find*" read-only="true"/>
-              <tx:method name="get*" read-only="true"/>
-              <tx:method name="*" read-only="true"/>
-          </tx:attributes>
-      </tx:advice> -->
 
 </beans>

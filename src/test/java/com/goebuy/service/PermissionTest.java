@@ -3,6 +3,7 @@ package com.goebuy.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.goebuy.biz.PermissionBiz;
+import com.goebuy.biz.auth.PermissionBiz;
 import com.goebuy.entity.auth.Permission;
 
 import junit.framework.TestCase;
@@ -22,9 +23,24 @@ public class PermissionTest extends TestCase {
 	@Autowired
 	PermissionBiz biz;
 	
-	@Before
-	public void init() {
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
 		assertNotNull(biz);
+	}
+	
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+	}
+	
+	@Before
+	public void before() {
+	}
+	
+	@After
+	public void after() {
+		System.out.println("after");
 	}
 	
 	@Test
@@ -64,11 +80,13 @@ public class PermissionTest extends TestCase {
 	@Test
 	public void testDeleteByObj() {
 		long count = biz.count();
-		Permission permission = biz.findById(1);
+		Permission permission = biz.findByName("delete");
 		if(permission!=null) {
 			biz.deleteByObj(permission);
 			assertEquals(biz.count(), count-1);
-			biz.save(permission);
+			
+			biz.saveAndFlush(permission);
+			assertEquals(biz.count(), count);
 		}
 	}
 

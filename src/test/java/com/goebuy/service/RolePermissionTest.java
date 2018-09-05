@@ -1,6 +1,8 @@
 package com.goebuy.service;
 
 import java.util.List;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -8,9 +10,10 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.goebuy.biz.PermissionBiz;
-import com.goebuy.biz.RoleBiz;
-import com.goebuy.biz.RolePermissionBiz;
+
+import com.goebuy.biz.auth.PermissionBiz;
+import com.goebuy.biz.auth.RoleBiz;
+import com.goebuy.biz.auth.RolePermissionBiz;
 import com.goebuy.entity.auth.Permission;
 import com.goebuy.entity.auth.Role;
 import com.goebuy.entity.auth.RolePermission;
@@ -32,20 +35,37 @@ public class RolePermissionTest extends TestCase {
 	@Autowired
 	private PermissionBiz permissionBiz;
 	
-
+	@Override
+	protected void setUp() throws Exception {
+		super.setUp();
+	}
+	
+	@Override
+	protected void tearDown() throws Exception {
+		super.tearDown();
+	}
 	
 	@Before
-	public void init() {
-		System.out.println("init");
-		if(biz==null) {
-			throw new RuntimeException("rolePermissionService is null");
-		}
+	public void before() {
+		System.out.println("before");
 		assertNotNull(roleBiz);
+	}
+	
+	@After
+	public void after() {
+		System.out.println("after");
 	}
 	
 	@Test
 	public void testCount() {
+		System.out.println("testCount");
 		System.out.println("count: " + biz.count());
+	}
+	
+	@Test
+	public void testDeleteAllInBatch() {
+		System.out.println("testDeleteAllInBatch");
+		biz.deleteAllInBatch();
 	}
 	
 	@Test
@@ -78,6 +98,10 @@ public class RolePermissionTest extends TestCase {
 		Role role = roleBiz.findRoleByRoleName("superadmin");
 		List<Permission> permissionList = permissionBiz.findAll();
 		biz.addPermissionToRole(permissionList, role);
+		
+		
+		
+		
 	}
 	
 }

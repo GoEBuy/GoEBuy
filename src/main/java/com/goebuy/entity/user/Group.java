@@ -18,7 +18,7 @@ import com.goebuy.entity.BaseEntity;
  *  Created by luodejin on 2018/8/14.
  */
 @Entity
-@Table(name = "group", schema = "springdemo", indexes={@Index(name="group_name_Index", columnList="name"),@Index(name="index_group_type", columnList="group_type")}, catalog = "")
+@Table(name = "groups", schema = "springdemo", indexes={@Index(name="group_name_Index", columnList="name"),@Index(name="index_group_type", columnList="group_type")}, catalog = "")
 public class Group extends BaseEntity<Integer> {
 
 

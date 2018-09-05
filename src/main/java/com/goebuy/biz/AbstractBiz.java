@@ -42,6 +42,5 @@ public abstract class AbstractBiz<O, T extends Serializable> {
 	public abstract long count();
 	
 	public abstract boolean exists(int id);
-	
 
 }

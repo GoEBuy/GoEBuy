@@ -193,6 +193,46 @@
             <version>1.2.47</version>
         </dependency>
         
+ 		<!-- Jackson JSON Processor -->
+		<dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+             <version>2.9.6</version>
+        </dependency>
+		<dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.9.6</version>
+        </dependency> 
+        
+		<!-- swagger  -->
+		<dependency>
+		  <groupId>io.swagger</groupId>
+		  <artifactId>swagger-core</artifactId>
+		  <version>1.5.8</version>
+		</dependency>
+		
+        <dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger-ui</artifactId>
+		    <version>2.8.0</version> 
+		    <scope>compile</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>io.springfox</groupId>
+		    <artifactId>springfox-swagger2</artifactId>
+		    <version>2.8.0</version>
+		    <scope>compile</scope>
+		</dependency> 
+		
+		<!--  <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-staticdocs</artifactId>
+            <version>${springfox.version}</version>
+            <scope>test</scope>
+		</dependency>  -->
+	        
       <!--   <dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
@@ -206,6 +246,14 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpclient</artifactId>
+		    <version>4.5.4</version>
+		    <scope>test</scope>
+		</dependency>
+		
 
 	</dependencies>
 	<build>
@@ -395,9 +443,9 @@
 		<org.apache.maven.plugins.maven-war-plugin.version>2.2</org.apache.maven.plugins.maven-war-plugin.version>
 		<org.apache.maven.plugins.version>2.5</org.apache.maven.plugins.version>
 		<org.apache.maven.plugins.version>2.9</org.apache.maven.plugins.version>
+		<springfox.version>2.8.0</springfox.version>
 		<jetty.version>9.4.11.v20180605</jetty.version>
 		<!--<jetty.version>9.4.7.v20170914</jetty.version>-->
-
 		<!-- == Other Properties== -->
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<archetype.test.skip>true</archetype.test.skip>

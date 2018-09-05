@@ -4,57 +4,72 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
-import com.goebuy.entity.user.User;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ValueConstants;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSONObject;
 import com.goebuy.annotation.SystemLogAnnotation;
-import com.goebuy.service.UserService;
+import com.goebuy.biz.user.UserBiz;
+import com.goebuy.entity.user.User;
 
-@Controller
+//@RequestMapping("/user")
+//@Controller
+//@EnableSwagger2
+@RestController
 public class UserController {
 
 
 	// 自动装配数据库接口，不需要再写原始的Connection来操作数据库
 	@Autowired
-	UserService userRepository;
+	UserBiz biz;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(HttpServletRequest request) {
-		return "index";
-	}
-
-	@RequestMapping(value = "/admin/users", method = RequestMethod.GET)
+	@RequestMapping(value = "/users/", method = RequestMethod.GET)
 	@SystemLogAnnotation(operationType = "list", operationName = "user")
-	public String getUsers(HttpServletRequest request, ModelMap modelMap) {
-		// 查询user表中所有记录
-		System.out.println("getUsers");
-		List<User> userList = userRepository.findAll();
-		String count = userRepository.count() + "";
-		// 将所有记录传递给要返回的jsp页面，放在userList当中
-		modelMap.addAttribute("userList", userList);
-		modelMap.addAttribute("userCnt", count);
-		// 返回pages目录下的admin/users.jsp页面
-		return "admin/users";
+	public @ResponseBody ResponseEntity<Object>  getAll(
+			@RequestParam(value = "pi", required = false, defaultValue = ValueConstants.DEFAULT_NONE) String pageIndex,
+			@RequestParam(value = "ps", required = false, defaultValue = ValueConstants.DEFAULT_NONE) String pageSize) {
+		Pageable pageable = null;
+		List<User> users = null;
+		if (pageSize != null) {
+			int pd = 0;
+			if (pageIndex != null) {
+				pd = Integer.parseInt(pageIndex.trim());
+			}
+			Sort sort = null;
+			// 分页信息
+//	      Sort sort = new Sort(Sort.Direction.DESC,"createTime"); //创建时间降序排序
+			pageable = new PageRequest(pd, Integer.parseInt(pageSize.trim()), sort);
+			users = biz.findAll(pageable);
+		} else {
+			users = biz.findAll();
+		}
+		JSONObject js = new JSONObject();
+		js.put("data", users);
+		js.put("returncode", 200);
+		js.put("msg", null);
+		return ResponseEntity.status(HttpStatus.OK).body(js);
 	}
 
 	// 文件上传、
 	@RequestMapping(value = "admin/upload")
-	public String showUploadPage(HttpServletRequest request) {
+	public String showUploadPage() {
 		// 跳转至文件上传界面 admin/file.jsp
 		return "admin/file";
 	}
@@ -65,7 +80,7 @@ public class UserController {
 //	　　4、要限制上传文件的最大值。
 //	　　5、要限制上传文件的类型，在收到上传文件名时，判断后缀名是否合法。
 	@RequestMapping(value = "admin/doUpload", method = RequestMethod.POST)
-	public String doUploadFile(HttpServletRequest request, @RequestParam("file") MultipartFile file, ModelMap modelMap)
+	public String doUploadFile( @RequestParam("file") MultipartFile file, ModelMap modelMap)
 			throws IOException {
 		// 消息提示
 		String message = "";
@@ -105,7 +120,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "admin/doDownload")
-	public ResponseEntity<byte[]> download(HttpServletRequest request, @RequestParam("file") File file,
+	public ResponseEntity<byte[]> download( @RequestParam("file") File file,
 			ModelMap modelMap) throws Exception {
 //	    	  ModelAndView mav = new ModelAndView();
 
@@ -126,38 +141,29 @@ public class UserController {
 		return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file), headers, statusCode);
 	}
 
-	/**
-	 * get请求，访问添加用户 页面
-	 */
-	@RequestMapping(value = "/admin/users/add", method = RequestMethod.GET)
-	public String addUser(HttpServletRequest request) {
-		// 返回 admin/addUser.jsp页面
-		return "admin/addUser";
-	}
-
-	/**
-	 * post请求，处理添加用户请求，并重定向到用户管理页面
-	 * 
-	 * @param request
-	 * @param user
-	 * @return
-	 */
-	@RequestMapping(value = "/admin/users/addP", method = RequestMethod.POST)
-	@SystemLogAnnotation(operationType = "add", operationName = "user")
-	public String addUserPost(HttpServletRequest request, @ModelAttribute("user") User user) {
-		// 注意此处，post请求传递过来的是一个UserEntity对象，里面包含了该用户的信息
-		// 通过@ModelAttribute()注解可以获取传递过来的'user'，并创建这个对象
-
-		// 数据库中添加一个用户，该步暂时不会刷新缓存
-		// userRepository.save(user);
-		System.out.println(user.getName());
-
-		// 数据库中添加一个用户，并立即刷新缓存
-		userRepository.saveAndFlush(user);
-
-		// 重定向到用户管理页面，方法为 redirect:url
-		return "redirect:/admin/users";
-	}
+//	/**
+//	 * post请求，处理添加用户请求，并重定向到用户管理页面
+//	 * 
+//	 * @param request
+//	 * @param user
+//	 * @return
+//	 */
+//	@RequestMapping(value = "/admin/users/addP", method = RequestMethod.POST)
+//	@SystemLogAnnotation(operationType = "add", operationName = "user")
+//	public String saveUser( @ModelAttribute("user") User user) {
+//		// 注意此处，post请求传递过来的是一个UserEntity对象，里面包含了该用户的信息
+//		// 通过@ModelAttribute()注解可以获取传递过来的'user'，并创建这个对象
+//
+//		// 数据库中添加一个用户，该步暂时不会刷新缓存
+//		// userRepository.save(user);
+//		System.out.println(user.getName());
+//
+//		// 数据库中添加一个用户，并立即刷新缓存
+//		biz.saveAndFlush(user);
+//
+//		// 重定向到用户管理页面，方法为 redirect:url
+//		return "redirect:/admin/users";
+//	}
 
 	/**
 	 * 查看用户详情
@@ -166,39 +172,56 @@ public class UserController {
 	 * @param modelMap
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/users/show/{id}", method = RequestMethod.GET)
-	@SystemLogAnnotation(operationType = "list", operationName = "user")
-	public String showUser(HttpServletRequest request, @PathVariable("id") Integer userId, ModelMap modelMap) {
-		System.out.println("showUser");
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET , produces="application/json;charset=UTF-8")
+	@SystemLogAnnotation(operationType = "get", operationName = "user")
+	public @ResponseBody ResponseEntity<User> get( @PathVariable("id") Integer userId) {
+		
 		// 找到userId所表示的用户
-		User user = userRepository.findOne(userId);
+		User user = biz.findById(userId);
+		if (null == user) {
+			// 资源不存在 404
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+		}
 		System.out.println(user);
-		// 传递给请求页面
-		modelMap.addAttribute("user", user);
-		System.out.println("admin/userDetail");
-		return "admin/userDetail";
+		// 资源存在 200
+		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
 
-	// 更新用户信息 页面
-	@RequestMapping(value = "/admin/users/update/{id}", method = RequestMethod.GET)
-	@SystemLogAnnotation(operationType = "update", operationName = "user")
-	public String updateUser(@PathVariable("id") Integer userId, ModelMap modelMap) {
+//	// 更新用户信息 页面
+//	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
+//	@SystemLogAnnotation(operationType = "update", operationName = "user")
+//	public String updateUser(@PathVariable("id") Integer userId, ModelMap modelMap) {
+//
+//		System.out.println("updateUser");
+//		// 找到userId所表示的用户
+//		User user = biz.findById(userId);
+//		biz.save(addObj)
+////		// 传递给请求页面
+////		modelMap.addAttribute("user", user);
+////		return "admin/updateUser";
+//	}
 
-		System.out.println("updateUser");
-		// 找到userId所表示的用户
-		User user = userRepository.findOne(userId);
-		// 传递给请求页面
-		modelMap.addAttribute("user", user);
-		return "admin/updateUser";
-	}
-
-	// 更新用户信息 操作
-	@RequestMapping(value = "/admin/users/updateP", method = RequestMethod.POST)
+	/**
+	 *     更新用户信息 操作
+	 * @param request
+	 * @param user
+	 * @return
+	 */
+//	@RequestBody User user
+	@RequestMapping( value ="/users/{id}", method = RequestMethod.PUT, produces="application/json;charset=UTF-8")
 	@SystemLogAnnotation(operationType = "update", operationName = "user")
-	public String updateUserPost(HttpServletRequest request, @ModelAttribute("user") User user) {
-		userRepository.updateUser(user.getName(), user.getId());
-		userRepository.flush(); // 刷新缓冲区
-		return "redirect:/admin/users";
+	public ResponseEntity<User> update( @ModelAttribute("user") User user) {
+		try {
+			biz.saveAndFlush(user);
+			// 204
+			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(user);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		// 出现异常，服务器内部错误
+		// 500
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+				null);
 	}
 
 	/**
@@ -206,15 +229,28 @@ public class UserController {
 	 * @param userId
 	 * @return
 	 */
-	@RequestMapping(value = "/admin/users/delete/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
 	@SystemLogAnnotation(operationType = "delete", operationName = "user")
-	public String deleteUser(@PathVariable("id") Integer userId) {
-
-		// 删除id为userId的用户
-		userRepository.delete(userId);		
-		// 立即刷新
-		userRepository.flush();
-		return "redirect:/admin/users";
+	public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
+		try {
+			User user = biz.findById(id);
+			if (null == user) {
+				// 资源不存在，响应404
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			}
+			// 删除id为userId的用户
+			biz.deleteByObj(user);		
+			// 立即刷新
+			biz.flush();
+			  // 删除成功，响应204
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// 出现异常，服务器内部错误
+			// 500
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+					null);
+		}
 	}
 
 }

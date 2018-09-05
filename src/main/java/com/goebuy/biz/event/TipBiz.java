@@ -1,4 +1,4 @@
-package com.goebuy.biz;
+package com.goebuy.biz.event;
 
 import java.util.List;
 
@@ -7,25 +7,48 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import com.goebuy.entity.user.User;
-import com.goebuy.service.UserService;
+import com.goebuy.biz.AbstractBiz;
+import com.goebuy.entity.event.Tip;
+import com.goebuy.service.event.TipService;
 
 @Service
-public class UserBiz extends AbstractBiz<User, Integer>{
+public class TipBiz extends AbstractBiz<Tip, Integer>{
 
 	@Autowired
-	private UserService service;
+	private TipService service;
 	
+	
+	@Override
+	public Tip save(Tip addObj) {
+		return service.save(addObj);
+	}
 
 	@Override
-	public List<User> findAll(Sort sort) {
+	public Tip saveAndFlush(Tip addObj) {
+		return service.saveAndFlush(addObj);
+	}
+
+	@Override
+	public List<Tip> save(Iterable<Tip> addObjs) {
+		return service.save(addObjs);
+	}
+
+	@Override
+	public List<Tip> findAll() {
+		return service.findAll();
+	}
+
+	@Override
+	public List<Tip> findAll(Sort sort) {
 		return service.findAll(sort);
 	}
 
 	@Override
-	public List<User> findAll(Pageable pageable) {
-		Page<User> page= service.findAll(pageable);
-		if(page!=null) return page.getContent();
+	public List<Tip> findAll(Pageable pageable) {
+		Page<Tip> page= service.findAll(pageable);
+		if(page!=null) {
+			return page.getContent();
+		}
 		return null;
 	}
 
@@ -35,22 +58,22 @@ public class UserBiz extends AbstractBiz<User, Integer>{
 	}
 
 	@Override
-	public void deleteByObj(User o) {
+	public void deleteByObj(Tip o) {
 		service.delete(o);
 	}
 
 	@Override
-	public User findById(Integer id) {
+	public Tip findById(Integer id) {
 		return service.findOne(id);
 	}
 
 	@Override
-	public List<User> findByNameMatch(String name) {
+	public List<Tip> findByNameMatch(String name) {
 		return service.findByNameMatch(name);
 	}
 
 	@Override
-	public User findByName(String name) {
+	public Tip findByName(String name) {
 		return service.findByName(name);
 	}
 
@@ -60,12 +83,12 @@ public class UserBiz extends AbstractBiz<User, Integer>{
 	}
 
 	@Override
-	public void deleteInBatch(Iterable<User> delObjs) {
+	public void deleteInBatch(Iterable<Tip> delObjs) {
 		service.deleteInBatch(delObjs);
 	}
 
 	@Override
-	public List<User> findByIds(Iterable<Integer> ids) {
+	public List<Tip> findByIds(Iterable<Integer> ids) {
 		return service.findAll(ids);
 	}
 
@@ -83,26 +106,5 @@ public class UserBiz extends AbstractBiz<User, Integer>{
 	public boolean exists(int id) {
 		return service.exists(id);
 	}
-
-	@Override
-	public User save(User addObj) {
-		return service.save(addObj);
-	}
-
-	@Override
-	public User saveAndFlush(User addObj) {
-		return service.saveAndFlush(addObj);
-	}
-
-	@Override
-	public List<User> save(Iterable<User> addObjs) {
-		return service.save(addObjs);
-	}
-
-	@Override
-	public List<User> findAll() {
-		return service.findAll();
-	}
-
 
 }

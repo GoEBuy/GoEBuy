@@ -68,7 +68,7 @@ public class Tip extends BaseActivityEntity<Integer> {
 	}
 
 	@Basic
-	@Column(name = "hidden_content", length=10000, nullable = true)
+	@Column(name = "hidden_content", columnDefinition="text COMMENT '打赏后可见内容'", nullable = true)
 	public String getHiddenContent() {
 		return hiddenContent;
 	}
