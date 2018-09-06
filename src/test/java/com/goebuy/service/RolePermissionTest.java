@@ -92,12 +92,13 @@ public class RolePermissionTest extends TestCase {
 		
 	}
 	
-	
 	@Test
 	public void testAddRolePermission() {
 		Role role = roleBiz.findRoleByRoleName("superadmin");
-		List<Permission> permissionList = permissionBiz.findAll();
-		biz.addPermissionToRole(permissionList, role);
+		if(role!=null) {
+			List<Permission> permissionList = permissionBiz.findAll();
+			biz.addPermissionToRole(role, permissionList);
+		}
 		
 		
 		

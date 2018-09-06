@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,8 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ValueConstants;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.goebuy.annotation.SystemLogAnnotation;
@@ -35,16 +38,24 @@ import com.goebuy.entity.user.User;
 @RestController
 public class UserController {
 
+	private static final  Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	// 自动装配数据库接口，不需要再写原始的Connection来操作数据库
 	@Autowired
 	UserBiz biz;
 
+	/**
+	 *  分页查询
+	 * @param pageIndex
+	 * @param pageSize
+	 * @return
+	 */
 	@RequestMapping(value = "/users/", method = RequestMethod.GET)
 	@SystemLogAnnotation(operationType = "list", operationName = "user")
-	public @ResponseBody ResponseEntity<Object>  getAll(
+	public @ResponseBody ResponseEntity<Object>  list(
 			@RequestParam(value = "pi", required = false, defaultValue = ValueConstants.DEFAULT_NONE) String pageIndex,
 			@RequestParam(value = "ps", required = false, defaultValue = ValueConstants.DEFAULT_NONE) String pageSize) {
+		logger.info("list");
 		Pageable pageable = null;
 		List<User> users = null;
 		if (pageSize != null) {
@@ -63,7 +74,7 @@ public class UserController {
 		JSONObject js = new JSONObject();
 		js.put("data", users);
 		js.put("returncode", 200);
-		js.put("msg", null);
+		js.put("msg", "OK");
 		return ResponseEntity.status(HttpStatus.OK).body(js);
 	}
 
@@ -80,7 +91,7 @@ public class UserController {
 //	　　4、要限制上传文件的最大值。
 //	　　5、要限制上传文件的类型，在收到上传文件名时，判断后缀名是否合法。
 	@RequestMapping(value = "admin/doUpload", method = RequestMethod.POST)
-	public String doUploadFile( @RequestParam("file") MultipartFile file, ModelMap modelMap)
+	public @ResponseBody ResponseEntity<Object> doUploadFile( @RequestParam("file") MultipartFile file, ModelMap modelMap)
 			throws IOException {
 		// 消息提示
 		String message = "";
@@ -92,31 +103,37 @@ public class UserController {
 			// 创建目录
 			saveDir.mkdir();
 		}
-
+		JSONObject js = new JSONObject();
+		js.put("data", null  );
 		long upfileSize = file.getSize();
 		if (upfileSize > 1024 * 1024 * 100) {
 			// 上传文件大小超过100M
 			message = String.format("单个上传文件【%s】超过100M", file.getOriginalFilename());
+			js.put("returncode", HttpStatus.NOT_ACCEPTABLE);
+			js.put("msg", message);
+			return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(js);
+		
 		} else {
-
 			File saveFile = new File("upload", System.currentTimeMillis() + "-" + file.getOriginalFilename());
 			try {
-				if (!saveFile.exists() && !saveFile.isDirectory()) {
-
-					FileUtils.copyInputStreamToFile(file.getInputStream(), saveFile);
-					message = "文件" + saveFile.getAbsolutePath() + "上传成功！";
-				} else {
+				if (saveFile.exists() && !saveFile.isDirectory()) {
 					System.err.println("file" + saveFile.getAbsolutePath() + " is empty");
 					message = "文件 " + saveFile.getAbsolutePath() + " 已存在！";
+					saveFile.delete();
 				}
+					FileUtils.copyInputStreamToFile(file.getInputStream(), saveFile);
+					message = "文件" + saveFile.getAbsolutePath() + "上传成功！";
+					js.put("returncode", 200);
+					js.put("msg", message);
+					return ResponseEntity.status(HttpStatus.OK).body(js);	
 			} catch (Exception e) {
 				message = "文件" + saveFile.getAbsolutePath() + "上传失败！";
 				e.printStackTrace();
-
+				js.put("returncode", 500);
+				js.put("msg", message);
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(js);	
 			}
 		}
-		modelMap.addAttribute("message", message);
-		return "index";
 	}
 
 	@RequestMapping(value = "admin/doDownload")
@@ -165,6 +182,15 @@ public class UserController {
 //		return "redirect:/admin/users";
 //	}
 
+	@RequestMapping(value = "/users/find", method = RequestMethod.GET )
+	@SystemLogAnnotation(operationType = "get", operationName = "user")
+	public ModelAndView  find(@RequestParam("id") Integer userId, ModelAndView mv ) {
+		logger.info("find userId: "+ userId);
+		System.out.println("find userId: "+ userId);
+		  mv.setViewName("forward:/users/"+userId);  
+		return mv;
+	}
+	
 	/**
 	 * 查看用户详情
 	 * 
@@ -175,7 +201,7 @@ public class UserController {
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET , produces="application/json;charset=UTF-8")
 	@SystemLogAnnotation(operationType = "get", operationName = "user")
 	public @ResponseBody ResponseEntity<User> get( @PathVariable("id") Integer userId) {
-		
+		logger.info("get userId: "+ userId);
 		// 找到userId所表示的用户
 		User user = biz.findById(userId);
 		if (null == user) {
@@ -186,20 +212,31 @@ public class UserController {
 		// 资源存在 200
 		return ResponseEntity.status(HttpStatus.OK).body(user);
 	}
-
-//	// 更新用户信息 页面
-//	@RequestMapping(value = "/users/{id}", method = RequestMethod.PUT)
-//	@SystemLogAnnotation(operationType = "update", operationName = "user")
-//	public String updateUser(@PathVariable("id") Integer userId, ModelMap modelMap) {
-//
-//		System.out.println("updateUser");
-//		// 找到userId所表示的用户
-//		User user = biz.findById(userId);
-//		biz.save(addObj)
-////		// 传递给请求页面
-////		modelMap.addAttribute("user", user);
-////		return "admin/updateUser";
-//	}
+	
+	
+	/**
+	 *  可以通过 jquery的 $.ajax方法，并type="put",同时注意data形式——A=a&B=b&C=c
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value = "/users/", method = RequestMethod.POST)
+	@SystemLogAnnotation(operationType = "save", operationName = "user"  )
+	public @ResponseBody ResponseEntity<Object> add(@RequestBody User user){
+		logger.info("save user: "+ user);
+		System.out.println("save user: "+ user);
+		JSONObject js = new JSONObject();
+		js.put("data", user  );
+		try {
+			biz.save(user);
+		} catch (Exception e) {
+			js.put("returncode", 200);
+			js.put("msg", "save user failed");
+			return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(user);
+		}
+		js.put("returncode", 200);
+		js.put("msg", "OK");
+		return ResponseEntity.status(HttpStatus.OK).body(js);
+	}
 
 	/**
 	 *     更新用户信息 操作
@@ -208,20 +245,22 @@ public class UserController {
 	 * @return
 	 */
 //	@RequestBody User user
-	@RequestMapping( value ="/users/{id}", method = RequestMethod.PUT, produces="application/json;charset=UTF-8")
+	@RequestMapping( value ="/users/", method = RequestMethod.PUT, produces="application/json;charset=UTF-8")
 	@SystemLogAnnotation(operationType = "update", operationName = "user")
-	public ResponseEntity<User> update( @ModelAttribute("user") User user) {
+	public ResponseEntity<User> update( @RequestBody User user) {
+		logger.info("update user: "+ user);
 		try {
 			biz.saveAndFlush(user);
 			// 204
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(user);
 		} catch (Exception e) {
 			e.printStackTrace();
+			// 出现异常，服务器内部错误
+			// 500
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+					null);
 		}
-		// 出现异常，服务器内部错误
-		// 500
-		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
-				null);
+		
 	}
 
 	/**
@@ -232,6 +271,7 @@ public class UserController {
 	@RequestMapping(value = "/users/{id}", method = RequestMethod.DELETE)
 	@SystemLogAnnotation(operationType = "delete", operationName = "user")
 	public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
+		logger.info("delete userId: "+ id);
 		try {
 			User user = biz.findById(id);
 			if (null == user) {
@@ -249,6 +289,34 @@ public class UserController {
 			// 出现异常，服务器内部错误
 			// 500
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+					null);
+		}
+	}
+	
+	/**
+	 *  删除用户
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/users/", method = RequestMethod.DELETE)
+	@SystemLogAnnotation(operationType = "delete", operationName = "user")
+	public ResponseEntity<Void> delete(@RequestBody User user) {
+		logger.info("delete user: "+ user);
+		try {
+			if (null == user) {
+				// 资源不存在，响应404
+				return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+			}
+			// 删除id为userId的用户
+			biz.deleteByObj(user);		
+			// 立即刷新
+			biz.flush();
+			  // 删除成功，响应204
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			// 出现异常，400
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
 					null);
 		}
 	}

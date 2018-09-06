@@ -76,7 +76,6 @@ public class UserRoleBizTest extends TestCase {
 //				
 //	}
 	
-	@Test
 	public void testAdd() {
 		System.out.println("testAdd");
 //		UserRole r1 = new UserRole("act1", "2018-08-09 12:01:01");

@@ -2,6 +2,7 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -10,10 +11,53 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
+import org.apache.log4j.BasicConfigurator;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.alibaba.fastjson.JSONObject;
 
-public class TestWebCollection {
+import junit.framework.TestCase;
+
+public class TestWebCollection extends TestCase{
+	
+	private static Logger logger = LoggerFactory.getLogger(TestWebCollection.class);
+	
+	@Override
+	protected void setUp() throws Exception {
+		logger.info("setUp");
+		super.setUp();
+	}
+	
+	@Override
+	protected void tearDown() throws Exception {
+		logger.info("tearDown");
+		super.tearDown();
+	}
+	
+	@Before
+	public void before() {
+		System.out.println("before");
+	}
+	
+	@After
+	public void after() {
+		System.out.println("after");
+	}
+	
+	@Test
+	public void testGet() {
+		
+	}
  
+	@Test
+	public void testPost() {
+		
+	}
+	
     //post提交调用方法
     public static String post(String uri, Map<String,Object> map) throws UnsupportedEncodingException {
         //所有的参数都放在map中，然后转换成json字符串传递到接口中
@@ -71,10 +115,19 @@ public class TestWebCollection {
     
     public static void main(String[] args) throws UnsupportedEncodingException {
         Map<String,Object> map = new HashMap<>();
- 
+        BasicConfigurator.configure(); //自动快速地使用缺省Log4j环境。
+        logger.debug("debug");
+        logger.info("info");
+//        if( new File("log4j.properties").exists() ) {
+//        PropertyConfigurator.configure("log4j.properties");
+//        logger.debug("debug");
+//        logger.info("info");
+//        }else {
+//        	System.out.println("not exist");
+//        }
         //接口1
 //        map.put("key","IRR2_0");//有多少个参数，都可放在map中
-        get("http://localhost:8080/users/", map);
+//        get("http://localhost:8080/users/", map);
 //        post("http://localhost:8080/users/", map);
     }
 }

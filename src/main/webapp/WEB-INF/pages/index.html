@@ -2,8 +2,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<script src="js/jquery-1.7.2.js"></script>
+<title>RESTful测试</title>
+
+
+<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js">
+<!-- <script src="js/jquery-1.7.2.js"></script> -->
 <script type="text/javascript">
 
 
@@ -12,43 +15,116 @@
     * 这里仅仅①简单地模拟前后端，②简单测试接口
     *
     */
-
-
     function del() {
         $.ajax({
             type : "delete",
-            url : "http://localhost/student/deleteone/4",
-            async : true
+            url : "http://localhost:8080/users/",
+            contentType: "application/json;charset=utf-8",
+            dataType : 'json',
+            async : true,
+            success : function (data) {
+                if (data.name != null){
+                    alert("你删除的用户是："+data.name);
+                } else {
+                    alert("没有找到id为："+ data.id+"用户");
+                }
+            }
         });
     }
 
+    
+    function find() {
+        //var id = $("#number").val();
+        var id =1;
+        $.ajax({
+            url : "http://localhost:8080/users/"+id,
+            type : "GET",
+            dataType : "json",
+            success : function (data) {
+                if (data.username != null){
+                    alert("你查询的用户是："+data.name);
+                } else {
+                    alert("没有找到id为："+id+"用户");
+                }
+            },
+            error: function(result){
+	            //此处省略
+	        }
+        });
+    }
+    
     function upd() {
+    	var user={"id":1, "name":"testname", "nickname":"nickname"}
         $.ajax({
             type : "put",
-            data:"id=6&t_name=cun&major=计科",
-            url : "http://localhost/student/updateone",
-            async : true
+            data: JSON.stringify(user),
+            dataType : 'json',
+            contentType: "application/json;charset=utf-8",
+            url : "http://localhost:8080/users/",
+            async : true,
+            success : function (data) {
+                if (data.username != null){
+                    alert("你查询的用户是："+data.name);
+                } else {
+                    alert("没有找到id为："+id+"用户");
+                }
+            },
+            error: function(result){
+	            //此处省略
+	        }
         });
+    }
+    
+    function save(){
+    	var name = $
+    	 $.ajax({
+    	        type: "post",
+    	        url: "http://localhost:8080/users/",
+    	        contentType: "application/json;charset=utf-8",
+    	        //data表示发送的数据
+    	        data: JSON.stringify({"name":"testaddname5", "nickname":"testaddnickname5"}),
+    	        //定义回调响应的数据格式为Json字符串，该属性可以省略
+    	        dataType : 'json',
+    	      //成功响应的结果
+    	        success: function(result){
+    	            //此处省略
+    	            if (data != null) {
+                     // alert("你输入的用户名为："+data.username+"密码为："+data.password);
+                  }
+    	        },
+    	        error: function(result){
+    	            //此处省略
+    	        }
+    	    });
     }
 </script>
 
 </head>
 <body>
+
+ 	<!-- 增加 -->
+    <form action="http://localhost:8080/users/" method="post">
+    <!--  <input type="hidden" name="_method" value="delete"/>   -->
+        name<input type="text" name="name" /> 
+        nickname<input type="text" name="nickname" /> 
+        <input id="btn_save" type="submit" value="submit" onclick="save()" />
+    </form>
+
     <!-- 删除 -->
     <button id="btn" onclick="del()">delete request</button>
 
     <!-- 更新 -->
     <button id="btn2" onclick="upd()">update request</button>
 
-    <!-- 增加 -->
-    <form action="http://localhost/student/addone" method="post">
-        major<input type="text" name="major" /> 
-        t_name<input type="text" name="t_name" /> 
-        <input type="submit" value="submit" />
-    </form>
-
-    <!-- 查询 -->
-    <a href="http://localhost/student/findone/6">select request</a>
+   
+    
+    <form>
+    用户编号：<input type="text" name="number" id="number">
+    <input type="button" value="find" onclick="find()"/>
+	</form>
+ 	<!-- <button id="btn_find" onclick="find()">find request </button>
+    <!-- 查询
+    <a href="http://localhost:8080/users/1">select request</a> --> -->
 
 
 

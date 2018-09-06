@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,7 +77,7 @@ public class ActivityTest extends TestCase {
 		}
 				
 	}
-	
+	@Ignore
 	@Test
 	public void testAdd() {
 		System.out.println("testAdd");
