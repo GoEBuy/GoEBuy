@@ -20,8 +20,6 @@ import javax.persistence.Table;
 @Table(name = "bank_account", schema = "springdemo", indexes={@Index(name="bank_card_number_Index", columnList="card_no")}, catalog = "")
 public class BankAccount extends BaseEntity<Integer> {
 
-    
-
 	private static final long serialVersionUID = 208075760882253739L;
 
     private String type;                  //账号类型：1 企业, 2 个人
@@ -40,7 +38,7 @@ public class BankAccount extends BaseEntity<Integer> {
     public String getType() {
 		return type;
 	}
-    
+
     public void setType(String accountType) {
         this.type = accountType;
     }
