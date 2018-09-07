@@ -1,6 +1,7 @@
 package com.goebuy.entity.event;
 
 import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.Order;
 import com.goebuy.entity.user.User;
 
 import javax.persistence.Basic;
@@ -37,11 +38,8 @@ public class UserMemberRecruitment extends BaseEntity<Integer> {
     /** 票劵类型 */
     private int ticketType;
 
-    /** 金额 */
-    private double price;
-
-    /** 交易状态 */
-    private String exchangeState;     //1 待支付，2 已成功报名(交易成功)，3 已关闭报名(交易关闭)
+    /** 生成订单 */
+    private Order order;
 
     /** 操作 */
     private String operation;
@@ -99,24 +97,14 @@ public class UserMemberRecruitment extends BaseEntity<Integer> {
         this.ticketType = ticketType;
     }
 
-    @Basic
-    @Column(name = "price", nullable = true)
-    public double getPrice() {
-        return price;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="order_id")
+    public Order getOrder() {
+        return order;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    @Basic
-    @Column(name = "exchange_state", nullable = true)
-    public String getExchangeState() {
-        return exchangeState;
-    }
-
-    public void setExchangeState(String exchangeState) {
-        this.exchangeState = exchangeState;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     @Basic

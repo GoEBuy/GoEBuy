@@ -21,7 +21,7 @@ import com.goebuy.entity.BaseEntity;
 @Table(name = "groups", schema = "springdemo", indexes={@Index(name="group_name_Index", columnList="name"),@Index(name="index_group_type", columnList="group_type")}, catalog = "")
 public class Group extends BaseEntity<Integer> {
 
- 
+
 	private static final long serialVersionUID = -8029735894274024826L;
 
     private String name;                  //群组名称
@@ -33,7 +33,7 @@ public class Group extends BaseEntity<Integer> {
      */
     private int sourceId;
 
-    private Merchant creator;                 //创建人id
+    private Merchant creator;             //创建人id
     private String createTime;            //创建时间
     private String updateTime;            //最近更新时间
     private int state;                    //群组状态: 1 正常，2 解散
@@ -49,7 +49,7 @@ public class Group extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "group_type", nullable = false)
+    @Column(name = "type", nullable = false)
     public int getType() {
         return type;
     }
@@ -67,8 +67,8 @@ public class Group extends BaseEntity<Integer> {
     public void setSourceId(int sourceId) {
         this.sourceId = sourceId;
     }
-    
-    
+
+
 
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE,CascadeType.REFRESH,CascadeType.PERSIST})
     @JoinColumn(name="merchant_id")

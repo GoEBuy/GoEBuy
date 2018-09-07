@@ -36,7 +36,7 @@ public class Company extends BaseEntity<Integer> {
     private User legalRepresentative;     //法定代表人
 
     private boolean isMerchant;           //是否是商户
-    private Merchant user;            //关联的商户账号
+    private Merchant user;                //关联的商户账号
 
     private String createTime;            //创建时间
     private String updateTime;            //最近更新时间

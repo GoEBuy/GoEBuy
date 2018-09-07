@@ -204,8 +204,6 @@ mapping元素表示以/static开头的所有请求路径，如/static/a 或者/s
 	<!-- 开启事务管理注解 -->
 	  <tx:annotation-driven transaction-manager="transactionManager"  />
 
-
-
 	 <!-- 启动对@AspectJ注解的支持 --> 
      <aop:aspectj-autoproxy proxy-target-class="true"/>
     
