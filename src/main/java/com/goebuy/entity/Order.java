@@ -72,7 +72,7 @@ public class Order extends BaseEntity<Integer> {
     /**
      * 事件(商品)id：与type联合使用，代表活动、报名表等id
      */
-    private Double eventId;
+    private int eventId;
 
     /**
      * 审核人
@@ -176,11 +176,11 @@ public class Order extends BaseEntity<Integer> {
 
     @Basic
     @Column(name = "event_id", nullable = false)
-    public Double getEventId() {
+    public int getEventId() {
         return eventId;
     }
 
-    public void setEventId(Double eventId) {
+    public void setEventId(int eventId) {
         this.eventId = eventId;
     }
 

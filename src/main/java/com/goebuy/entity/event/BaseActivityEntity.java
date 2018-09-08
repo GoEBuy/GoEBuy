@@ -28,7 +28,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	/**最后一次更新时间 */
 	protected String updateTime;
 	
-	/** 标题 */
+	/** 标题 , 最长64个字符  */
 	protected String name;
 	
 	protected String description;
@@ -104,7 +104,7 @@ public abstract class BaseActivityEntity<T> extends BaseEntity<T> {
 	}
 	//columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP",
 	@Basic
-	@Column(name = "updateTime",  nullable = false)
+	@Column(name = "update_time",  nullable = false)
 	public String getUpdateTime() {
 		return updateTime;
 	}

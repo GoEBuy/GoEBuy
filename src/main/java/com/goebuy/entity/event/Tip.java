@@ -30,16 +30,14 @@ public class Tip extends BaseActivityEntity<Integer> {
 	private String hiddenContent;
 	
 	/**设置打赏后可见内容*/
-	private String afterShow;
+	private boolean isAfterShow;
 	
-	/**打赏金额 */
-	private double fee;
-	
+
 	/**打赏金额设置  6等级：1，5，10，50， 100，200 */
 	private String feeLevel;
 	
 	/** 展示自定义打赏金额*/
-	private boolean isCustomFee;
+	private boolean showCustomFee;
 	
 	/**展示用户打赏排行榜 */
 	private boolean showRank;
@@ -76,24 +74,17 @@ public class Tip extends BaseActivityEntity<Integer> {
 	public void setHiddenContent(String hiddenContent) {
 		this.hiddenContent = hiddenContent;
 	}
+	
 	@Basic
-	@Column(name = "after_show", nullable = true)
-	public String getAfterShow() {
-		return afterShow;
+	@Column(name = "is_after_show", nullable = true)
+	public boolean isAfterShow() {
+		return isAfterShow;
 	}
 
-	public void setAfterShow(String afterShow) {
-		this.afterShow = afterShow;
-	}
-	@Basic
-	@Column(name = "fee", nullable = true)
-	public double getFee() {
-		return fee;
+	public void setAfterShow(boolean isAfterShow) {
+		this.isAfterShow = isAfterShow;
 	}
 
-	public void setFee(double fee) {
-		this.fee = fee;
-	}
 	@Basic
 	@Column(name = "fee_level", nullable = true)
 	public String getFeeLevel() {
@@ -103,14 +94,16 @@ public class Tip extends BaseActivityEntity<Integer> {
 	public void setFeeLevel(String feelevel) {
 		this.feeLevel = feelevel;
 	}
-	@Basic
-	@Column(name = "is_custom_fee", nullable = true)
-	public boolean isCustomFee() {
-		return isCustomFee;
+	
+
+	public void setShowCustomFee(boolean showCustomFee) {
+		this.showCustomFee = showCustomFee;
 	}
 
-	public void setCustomFee(boolean isCustomFee) {
-		this.isCustomFee = isCustomFee;
+	@Basic
+	@Column(name = "show_custom_fee", nullable = true)
+	public boolean isShowCustomFee() {
+		return showCustomFee;
 	}
 
 	@Basic
