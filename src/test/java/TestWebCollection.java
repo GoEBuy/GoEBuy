@@ -1,15 +1,26 @@
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 import org.apache.log4j.BasicConfigurator;
 import org.junit.After;
@@ -111,6 +122,59 @@ public class TestWebCollection extends TestCase{
         return null;
     }
  
+    /**
+     *  发送multipart/form-data带有Json文件的Post请求
+     * @return
+     */
+    public String postWithFormData( Map<String, String> params, final Map<String, File> files){
+		// 文件sTestsetFile：solr_etl_agent35.json是存有JSON字符串的文件
+		String sTestsetFile=System.getProperty("user.dir")+File.separator+"testdata"+File.separator+"solr_etl_agent35.json";
+		String sURL="http://172.16.101.46:14401/editorialincre";
+		
+		CloseableHttpClient httpClient = HttpClients.createDefault();
+		HttpPost uploadFile = new HttpPost(sURL);
+		
+		MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+		 builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE); //如果有SocketTimeoutException等情况，可修改这个枚举
+		 for(Entry<String, String> e: params.entrySet() ) {
+			 builder.addTextBody( e.getKey(), e.getValue(), ContentType.TEXT_PLAIN.withCharset("UTF-8"));
+		 }
+		 
+		 if (files != null && files.size() > 0) {
+			 Set<Entry<String, File>> entries = files.entrySet();
+			 for (Entry<String, File> entry : entries) {
+		            builder.addPart(entry.getKey(), new FileBody(entry.getValue()));
+		        }
+
+		 }
+//		// 把文件加到HTTP的post请求中
+//		File f = new File(sTestsetFile);
+//		try {
+//			builder.addBinaryBody(
+//			    "file",
+//			    new FileInputStream(f),
+//			    ContentType.APPLICATION_OCTET_STREAM,
+//			    f.getName()
+//			);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+ 
+		HttpEntity multipart = builder.build();
+		uploadFile.setEntity(multipart);
+		CloseableHttpResponse response;
+		String sResponse= null;
+		try {
+			response = httpClient.execute(uploadFile);
+			HttpEntity responseEntity = response.getEntity();
+			 sResponse=EntityUtils.toString(responseEntity, "UTF-8");
+			System.out.println("Post 返回结果"+sResponse);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return sResponse;
+		
+    }
     
     
     public static void main(String[] args) throws UnsupportedEncodingException {
