@@ -2,6 +2,7 @@ package com.goebuy.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -147,9 +148,11 @@ public class UserTest extends TestCase {
 
 	@Test
 	public void testEntityManager() {
+		Random random = new Random();
+		int rid= random.nextInt(100);
 		User u = new User();
-		u.setName("addtest1");
-		u.setAddress("address");
+		u.setName("addtest"+rid);
+		u.setAddress("address"+rid);
 		u.setBirthday("birth");
 		u.setCreateTime("cratetime");
 		u.setEducation("edu");
@@ -159,14 +162,14 @@ public class UserTest extends TestCase {
 //		u.setId(1);
 		u.setIdCardBackPic("setIdCardBackPic");
 		u.setIdCardFrontPic("setIdCardFrontPic");
-		u.setIdCardNo("setIdCardNo");
+		u.setIdCardNo("IdCardNo"+rid);
 		u.setInstitution("inst");
 		u.setJob("job");
 		u.setMerchant(false);
 		u.setName("name");
-		u.setNickname("nickname1");
+		u.setNickname("nickname"+random);
 		u.setPassword("password");
-		u.setPhoneNo("phoneno");
+		u.setPhoneNo("phoneno"+random);
 		u.setUpdateTime("updatetime");
 		u.setUser(null);
 		u.setWechatHeadPic("wechatHeadPic");	

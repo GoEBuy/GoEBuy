@@ -6,13 +6,16 @@
 	   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	   xmlns:tx="http://www.springframework.org/schema/tx"
 	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:task="http://www.springframework.org/schema/task" 
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
            http://www.springframework.org/schema/aop
      http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+       ">
 
 
 <description>Spring公共配置 </description>
@@ -38,6 +41,10 @@
 	<!--<property name="location" value="classpath:application.properties" />-->
 	<!--</bean>-->
 
+ 	<!--  定义一个大小为10的线程池调度器，spring会实例化一个ThreadPoolTaskScheduler。 -->
+	<!-- 开启这个配置，spring才能识别@Scheduled注解   --> 
+    <task:annotation-driven scheduler="qbScheduler" mode="proxy"/> 
+    <task:scheduler id="qbScheduler" pool-size="10"/>  
 
 	<!-- 表示JPA Repository所在的包 -->
 	<!-- <jpa:repositories base-package="com.goebuy.service" /> -->
@@ -135,7 +142,7 @@
 				<prop key="hibernate.connection.useUnicode">true</prop>
 				<prop key="hibernate.connection.characterEncoding">UTF-8</prop>
 				<prop key="hibernate.format_sql">true</prop>
-				<!-- <prop key="hibernate.format_sql">true</prop> -->
+				<!-- <prop key="hibernate.format_sql">false</prop> -->
 				<prop key="hibernate.use_sql_comments">true</prop>
 			    <!-- <prop key="hibernate.hbm2ddl.auto">update</prop>   -->
 				<prop key="hibernate.hbm2ddl.auto">create</prop> 
