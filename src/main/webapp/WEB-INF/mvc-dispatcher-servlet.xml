@@ -7,13 +7,15 @@
 	xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:task="http://www.springframework.org/schema/task" 
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-           http://www.springframework.org/schema/aop
-     http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
-       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+       http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd
+       ">
 
 <description>Spring公共配置 </description>
 
@@ -37,12 +39,10 @@
         <!--<property name="location" value="classpath:application.properties" />-->
     <!--</bean>-->
 
-	<!-- 激活组件扫描功能,在包com.goebuy及其子包下面自动扫描通过注解配置的组件 -->
-	<context:component-scan base-package="com.goebuy" />
-
-	<!-- 表示JPA Repository所在的包 -->
-	<jpa:repositories base-package="com.goebuy.service" />
-
+     <!--  定义一个大小为10的线程池调度器，spring会实例化一个ThreadPoolTaskScheduler。 -->
+	<!-- 开启这个配置，spring才能识别@Scheduled注解   --> 
+    <task:annotation-driven scheduler="qbScheduler" mode="proxy"/> 
+    <task:scheduler id="qbScheduler" pool-size="10"/>  
 
 	<!-- 静态资源(js、image等)的访问 -->
 	 <mvc:default-servlet-handler /> 
@@ -56,6 +56,9 @@
 	      <bean class="org.springframework.http.converter.ResourceHttpMessageConverter"/>
   		 </mvc:message-converters>
 	</mvc:annotation-driven> 
+
+	
+
 
 	<!-- 拦截器 -->
 	<mvc:interceptors>
