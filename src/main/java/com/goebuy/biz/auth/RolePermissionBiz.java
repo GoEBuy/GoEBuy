@@ -30,9 +30,11 @@ public class RolePermissionBiz extends AbstractBiz<RolePermission, Integer>{
 		service.addRolePermission(roleId, permissionId );
 	}
 	
-	public void addPermissionToRole(Iterable<Permission> permissions , Role role) {
-		for(Permission p : permissions) {
-			service.addRolePermission(role.getId(), p.getId() );
+	public void addPermissionToRole(Role role, Iterable<Permission> permissions  ) {
+		if(permissions!= null) {
+			for(Permission p : permissions) {
+				service.addRolePermission(role.getId(), p.getId() );
+			}
 		}
 	}
 	
@@ -86,7 +88,7 @@ public class RolePermissionBiz extends AbstractBiz<RolePermission, Integer>{
 
 	@Override
 	public List<RolePermission> findByNameMatch(String name) {
-//		return service.findByNa;
+//		return service.findByN;
 		return null;
 	}
 

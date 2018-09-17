@@ -1,8 +1,6 @@
-package com.goebuy.service;
+package com.goebuy.biz;
 
-import java.util.ArrayList;
 import java.util.List;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -11,22 +9,20 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import com.goebuy.biz.event.ActivityBiz;
-import com.goebuy.entity.event.Activity;
-
+import com.goebuy.biz.event.ActivityCategoryBiz;
+import com.goebuy.entity.event.ActivityCategory;
 import junit.framework.TestCase;
 
 ////@TransactionConfiguration(transactionManager = "transactionManager", defaultRollback = false)
 @RunWith(SpringRunner.class)
 @ContextConfiguration({ "classpath:mvc-dispatcher-servlet.xml" })
-public class ActivityTest extends TestCase {
+public class ActivityCategoryBizTest extends TestCase {
 
 //	 @Autowired
 //	 ApplicationContext ctx;
 
 	@Autowired
-	ActivityBiz biz;
+	ActivityCategoryBiz biz;
 	
 	@Override
 	protected void setUp() throws Exception {
@@ -56,46 +52,46 @@ public class ActivityTest extends TestCase {
 	
 	@Test
 	public void testListAll() {
-		List<Activity> roleList =biz.findAll();
+		List<ActivityCategory> roleList =biz.findAll();
 		if(roleList!=null) {
-			for(Activity r : roleList ) {
-				System.out.println("Role: " + r );
+			for(ActivityCategory r : roleList ) {
+				System.out.println("ActivityCategory: " + r );
 			}
 		}else {
-			System.out.println("Roles is null");
+			System.out.println("ActivityCategorys is null");
 		}
 	}
 
 	@Test
 	public void testFind() {
 		System.out.println("testFind");
-		List<Activity> roleList = biz.findByNameMatch("adm");
+		List<ActivityCategory> roleList = biz.findByNameMatch("adm");
 		if (roleList!=null) {
-			for(Activity r: roleList) {
+			for(ActivityCategory r: roleList) {
 				System.out.println(r);
 			}
 		}
 				
 	}
-	@Ignore
+	
 	@Test
 	public void testAdd() {
 		System.out.println("testAdd");
-		Activity r1 = new Activity("act1", "2018-08-09 12:01:01");
-		Activity r2 = new Activity("act2", "2018-08-19 12:01:01");
-		Activity r3 = new Activity("act3", "2018-08-29 12:01:01");
-		Activity r4 = new Activity("act4", "2018-07-09 12:01:01");
-		List<Activity> list = new ArrayList<>();
-		list.add(r1);
-		list.add(r2);
-		list.add(r3);
-		list.add(r4);
-		for(Activity r: list) {
-			if(biz.findByName(r.getName())==null) {
-				biz.saveAndFlush(r);
+		String[] cateArray = {"运动", "学习", "旅游", "居家", "亲子", "学习","其他" };
+		for(String r: cateArray) {
+			if(biz.findByName(r)==null) {
+				ActivityCategory obj = new ActivityCategory(r);
+				biz.saveAndFlush(obj);
 			}else {
-				System.out.println("activity "+r.getName() +" exist");
+				System.out.println("ActivityCategory "+r +" exist");
 			}
 		}
 	}
+	
+	@Ignore
+	public void testDeleteAllInBatch() {
+		biz.deleteAllInBatch();
+	}
+	
+	
 }

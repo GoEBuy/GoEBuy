@@ -18,25 +18,35 @@ import com.goebuy.entity.BaseEntity;
  *  Created by luodejin on 2018/8/14.
  */
 @Entity
-@Table(name = "groups", schema = "springdemo", indexes={@Index(name="group_name_Index", columnList="name"),@Index(name="index_group_type", columnList="group_type")}, catalog = "")
+@Table(name = "`group`", schema = "springdemo", indexes={@Index(name="group_name_Index", columnList="name"),@Index(name="index_group_type", columnList="type")}, catalog = "")
 public class Group extends BaseEntity<Integer> {
 
 
 	private static final long serialVersionUID = -8029735894274024826L;
 
-    private String name;                  //群组名称
-    private int type;                     //群组类别：1 事件群组，2 标签群组，3 用户自定义群组
+	/**
+	 * 群组名称
+	 */
+    private String name;                  
+    
+    /**
+     * 群组类别：1 事件群组，2 标签群组，3 用户自定义群组
+     */
+    private int type;                     
 
     /**
      * 若为事件群组，存事件id
      * 若为标签群组，存最后一次事件(活动)id
      */
     private int sourceId;
-
-    private Merchant creator;             //创建人id
-    private String createTime;            //创建时间
-    private String updateTime;            //最近更新时间
-    private int state;                    //群组状态: 1 正常，2 解散
+    /** 创建商家id */
+    private Merchant creator;             
+    /** 创建时间 */
+    private String createTime;           
+    /** 最近更新时间 */
+    private String updateTime;            
+    /* 群组状态: 1 正常，2 解散 */
+    private int state;                   
 
     @Basic
     @Column(name = "name", length=64, unique=true, nullable = false)

@@ -26,7 +26,7 @@ public class Tag extends BaseEntity<Integer> {
 	 */
 	private static final long serialVersionUID = -498561889458454959L;
 
-	/**标签名称 */
+	/**标签名称, 最多8个字  */
 	private String name; 
 	/** 创建人 */
 	private Merchant user;
@@ -37,7 +37,8 @@ public class Tag extends BaseEntity<Integer> {
 	private boolean isCommon = false;
 
 	
-	
+	@Basic
+	@Column(name = "name", length=8, nullable = true)
 	public String getName() {
 		return name;
 	}

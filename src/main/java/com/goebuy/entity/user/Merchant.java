@@ -77,7 +77,7 @@ public class Merchant extends BaseEntity<Integer> {
     private String channel;               //渠道
 
     @Basic
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", length=100, unique= true, nullable = false)
     public String getEmail() {
         return email;
     }
@@ -117,7 +117,7 @@ public class Merchant extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "phone_no", length = 15, nullable = false)
+    @Column(name = "phone_no", length = 15, unique=true, nullable = false)
     public String getPhoneNo() {
         return phoneNo;
     }

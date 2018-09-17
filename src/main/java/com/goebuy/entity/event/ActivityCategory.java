@@ -1,5 +1,7 @@
 package com.goebuy.entity.event;
 
+import java.util.Date;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,8 +11,10 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
 import com.goebuy.entity.BaseEntity;
 import com.goebuy.entity.user.Merchant;
+import com.goebuy.utils.DateUtils;
 
 /**
  * 活动分类库
@@ -38,9 +42,29 @@ public class ActivityCategory extends BaseEntity<Integer>{
 	/** 创建时间 */
 	private String createTime;
 	
-	/** 是否是通用标签库  */
+	/** 是否是通用标签库 , 默认为否 */
 	private boolean isCommon=false;
-
+	
+	
+	public  ActivityCategory() {
+	}
+	
+	public  ActivityCategory(String cateName) {
+		this(cateName, null);
+	}
+	
+	public  ActivityCategory(String cateName, Merchant creator) {
+		this(cateName, creator, false);
+	}
+	
+	public  ActivityCategory(String cateName, Merchant creator, boolean isCommon) {
+		this.cateName = cateName;
+		this.creator = creator;
+		this.isCommon= isCommon;
+		this.createTime = DateUtils.dateToString(new Date(), DateUtils.LONG_PATTERN );
+	}
+	
+	
 //	@Basic
 //	@Column(name = "pcate_id", nullable = true)
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

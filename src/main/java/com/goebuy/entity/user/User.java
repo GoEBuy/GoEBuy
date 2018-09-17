@@ -191,7 +191,7 @@ public class User extends BaseEntity<Integer> {
     }
 
     @Basic
-    @Column(name = "id_card_no", nullable = true)
+    @Column(name = "id_card_no", length=18, unique=true, nullable = true)
     public String getIdCardNo() {
         return idCardNo;
     }

@@ -1,9 +1,5 @@
 package com.goebuy.entity;
 
-import com.goebuy.entity.event.MemberRecruitment;
-import com.goebuy.entity.user.Merchant;
-import com.goebuy.entity.user.User;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +9,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import com.goebuy.entity.user.Merchant;
+import com.goebuy.entity.user.User;
 
 /**
  * 订单表
@@ -20,7 +18,7 @@ import javax.persistence.Table;
  * Created by luodejin on 2018/9/6.
  */
 @Entity
-@Table(name = "order", indexes={@Index(name="index_user", columnList="user_id")}, schema = "springdemo",  catalog = "")
+@Table(name = "`order`", indexes={@Index(name="index_user", columnList="user_id"), @Index(name="index_order_id", columnList="order_id"), @Index(name="index_state", columnList="state"), @Index(name="index_event_id", columnList="event_id") }, schema = "springdemo",  catalog = "")
 public class Order extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = -4722104061011986099L;
@@ -74,7 +72,7 @@ public class Order extends BaseEntity<Integer> {
     /**
      * 事件(商品)id：与type联合使用，代表活动、报名表等id
      */
-    private Double eventId;
+    private int eventId;
 
     /**
      * 审核人
@@ -87,7 +85,7 @@ public class Order extends BaseEntity<Integer> {
     private String description;
 
     @Basic
-    @Column(name = "order_id", nullable = false)
+    @Column(name = "order_id", unique=true, length=20, nullable = false)
     public String getOrderId() {
         return orderId;
     }
@@ -146,7 +144,9 @@ public class Order extends BaseEntity<Integer> {
         this.price = price;
     }
 
-    public User getUser() {
+    @OneToOne(fetch = FetchType.EAGER,  cascade = {CascadeType.ALL})
+    @JoinColumn(name="user_id", nullable=true )
+    public User getUser() {	
         return user;
     }
 
@@ -176,11 +176,11 @@ public class Order extends BaseEntity<Integer> {
 
     @Basic
     @Column(name = "event_id", nullable = false)
-    public Double getEventId() {
+    public int getEventId() {
         return eventId;
     }
 
-    public void setEventId(Double eventId) {
+    public void setEventId(int eventId) {
         this.eventId = eventId;
     }
 

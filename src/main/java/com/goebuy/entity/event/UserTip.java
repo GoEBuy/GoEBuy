@@ -1,8 +1,5 @@
 package com.goebuy.entity.event;
 
-import com.goebuy.entity.BaseEntity;
-import com.goebuy.entity.user.User;
-
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +9,10 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.goebuy.entity.BaseEntity;
+import com.goebuy.entity.Order;
+import com.goebuy.entity.user.User;
 
 /**
  * 用户打赏表
@@ -32,8 +33,11 @@ public class UserTip extends BaseEntity<Integer> {
 	
 	private Tip tip;
 	
-	/** 用户打赏金额*/
-	private double userFee;
+//	/** 用户打赏金额*/
+//	private double userFee;
+	
+	 /** 生成订单 */
+    private Order order;
 	
 	/** 打赏渠道*/
 	private String channel;
@@ -62,20 +66,32 @@ public class UserTip extends BaseEntity<Integer> {
 		this.tip = tip;
 	}
 	
-	@Basic
-	@Column(name = "user_fee", nullable = true)
-	public double getUserFee() {
-		return userFee;
-	}
-	public void setUserFee(double userFee) {
-		this.userFee = userFee;
-	}
+//	@Basic
+//	@Column(name = "user_fee", nullable = true)
+//	public double getUserFee() {
+//		return userFee;
+//	}
+//	public void setUserFee(double userFee) {
+//		this.userFee = userFee;
+//	}
+	
 
 	@Basic
 	@Column(name = "channel", nullable = true)
 	public String getChannel() {
 		return channel;
 	}
+	
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="order_id")
+	public Order getOrder() {
+		return order;
+	}
+	public void setOrder(Order order) {
+		this.order = order;
+	}
+	
+	
 	public void setChannel(String channel) {
 		this.channel = channel;
 	}
@@ -90,7 +106,7 @@ public class UserTip extends BaseEntity<Integer> {
 	}
 	
 	@Basic
-	@Column(name = "remark", length=200, nullable = true)
+	@Column(name = "remark",  nullable = true)
 	public String getRemark() {
 		return remark;
 	}
