@@ -35,8 +35,7 @@ public abstract class AbstractBiz<O, T extends Serializable> {
 	public abstract void deleteInBatch(Iterable<O> delObjs);
 	
 	public abstract List<O> findByIds(Iterable<Integer> ids);
-	
-	
+
 	public abstract void flush();
 	
 	public abstract long count();

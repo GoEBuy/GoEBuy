@@ -22,7 +22,7 @@ public class ActivityCategoryBizTest extends TestCase {
 //	 ApplicationContext ctx;
 
 	@Autowired
-	ActivityCategoryBiz biz;
+    ActivityCategoryBiz biz;
 	
 	@Override
 	protected void setUp() throws Exception {

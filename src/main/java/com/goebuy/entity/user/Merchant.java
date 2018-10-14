@@ -18,7 +18,7 @@ import com.goebuy.entity.BaseEntity;
  * Created by luodejin on 2018/8/14.
  */
 @Entity
-@Table(name = "merchant", schema = "springdemo", indexes={@Index(name="email_Index", columnList="email"),@Index(name="name_Index", columnList="name"),@Index(name="phone_no_index", columnList="phone_no")}, catalog = "")
+@Table(name = "creator", schema = "springdemo", indexes={@Index(name="email_Index", columnList="email"),@Index(name="name_Index", columnList="name"),@Index(name="phone_no_index", columnList="phone_no")}, catalog = "")
 public class Merchant extends BaseEntity<Integer> {
 
     private static final long serialVersionUID = 4554875451091830646L;

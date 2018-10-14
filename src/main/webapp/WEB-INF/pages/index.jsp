@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <h3>出现此页面，说明配置成功。</h3>
 
-<a href="javascript:window.location.href='pages/file.jsp'">上传文件</a>
+<a href="javascript:window.location.href='/file.jsp'">上传文件</a>
 
 <!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
 <script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>

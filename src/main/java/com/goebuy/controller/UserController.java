@@ -42,7 +42,7 @@ public class UserController {
 
 	// 自动装配数据库接口，不需要再写原始的Connection来操作数据库
 	@Autowired
-	UserBiz biz;
+    UserBiz biz;
 
 	/**
 	 *  分页查询

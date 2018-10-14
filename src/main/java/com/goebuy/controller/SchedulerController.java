@@ -1,4 +1,4 @@
-package com.goebuy.biz;
+package com.goebuy.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.TaskScheduler;

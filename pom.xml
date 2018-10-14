@@ -11,7 +11,6 @@
 
 	<dependencies>
 
-
 		<!--Apache：文件上传-->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -19,8 +18,6 @@
 			<version>1.3.1</version>
 		</dependency>
 
-
-        
 		<!--Apache：io流处理工具-->
 		<dependency>
 			<groupId>commons-io</groupId>
@@ -36,8 +33,8 @@
 			<version>1.7.2</version>
 			<!-- 	<scope>runtime</scope> -->
 		</dependency>
-		
-		
+
+
 		<!--Java XML API：读写XML文件-->
 		<dependency>
 			<groupId>dom4j</groupId>
@@ -55,42 +52,40 @@
 			<version>2.3.2</version>
 		</dependency>
 
-
-
 		<!--Spring-->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-aop</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
-		
-	<dependency>
-	    <groupId>javax.mail</groupId>
-	    <artifactId>mail</artifactId>
-	    <version>1.4</version>
-	</dependency>
-	
-        <!--引入test starter-->
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-test</artifactId>-->
-            <!--<version>2.0.3.RELEASE</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
 
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
-            <!--<version>2.0.3.RELEASE</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
 
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+		<!--引入test starter-->
+		<!--<dependency>-->
+		<!--<groupId>org.springframework.boot</groupId>-->
+		<!--<artifactId>spring-boot-starter-test</artifactId>-->
+		<!--<version>2.0.3.RELEASE</version>-->
+		<!--<scope>test</scope>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+		<!--<groupId>org.springframework.boot</groupId>-->
+		<!--<artifactId>spring-boot-starter-data-jpa</artifactId>-->
+		<!--<version>2.0.3.RELEASE</version>-->
+		<!--<scope>test</scope>-->
+		<!--</dependency>-->
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context-support</artifactId>
@@ -147,7 +142,7 @@
 			<version>0.9.5.2</version>
 		</dependency>
 
- 		<!--jstl -->     
+		<!--jstl -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
@@ -182,77 +177,92 @@
 			<version>2.9.6</version>
 		</dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>com.google.code.gson</groupId>-->
-            <!--<artifactId>gson</artifactId>-->
-            <!--<version>2.8.5</version>-->
-        <!--</dependency>-->
+		<!--<dependency>-->
+		<!--<groupId>com.google.code.gson</groupId>-->
+		<!--<artifactId>gson</artifactId>-->
+		<!--<version>2.8.5</version>-->
+		<!--</dependency>-->
 
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.47</version>
-        </dependency>
-        
- 		<!-- Jackson JSON Processor -->
 		<dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-             <version>2.9.6</version>
-        </dependency>
-		<dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.9.6</version>
-        </dependency> 
-        
-      <!--   <dependency>
-	        <groupId>com.fasterxml.jackson.core</groupId>
-	        <artifactId>jackson-annotations</artifactId>
-	        <version>2.9.6</version>
-   		</dependency> -->
-        
-		<!-- swagger  -->
-	<!-- 	<dependency>
-		  <groupId>io.swagger</groupId>
-		  <artifactId>swagger-core</artifactId>
-		  <version>1.5.8</version>
-		</dependency>
-		
-		
-		 -->
-     <!--    <dependency>
-		    <groupId>io.springfox</groupId>
-		    <artifactId>springfox-swagger-ui</artifactId>
-		    <version>2.8.0</version> 
-		    <scope>compile</scope>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.47</version>
 		</dependency>
 		<dependency>
-		    <groupId>com.github.xiaoymin</groupId>
-		    <artifactId>swagger-bootstrap-ui</artifactId>
-		    <version>1.6</version>
-		    <scope>compile</scope>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180813</version>
+		</dependency>
+
+		<!-- Jackson JSON Processor -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.9.6</version>
 		</dependency>
 		<dependency>
-		    <groupId>io.springfox</groupId>
-		    <artifactId>springfox-swagger2</artifactId>
-		    <version>2.8.0</version>
-		    <scope>compile</scope>
-		</dependency>  -->
-		
-		
-		<!--  <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-staticdocs</artifactId>
-            <version>${springfox.version}</version>
-            <scope>test</scope>
-		</dependency>  -->
-	        
-      <!--   <dependency>
-			<groupId>org.apache.poi</groupId>
-			<artifactId>poi-ooxml</artifactId>
-			<version>3.14</version>
-		</dependency> -->
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.9.6</version>
+		</dependency>
+
+		<!--<dependency>-->
+			<!--<groupId>com.fasterxml.jackson.core</groupId>-->
+			<!--<artifactId>jackson-annotations</artifactId>-->
+			<!--<version>2.9.6</version>-->
+		<!--</dependency>-->
+
+		<!-- == swagger start == -->
+		<dependency>
+			<groupId>io.swagger</groupId>
+			<artifactId>swagger-core</artifactId>
+			<version>1.5.8</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.5.0</version>
+			<scope>compile</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>io.swagger</groupId>
+					<artifactId>swagger-models</artifactId>
+				</exclusion>
+				<exclusion>
+					<groupId>io.swagger</groupId>
+					<artifactId>swagger-annotations</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.5.0</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!--<dependency>-->
+			<!--<groupId>com.github.xiaoymin</groupId>-->
+			<!--<artifactId>swagger-bootstrap-ui</artifactId>-->
+			<!--<version>1.6</version>-->
+			<!--<scope>compile</scope>-->
+		<!--</dependency>-->
+
+		<!--<dependency>-->
+			<!--<groupId>io.springfox</groupId>-->
+			<!--<artifactId>springfox-staticdocs</artifactId>-->
+			<!--<version>${springfox.version}</version>-->
+			<!--<scope>test</scope>-->
+		<!--</dependency>-->
+
+		<!-- == swagger end == -->
+
+		<!--<dependency>-->
+			<!--<groupId>org.apache.poi</groupId>-->
+			<!--<artifactId>poi-ooxml</artifactId>-->
+			<!--<version>3.14</version>-->
+		<!--</dependency>-->
+
 
 		<!-- Test dependencies -->
 		<dependency>
@@ -261,20 +271,37 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
-		    <groupId>org.apache.httpcomponents</groupId>
-		    <artifactId>httpclient</artifactId>
-		    <version>4.5.4</version>
-		    <scope>test</scope>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.4</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>commons-codec</groupId>
+					<artifactId>commons-codec</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
-		
+
 		<dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpmime</artifactId>
-            <version>4.5.4</version>
-            <scope>test</scope>
-        </dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpmime</artifactId>
+			<version>4.5.4</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>23.0</version>
+		</dependency>
 
 	</dependencies>
 	<build>
@@ -300,11 +327,11 @@
 					</webApp>
 					<stopKey>CTRL+C</stopKey>
 					<!--  default port 8080 -->
-					<!--  <stopPort>9000</stopPort>  -->
-					<scanIntervalSeconds>10</scanIntervalSeconds>
-					<scanTargets>
-						<scanTarget>src/main/webapp/WEB-INF/web.xml</scanTarget>
-					</scanTargets>
+					<!--<stopPort>8080</stopPort>-->
+					<!--<scanIntervalSeconds>10</scanIntervalSeconds>-->
+					<!--<scanTargets>-->
+					<!--<scanTarget>src/main/webapp/WEB-INF/web.xml</scanTarget>-->
+					<!--</scanTargets>-->
 				</configuration>
 			</plugin>
 
@@ -387,53 +414,43 @@
 					<locales>en,zh-cn</locales>
 				</configuration>
 			</plugin>
-			
-			<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-surefire-plugin</artifactId>
-    <version>2.5</version>
-    <configuration>
-       <!--  <skip>${archetype.test.skip}</skip>   -->
-         <skip>false</skip>  
-         <!--  加入断点调试 -->
-        <!--   <debugForkedProcess>true</debugForkedProcess> -->
-    </configuration>  
-</plugin> 
 
 			<plugin>
-				<groupId>org.codehaus.cargo</groupId>
-				<artifactId>cargo-maven2-plugin</artifactId>
-				<version>1.6.5</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.5</version>
 				<configuration>
-					<!-- <configuration>
-                     部署至远程WEB容器(热部署)
-                        <type>runtime</type>
-                        <properties>
-                            <cargo.remote.username>tomcat</cargo.remote.username>
-                            <cargo.remote.password>tomcat7</cargo.remote.password>
-                            <cargo.remote.uri>http://localhost:8080/manager/text</cargo.remote.uri>
-                        </properties>
-                    </configuration> -->
-					<configuration>
-						<type>existing</type>
-						<home>D:\software\apache-tomcat-8.5.24</home>
-						<properties>
-							<cargo.servlet.port>8081</cargo.servlet.port>
-						</properties>
-					</configuration>
+					<!--  <skip>${archetype.test.skip}</skip>   -->
+					<skip>false</skip>
+					<!--  加入断点调试 -->
+					<!--   <debugForkedProcess>true</debugForkedProcess> -->
 				</configuration>
 			</plugin>
 
-
-<plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-surefire-plugin</artifactId>
-    <version>2.5</version>
-    <configuration>
-       <!--  <skip>${archetype.test.skip}</skip>   -->
-         <skip>false</skip>
-    </configuration>
-</plugin>
+			<!--<plugin>-->
+			<!--<groupId>org.codehaus.cargo</groupId>-->
+			<!--<artifactId>cargo-maven2-plugin</artifactId>-->
+			<!--<version>1.6.5</version>-->
+			<!--<configuration>-->
+			<!--&lt;!&ndash;部署到远程WEB容器(热部署)&ndash;&gt;-->
+			<!--<configuration>-->
+			<!--<type>runtime</type>-->
+			<!--<properties>-->
+			<!--<cargo.remote.username>tomcat</cargo.remote.username>-->
+			<!--<cargo.remote.password>tomcat7</cargo.remote.password>-->
+			<!--<cargo.remote.uri>http://localhost:8080/manager/text</cargo.remote.uri>-->
+			<!--</properties>-->
+			<!--</configuration>-->
+			<!--&lt;!&ndash;部署到本地Web容器&ndash;&gt;-->
+			<!--&lt;!&ndash;<configuration>&ndash;&gt;-->
+			<!--&lt;!&ndash;<type>existing</type>&ndash;&gt;-->
+			<!--&lt;!&ndash;<home>D:\software\apache-tomcat-8.5.24</home>&ndash;&gt;-->
+			<!--&lt;!&ndash;<properties>&ndash;&gt;-->
+			<!--&lt;!&ndash;<cargo.servlet.port>8080</cargo.servlet.port>&ndash;&gt;-->
+			<!--&lt;!&ndash;</properties>&ndash;&gt;-->
+			<!--&lt;!&ndash;</configuration>&ndash;&gt;-->
+			<!--</configuration>-->
+			<!--</plugin>-->
 
 		</plugins>
 	</build>
@@ -477,11 +494,6 @@
 		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
 
 	</properties>
-
-
-
-
-  
 
 	<repositories>
 		<repository>

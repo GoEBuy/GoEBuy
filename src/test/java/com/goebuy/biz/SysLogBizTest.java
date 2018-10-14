@@ -23,7 +23,7 @@ public class SysLogBizTest extends TestCase {
 //	 ApplicationContext ctx;
 
 	@Autowired
-	SystemLogBiz biz;
+    SystemLogBiz biz;
 	
 	@Override
 	protected void setUp() throws Exception {

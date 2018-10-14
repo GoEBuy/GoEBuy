@@ -48,7 +48,7 @@ public class SystemLogAspect {
 	private boolean saveSysLog;
 
 	@Autowired
-	SystemLogBiz sysLogBiz;
+    SystemLogBiz sysLogBiz;
 
 	private String requestPath = null; // 请求地址
 	private String loginName = ""; // 用户名

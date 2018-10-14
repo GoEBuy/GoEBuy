@@ -21,7 +21,7 @@ import junit.framework.TestCase;
 public class PermissionTest extends TestCase {
 	
 	@Autowired
-	PermissionBiz biz;
+    PermissionBiz biz;
 	
 	@Override
 	protected void setUp() throws Exception {

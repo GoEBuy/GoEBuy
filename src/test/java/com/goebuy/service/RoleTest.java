@@ -26,7 +26,7 @@ public class RoleTest extends TestCase {
 //	 ApplicationContext ctx;
 
 	@Autowired
-	RoleBiz biz;
+    RoleBiz biz;
 	
 	@Override
 	protected void setUp() throws Exception {

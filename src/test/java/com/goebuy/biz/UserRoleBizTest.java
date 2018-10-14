@@ -24,7 +24,7 @@ public class UserRoleBizTest extends TestCase {
 //	 ApplicationContext ctx;
 
 	@Autowired
-	UserRoleBiz biz;
+    UserRoleBiz biz;
 	
 	@Override
 	protected void setUp() throws Exception {

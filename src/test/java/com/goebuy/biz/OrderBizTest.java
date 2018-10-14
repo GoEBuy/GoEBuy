@@ -20,7 +20,7 @@ public class OrderBizTest extends TestCase {
 //	 ApplicationContext ctx;
 
 	@Autowired
-	OrderBiz biz;
+    OrderBiz biz;
 	
 	@Override
 	protected void setUp() throws Exception {

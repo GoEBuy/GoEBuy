@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import com.goebuy.entity.BaseEntity;
 import com.goebuy.entity.user.Merchant;
 import com.goebuy.utils.DateUtils;
+import io.swagger.annotations.ApiModel;
 
 /**
  * 活动分类库
@@ -23,15 +24,13 @@ import com.goebuy.utils.DateUtils;
  */
 @Entity
 @Table(name = "activity_cate",  indexes={@Index(name="index_merchant", columnList="merchant_id"), @Index(name="cate_name_Index", columnList="cate_name"), @Index(name="pcate_id_Index", columnList="pcate_id")} , schema = "springdemo",  catalog = "")
+@ApiModel(description = "活动分类表")
 public class ActivityCategory extends BaseEntity<Integer>{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 711037462787375173L;
 
 	/** 父类活动分类id */
-	private ActivityCategory pcateId;
+	private ActivityCategory parentCateId;
 	
 	/** 活动分类名称 */
 	private String cateName;
@@ -43,7 +42,7 @@ public class ActivityCategory extends BaseEntity<Integer>{
 	private String createTime;
 	
 	/** 是否是通用标签库 , 默认为否 */
-	private boolean isCommon=false;
+	private boolean isCommon = false;
 	
 	
 	public  ActivityCategory() {
@@ -63,18 +62,17 @@ public class ActivityCategory extends BaseEntity<Integer>{
 		this.isCommon= isCommon;
 		this.createTime = DateUtils.dateToString(new Date(), DateUtils.LONG_PATTERN );
 	}
-	
-	
+
 //	@Basic
 //	@Column(name = "pcate_id", nullable = true)
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-	@JoinColumn(name="pcate_id")
-	public ActivityCategory getPcateId() {
-		return pcateId;
+	@JoinColumn(name="parent_cate_id")
+	public ActivityCategory getParentCateId() {
+		return parentCateId;
 	}
 
-	public void setPcateId(ActivityCategory pcateId) {
-		this.pcateId = pcateId;
+	public void setParentCateId(ActivityCategory parentCateId) {
+		this.parentCateId = parentCateId;
 	}
 
 	@Basic
@@ -116,8 +114,5 @@ public class ActivityCategory extends BaseEntity<Integer>{
 	public void setCommon(boolean isCommon) {
 		this.isCommon = isCommon;
 	}
-	
-	
-	
 	
 }

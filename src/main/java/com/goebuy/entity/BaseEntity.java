@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 
 import com.alibaba.fastjson.JSON;
@@ -14,6 +15,7 @@ import com.alibaba.fastjson.JSON;
 @MappedSuperclass
 public class BaseEntity<T> implements Serializable {
 
+	@ApiModelProperty(value = "唯一识别号", example = "0", position = 1)
 	protected T id;
 	
 //	private int version;

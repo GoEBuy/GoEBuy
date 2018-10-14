@@ -1,56 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
-	version="3.1">
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+		 version="3.1">
 
 	<display-name>GoEBuy Web Application</display-name>
 
-	<!-- <listener>
+	<listener>
 		<description>ContextLoaderListener</description>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener> -->
+	</listener>
 
-<!-- 	 <context-param>
-	<param-name>contextConfigLocation</param-name>
-	<param-value>classpath:mvc-dispatcher-servlet.xml</param-value>
-	</context-param>   -->
-
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:mvc-dispatcher-servlet.xml</param-value>
+	</context-param>
 
 	<!-- 加载log4j的配置文件log4j.properties -->
-     <context-param>
-        <param-name>log4jConfigLocation</param-name>
-        <param-value>log4j.properties</param-value>
-    </context-param> 
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>log4j.properties</param-value>
+	</context-param>
 
-  <!--   设定刷新日志配置文件的时间间隔，这里设置为10s -->
-   <!--  <context-param>
-        <param-name>log4jRefreshInterval</param-name>
-        <param-value>10000</param-value>
-    </context-param> -->
-    
-     <!-- 为避免项目间冲突，定义唯一的 webAppRootKey -->
-    <!--  <context-param>
-        <param-name>log4jContextName</param-name>
-        <param-value>GoEBuy</param-value>
-    </context-param> -->
+	<!--   设定刷新日志配置文件的时间间隔，这里设置为10s -->
+	<context-param>
+		<param-name>log4jRefreshInterval</param-name>
+		<param-value>10000</param-value>
+	</context-param>
+
+	<!-- 为避免项目间冲突，定义唯一的 webAppRootKey -->
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>GoEBuy</param-value>
+	</context-param>
 
 	<servlet>
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
- 		<!-- <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>
-                classpath:mvc-dispatcher-servlet.xml
-            </param-value>
-        </init-param> -->
-		<load-on-startup>1</load-on-startup>
-		  <!-- <async-supported>true</async-supported> -->
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>
+				classpath:mvc-dispatcher-servlet.xml
+			</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+		<async-supported>true</async-supported>
 	</servlet>
-
 	<servlet-mapping>
 		<servlet-name>mvc-dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<!-- swagger ui 的静态资源交由default处理-->
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>/swagger-ui.html</url-pattern>
 	</servlet-mapping>
 
 	<filter>
@@ -65,28 +69,27 @@
 			<param-value>true</param-value>
 		</init-param>
 	</filter>
-
 	<filter-mapping>
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
-<!-- 解决hibernate延迟加载 -->
-	<!-- <filter>
-		<filter-name>openSessionInView</filter-name>
-		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
-		<init-param>
-			<param-name>sessionFactoryBeanName</param-name>
-			<param-value>sf</param-value>
-		</init-param>
-	</filter>
-	<filter-mapping>
-		<filter-name>openSessionInView</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	<!-- 解决hibernate延迟加载 -->
+	<!--<filter>-->
+		<!--<filter-name>openSessionInView</filter-name>-->
+		<!--<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>-->
+		<!--<init-param>-->
+			<!--<param-name>sessionFactoryBeanName</param-name>-->
+			<!--<param-value>sf</param-value>-->
+		<!--</init-param>-->
+	<!--</filter>-->
+	<!--<filter-mapping>-->
+		<!--<filter-name>openSessionInView</filter-name>-->
+		<!--<url-pattern>/*</url-pattern>-->
+	<!--</filter-mapping>-->
 
 	<welcome-file-list>
-		<welcome-file>pages/index.jsp</welcome-file>
+		<welcome-file>pages/index.html</welcome-file>
 	</welcome-file-list>
 
 </web-app>

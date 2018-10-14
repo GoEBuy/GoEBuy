@@ -1,5 +1,9 @@
 package com.goebuy.entity.event;
 
+
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -17,55 +21,58 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "activity", indexes={@Index(name="index_merchant", columnList="merchant_id"), @Index(name="index_name", columnList="name")} ,  schema = "springdemo",  catalog = "")
+@ApiModel(description = "活动表")
 public class Activity extends BaseActivityEntity<Integer> {
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -2912999476359178126L;
 
-	/**活动分类id， 唯一  */
+	/** 活动分类id， 唯一 */
+	@ApiModelProperty(value = " 活动分类id", example = "null", position = 1)
 	private ActivityCategory activityCate;
-	
+
+
 	/** 报名开始日期 */
 	private String enrollStartDate;
-	
-	private String enrollEndDate;
-	
 	/** 报名开始时间 */
 	private String enrollStartTime;
-	
+	/** 报名结束日期 */
+	private String enrollEndDate;
+	/** 报名结束时间 */
 	private String enrollEndTime;
-	
-	/** 活动地点*/
+
+
+	/** 活动地点类型：0 线下，1 自定义 */
+	private int locationType;
+	/** 活动地点 */
 	private String location;
+
 
 	/** 活动海报 */
 	private String poster;
-	
-	/**是否展示报名用户 */
-	private boolean isShow;
 
-	/**报名后跳转页面 */
+
+	/** 展示报名类型: 0 展示报名用户影响力排行榜，1 展示报名用户，不显示报名用户 */
+	private int enrollShowType;
+
+
+	/** 报名后跳转页面类型：0 邀请函页面，1 自定义页面，2 订单详情页面 */
+	private int gotoPageType;
+	/** 报名后跳转页面 */
 	private String gotoPage;
-	
-	
-	/** 售票类型 */
-	private String ticketType;
-	
-	/** 报名限制 : 不限制， 没人限报一次 */
-	private String enrollType;
-	
-	/**余票显示 */
-	private boolean showLeftTicket=true;
-	
-	/**人数限制 默认不限制 -1*/
-	private int maxCnt=-1;
-	
-	/**是否需要审核*/
+
+
+	/**
+	 * 售票信息
+	 */
+	/** 售票类型：0 免费，1 收费（可设置多种票）*/
+	private int ticketType;
+	/** 报名限制 : 0 不限制， 1 每人限报一次 */
+	private int enrollCnt;
+	/** 余票显示 */
+	private boolean showLeftTicket = true;
+	/** 是否需要审核*/
 	private boolean needVerify=false;
-	
-	/**	仅限会员*/
+	/**	仅限会员 */
 	private boolean needVip =false;
 	
 	
@@ -116,6 +123,17 @@ public class Activity extends BaseActivityEntity<Integer> {
 	public void setEnrollEndTime(String enroll_end_time) {
 		this.enrollEndTime = enroll_end_time;
 	}
+
+	@Basic
+	@Column(name = "location_type", columnDefinition="UNSIGNED TINYINT DEFAULT 0 COMMENT '活动地点类型：0 线下，1 自定义'" )
+	public int getLocationType() {
+		return locationType;
+	}
+
+	public void setLocationType(int locationType) {
+		this.locationType = locationType;
+	}
+
 	@Basic
 	@Column(name = "location", length=120, nullable = true)
 	public String getLocation() {
@@ -134,15 +152,27 @@ public class Activity extends BaseActivityEntity<Integer> {
 	public void setPoster(String poster) {
 		this.poster = poster;
 	}
+
 	@Basic
-	@Column(name = "is_show", nullable = true)
-	public boolean isShow() {
-		return isShow;
+	@Column(name = "enroll_show_type")
+	public int getEnrollShowType() {
+		return enrollShowType;
 	}
 
-	public void setShow(boolean isShow) {
-		this.isShow = isShow;
+	public void setEnrollShowType(int enrollShowType) {
+		this.enrollShowType = enrollShowType;
 	}
+
+	@Basic
+	@Column(name = "goto_page_type")
+	public int getGotoPageType() {
+		return gotoPageType;
+	}
+
+	public void setGotoPageType(int gotoPageType) {
+		this.gotoPageType = gotoPageType;
+	}
+
 	@Basic
 	@Column(name = "goto_page", nullable = true)
 	public String getGotoPage() {
@@ -155,21 +185,21 @@ public class Activity extends BaseActivityEntity<Integer> {
 	
 	@Basic
 	@Column(name = "ticket_type", nullable = true)
-	public String getTicketType() {
+	public int getTicketType() {
 		return ticketType;
 	}
 
-	public void setTicketType(String ticket_type) {
+	public void setTicketType(int ticket_type) {
 		this.ticketType = ticket_type;
 	}
 	@Basic
-	@Column(name = "enroll_type", nullable = true)
-	public String getEnrollType() {
-		return enrollType;
+	@Column(name = "enroll_cnt", nullable = true)
+	public int getEnrollCnt() {
+		return enrollCnt;
 	}
 
-	public void setEnrollType(String enroll_type) {
-		this.enrollType = enroll_type;
+	public void setEnrollCnt(int enroll_type) {
+		this.enrollCnt = enroll_type;
 	}
 	@Basic
 	@Column(name = "show_left_ticket", nullable = true)
@@ -180,16 +210,7 @@ public class Activity extends BaseActivityEntity<Integer> {
 	public void setShowLeftTicket(boolean show_leftticket) {
 		this.showLeftTicket = show_leftticket;
 	}
-	
-	@Basic
-	@Column(name = "max_cnt", columnDefinition="tinyint default -1", nullable = true)
-	public int getMaxCnt() {
-		return maxCnt;
-	}
 
-	public void setMaxCnt(int maxCnt) {
-		this.maxCnt = maxCnt;
-	}
 	@Basic
 	@Column(name = "need_verify", nullable = true)
 	public boolean isNeedVerify() {
@@ -217,8 +238,5 @@ public class Activity extends BaseActivityEntity<Integer> {
 		this.name = name;
 		this.createTime = create_time;
 	}
-	
-	
-	
-	
+
 }
